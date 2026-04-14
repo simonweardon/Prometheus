@@ -985,6 +985,182 @@ footer {
 .hero-sub     { animation: heroIn 1s 0.7s ease both; }
 .cta-group    { animation: heroIn 1s 0.9s ease both; }
 
+/* ─── BOOKING MODAL ─── */
+.booking-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.booking-modal.open {
+  opacity: 1;
+  pointer-events: all;
+}
+.booking-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(8, 4, 2, 0.90);
+  backdrop-filter: blur(4px);
+}
+.booking-panel {
+  position: relative;
+  background: var(--ash);
+  border: 1px solid rgba(196, 98, 45, 0.28);
+  max-width: 680px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 32px 80px rgba(0,0,0,0.75), 0 0 60px rgba(196,98,45,0.08);
+  transform: translateY(20px);
+  transition: transform 0.3s ease;
+}
+.booking-modal.open .booking-panel {
+  transform: translateY(0);
+}
+.booking-close {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  background: none;
+  border: none;
+  color: var(--warm-gray);
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: color 0.2s;
+  z-index: 1;
+}
+.booking-close:hover { color: var(--ivory); }
+.booking-inner { padding: 3rem; }
+.booking-title {
+  font-family: var(--serif);
+  font-size: 2.4rem;
+  font-weight: 300;
+  line-height: 1.1;
+  color: var(--ivory);
+  margin: 1rem 0;
+}
+.booking-title em { color: var(--gold-lt); font-style: italic; }
+.booking-sub {
+  font-size: 0.95rem;
+  color: var(--parchment);
+  opacity: 0.8;
+  line-height: 1.7;
+  margin-bottom: 2rem;
+}
+.booking-header { margin-bottom: 2rem; }
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+.form-group { margin-bottom: 1.25rem; }
+.form-group label {
+  display: block;
+  font-family: var(--sans);
+  font-size: 0.65rem;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--parchment);
+  opacity: 0.7;
+  margin-bottom: 0.5rem;
+}
+.form-group .req { color: var(--ember-lt); }
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(212,201,176,0.15);
+  color: var(--ivory);
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  font-weight: 300;
+  padding: 0.8rem 1rem;
+  outline: none;
+  transition: border-color 0.2s;
+  -webkit-appearance: none;
+  appearance: none;
+  border-radius: 0;
+}
+.form-group input:focus,
+.form-group textarea:focus { border-color: var(--ember); }
+.form-group input::placeholder,
+.form-group textarea::placeholder { color: var(--warm-gray); opacity: 0.6; }
+.form-group input[type="date"]::-webkit-calendar-picker-indicator,
+.form-group input[type="time"]::-webkit-calendar-picker-indicator {
+  filter: invert(0.6) sepia(0.3) hue-rotate(10deg);
+  cursor: pointer;
+}
+.form-group textarea { resize: vertical; min-height: 80px; }
+.form-error {
+  color: #E85A4A;
+  font-size: 0.8rem;
+  margin-bottom: 1rem;
+  padding: 0.75rem 1rem;
+  background: rgba(232,90,74,0.1);
+  border: 1px solid rgba(232,90,74,0.2);
+}
+.booking-submit {
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
+  border: none;
+  margin-top: 0.5rem;
+  font-size: 0.7rem;
+}
+.booking-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+.booking-success-inner {
+  text-align: center;
+  padding: 4rem 3rem;
+}
+.success-icon {
+  font-size: 2.5rem;
+  color: var(--gold-lt);
+  margin-bottom: 1.5rem;
+}
+.meet-link-box {
+  margin-top: 2rem;
+  background: rgba(196,98,45,0.1);
+  border: 1px solid rgba(196,98,45,0.3);
+  padding: 1.5rem;
+}
+.meet-link-label {
+  font-family: var(--sans);
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ember-lt);
+  margin-bottom: 0.75rem;
+}
+.meet-link-url {
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  color: var(--gold-lt);
+  word-break: break-all;
+  text-decoration: none;
+}
+.meet-link-url:hover { text-decoration: underline; }
+.booking-done-btn {
+  margin-top: 2rem;
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
+  border: none;
+}
+@media (max-width: 600px) {
+  .form-row { grid-template-columns: 1fr; }
+  .booking-inner { padding: 2rem; }
+  .booking-success-inner { padding: 3rem 2rem; }
+  .booking-title { font-size: 1.9rem; }
+}
+
 </style>
 </head>
 <body>
@@ -1649,7 +1825,7 @@ footer {
     <h2>Ready to find your<br><em>hidden hours?</em></h2>
     <p>Start with a free 90-minute diagnostic call. We'll identify your three biggest AI opportunities before we ever send a proposal.</p>
     <div class="cta-group" style="justify-content:center;">
-      <a href="mailto:engage@prometheus-ai.com" class="btn-fire">Schedule a Diagnostic Call</a>
+      <button onclick="openBookingModal()" class="btn-fire" style="cursor:pointer;border:none;">Schedule a Diagnostic Call</button>
       <a href="#how" class="btn-outline">Learn More First</a>
     </div>
   </div>
@@ -1696,8 +1872,73 @@ footer {
   </div>
 </footer>
 
+<!-- BOOKING MODAL -->
+<div id="bookingModal" class="booking-modal" role="dialog" aria-modal="true" aria-labelledby="bookingModalTitle">
+  <div class="booking-backdrop" onclick="closeBookingModal()"></div>
+  <div class="booking-panel">
+    <button class="booking-close" onclick="closeBookingModal()" aria-label="Close">&times;</button>
+
+    <!-- Form view -->
+    <div id="bookingFormView" class="booking-inner">
+      <div class="booking-header">
+        <div class="tag" style="justify-content:flex-start;">Free 90-Minute Call</div>
+        <h2 class="booking-title" id="bookingModalTitle">Schedule Your<br><em>Diagnostic Call</em></h2>
+        <p class="booking-sub">We'll identify your three biggest AI opportunities. No pitch. No obligation. A Google Meet link will be sent to your email automatically.</p>
+      </div>
+      <form id="scheduleForm" novalidate>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="clientName">Full Name <span class="req">*</span></label>
+            <input type="text" id="clientName" name="name" required placeholder="Jane Smith" autocomplete="name">
+          </div>
+          <div class="form-group">
+            <label for="clientEmail">Email Address <span class="req">*</span></label>
+            <input type="email" id="clientEmail" name="email" required placeholder="jane@company.com" autocomplete="email">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="clientCompany">Company</label>
+          <input type="text" id="clientCompany" name="company" placeholder="Acme Corp" autocomplete="organization">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="callDate">Preferred Date (UTC) <span class="req">*</span></label>
+            <input type="date" id="callDate" name="date" required>
+          </div>
+          <div class="form-group">
+            <label for="callTime">Preferred Time (UTC) <span class="req">*</span></label>
+            <input type="time" id="callTime" name="time" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="clientMessage">What would you like to accomplish?</label>
+          <textarea id="clientMessage" name="message" rows="3" placeholder="Brief context about your biggest operational challenges…"></textarea>
+        </div>
+        <div id="formError" class="form-error" hidden></div>
+        <button type="submit" class="btn-fire booking-submit" id="submitBtn">
+          <span id="submitText">Book the Call</span>
+          <span id="submitSpinner" hidden>Scheduling…</span>
+        </button>
+      </form>
+    </div>
+
+    <!-- Success view -->
+    <div id="bookingSuccessView" class="booking-inner booking-success-inner" hidden>
+      <div class="success-icon">✦</div>
+      <div class="tag" style="justify-content:center;">Call Confirmed</div>
+      <h2 class="booking-title" style="text-align:center;">Your Call<br><em>is Booked</em></h2>
+      <p class="booking-sub" style="text-align:center;">A Google Meet invitation has been sent to your email. We're looking forward to finding your hidden hours.</p>
+      <div class="meet-link-box" id="meetLinkBox" hidden>
+        <div class="meet-link-label">Join via Google Meet</div>
+        <a id="meetLinkAnchor" href="#" target="_blank" rel="noopener noreferrer" class="meet-link-url"></a>
+      </div>
+      <button onclick="closeBookingModal()" class="btn-fire booking-done-btn">Done</button>
+    </div>
+  </div>
+</div>
+
 <script>
-// Scroll reveal
+// ─── Scroll reveal ───────────────────────────────────────────────────────────
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(e => {
     if (e.isIntersecting) {
@@ -1709,7 +1950,7 @@ const observer = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-// Subtle parallax on hero figure
+// ─── Hero parallax ───────────────────────────────────────────────────────────
 const heroFig = document.querySelector('.hero-figure');
 const heroGlow = document.querySelector('.hero-glow');
 window.addEventListener('scroll', () => {
@@ -1717,6 +1958,115 @@ window.addEventListener('scroll', () => {
   if (heroFig) heroFig.style.transform = `translateY(${y * 0.18}px)`;
   if (heroGlow) heroGlow.style.transform = `translateY(${y * 0.08}px) scale(${1 + y * 0.0003})`;
 }, { passive: true });
+
+// ─── Booking modal ───────────────────────────────────────────────────────────
+function openBookingModal() {
+  const modal = document.getElementById('bookingModal');
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+
+  // Default date to today, minimum to today
+  const dateInput = document.getElementById('callDate');
+  const today = new Date().toISOString().split('T')[0];
+  dateInput.min = today;
+  if (!dateInput.value) dateInput.value = today;
+
+  // Default time to next whole hour
+  const timeInput = document.getElementById('callTime');
+  if (!timeInput.value) {
+    const nextHour = new Date();
+    nextHour.setHours(nextHour.getUTCHours() + 1, 0, 0, 0);
+    const hh = String(nextHour.getUTCHours()).padStart(2, '0');
+    timeInput.value = `${hh}:00`;
+  }
+}
+
+function closeBookingModal() {
+  const modal = document.getElementById('bookingModal');
+  modal.classList.remove('open');
+  document.body.style.overflow = '';
+
+  // Reset to form view after the fade-out completes
+  setTimeout(() => {
+    document.getElementById('bookingFormView').hidden = false;
+    document.getElementById('bookingSuccessView').hidden = true;
+    document.getElementById('scheduleForm').reset();
+    const formError = document.getElementById('formError');
+    formError.hidden = true;
+    formError.textContent = '';
+    const submitBtn = document.getElementById('submitBtn');
+    submitBtn.disabled = false;
+    document.getElementById('submitText').hidden = false;
+    document.getElementById('submitSpinner').hidden = true;
+    document.getElementById('meetLinkBox').hidden = true;
+  }, 320);
+}
+
+// Close on Escape
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeBookingModal();
+});
+
+// Form submission
+document.getElementById('scheduleForm').addEventListener('submit', async function (e) {
+  e.preventDefault();
+
+  const form = e.target;
+  const submitBtn  = document.getElementById('submitBtn');
+  const submitText = document.getElementById('submitText');
+  const submitSpinner = document.getElementById('submitSpinner');
+  const formError  = document.getElementById('formError');
+
+  const name    = form.name.value.trim();
+  const email   = form.email.value.trim();
+  const company = form.company.value.trim();
+  const date    = form.date.value;
+  const time    = form.time.value;
+  const message = form.message.value.trim();
+
+  if (!name || !email || !date || !time) {
+    formError.textContent = 'Please fill in all required fields.';
+    formError.hidden = false;
+    return;
+  }
+
+  formError.hidden = true;
+  submitBtn.disabled = true;
+  submitText.hidden = true;
+  submitSpinner.hidden = false;
+
+  try {
+    const response = await fetch('/api/schedule', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, company, date, time, message }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error || 'Scheduling failed — please try again.');
+    }
+
+    // Show success view
+    document.getElementById('bookingFormView').hidden = true;
+    document.getElementById('bookingSuccessView').hidden = false;
+
+    if (data.meetLink) {
+      const meetLinkBox = document.getElementById('meetLinkBox');
+      const meetLinkAnchor = document.getElementById('meetLinkAnchor');
+      meetLinkAnchor.href = data.meetLink;
+      meetLinkAnchor.textContent = data.meetLink;
+      meetLinkBox.hidden = false;
+    }
+  } catch (err) {
+    formError.textContent = err.message || 'Something went wrong. Please email engage@prometheus-ai.com directly.';
+    formError.hidden = false;
+    submitBtn.disabled = false;
+    submitText.hidden = false;
+    submitSpinner.hidden = true;
+  }
+});
 </script>
 </body>
 </html>

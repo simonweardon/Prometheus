@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "${PORT:-80}:${PORT:-80}"
+    environment:
+      - PORT=${PORT:-80}
+    depends_on:
+      - scheduler
+    networks:
+      - prometheus-net
+
+  scheduler:
+    build:
+      context: .
+      dockerfile: Dockerfile.scheduler
+    environment:
+      - GOOGLE_SERVICE_ACCOUNT_CREDENTIALS=${GOOGLE_SERVICE_ACCOUNT_CREDENTIALS}
+      - GOOGLE_CALENDAR_ID=${GOOGLE_CALENDAR_ID:-primary}
+      - CALENDAR_OWNER_EMAIL=${CALENDAR_OWNER_EMAIL:-engage@prometheus-ai.com}
+      - SCHEDULER_PORT=3001
+    networks:
+      - prometheus-net
+
+networks:
+  prometheus-net:
+    driver: bridge
