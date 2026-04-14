@@ -3,1234 +3,1720 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Stormrise — Engineering Rain for a Thirsty World</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<title>Prometheus — We Bring the Fire</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=Cinzel:wght@400;500&family=Lato:wght@300;400&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  :root {
-    --sky: #0a1628;
-    --deep: #060e1c;
-    --slate: #1a2a40;
-    --mist: #8faabf;
-    --cloud: #c8d8e8;
-    --light: #e8f2f8;
-    --rain: #4a9bc4;
-    --rain-bright: #72c4f0;
-    --gold: #c9a84c;
-    --gold-muted: #8a6e32;
-    --white: #f5f2ee;
-    --mono: 'DM Mono', monospace;
-    --serif: 'Cormorant Garamond', Georgia, serif;
-    --sans: 'Barlow', sans-serif;
-  }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--deep);
-    color: var(--cloud);
-    font-family: var(--sans);
-    font-weight: 300;
-    line-height: 1.7;
-    overflow-x: hidden;
-  }
-
-  /* ── NAV ── */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 1.5rem 3rem;
-    background: linear-gradient(to bottom, rgba(6,14,28,0.9) 0%, transparent 100%);
-    backdrop-filter: blur(2px);
-  }
-
-  .nav-logo {
-    font-family: var(--serif);
-    font-size: 1.5rem;
-    font-weight: 400;
-    letter-spacing: 0.08em;
-    color: var(--white);
-    text-decoration: none;
-  }
-
-  .nav-logo span { color: var(--rain-bright); }
-
-  .nav-links {
-    display: flex; gap: 2.5rem; list-style: none;
-  }
-
-  .nav-links a {
-    font-family: var(--mono);
-    font-size: 0.72rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--mist);
-    text-decoration: none;
-    transition: color 0.3s;
-  }
-
-  .nav-links a:hover { color: var(--rain-bright); }
-
-  /* ── HERO ── */
-  .hero {
-    position: relative;
-    min-height: 100vh;
-    display: flex; flex-direction: column; justify-content: flex-end;
-    padding: 0 3rem 6rem;
-    overflow: hidden;
-  }
-
-  .hero-canvas {
-    position: absolute; inset: 0; z-index: 0;
-    background: radial-gradient(ellipse 120% 80% at 50% 0%, #1a3a5c 0%, #0a1628 45%, var(--deep) 100%);
-  }
-
-  /* Animated rain particles */
-  .rain-layer {
-    position: absolute; inset: 0;
-    pointer-events: none;
-    z-index: 1;
-  }
-
-  .rain-drop {
-    position: absolute;
-    width: 1px;
-    background: linear-gradient(to bottom, transparent, rgba(74,155,196,0.6));
-    border-radius: 1px;
-    animation: fall linear infinite;
-    opacity: 0;
-  }
-
-  @keyframes fall {
-    0%   { transform: translateY(-10vh); opacity: 0; }
-    5%   { opacity: 1; }
-    95%  { opacity: 0.4; }
-    100% { transform: translateY(105vh); opacity: 0; }
-  }
-
-  /* Cloud shapes */
-  .cloud-layer {
-    position: absolute; top: 0; left: 0; right: 0; height: 60%;
-    z-index: 1;
-    overflow: hidden;
-  }
-
-  .cloud-shape {
-    position: absolute;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.03);
-    filter: blur(40px);
-    animation: drift linear infinite;
-  }
-
-  @keyframes drift {
-    from { transform: translateX(-5%); }
-    to   { transform: translateX(5%); }
-  }
-
-  .hero-content { position: relative; z-index: 2; max-width: 780px; }
-
-  .hero-eyebrow {
-    font-family: var(--mono);
-    font-size: 0.68rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--rain-bright);
-    margin-bottom: 1.5rem;
-    display: flex; align-items: center; gap: 1rem;
-  }
-
-  .hero-eyebrow::before {
-    content: '';
-    display: block; width: 40px; height: 1px;
-    background: var(--rain-bright);
-  }
-
-  h1 {
-    font-family: var(--serif);
-    font-size: clamp(3rem, 7vw, 5.5rem);
-    font-weight: 300;
-    line-height: 1.05;
-    color: var(--white);
-    margin-bottom: 2rem;
-    letter-spacing: -0.01em;
-  }
-
-  h1 em {
-    font-style: italic;
-    color: var(--rain-bright);
-  }
-
-  .hero-sub {
-    font-size: 1.05rem;
-    color: var(--mist);
-    max-width: 520px;
-    margin-bottom: 3rem;
-    line-height: 1.8;
-  }
-
-  .hero-cta {
-    display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap;
-  }
-
-  .btn-primary {
-    font-family: var(--mono);
-    font-size: 0.7rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--deep);
-    background: var(--rain-bright);
-    border: none;
-    padding: 0.95rem 2.2rem;
-    cursor: pointer;
-    text-decoration: none;
-    transition: background 0.3s, transform 0.2s;
-    display: inline-block;
-  }
-
-  .btn-primary:hover { background: var(--white); transform: translateY(-1px); }
-
-  .btn-ghost {
-    font-family: var(--mono);
-    font-size: 0.7rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--cloud);
-    border: 1px solid rgba(200,216,232,0.3);
-    padding: 0.95rem 2.2rem;
-    cursor: pointer;
-    text-decoration: none;
-    transition: border-color 0.3s, color 0.3s;
-    display: inline-block;
-  }
-
-  .btn-ghost:hover { border-color: var(--rain-bright); color: var(--rain-bright); }
-
-  .hero-scroll {
-    position: absolute; bottom: 2.5rem; right: 3rem; z-index: 2;
-    font-family: var(--mono); font-size: 0.62rem;
-    letter-spacing: 0.15em; text-transform: uppercase;
-    color: var(--mist);
-    writing-mode: vertical-rl;
-    display: flex; align-items: center; gap: 1rem;
-    opacity: 0.7;
-  }
-
-  .hero-scroll::after {
-    content: '';
-    width: 1px; height: 40px;
-    background: linear-gradient(to bottom, var(--mist), transparent);
-    display: block;
-  }
-
-  /* ── STATS BAND ── */
-  .stats-band {
-    border-top: 1px solid rgba(255,255,255,0.06);
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-    background: rgba(10,22,40,0.8);
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-  }
-
-  .stat {
-    padding: 2.5rem 2rem;
-    border-right: 1px solid rgba(255,255,255,0.06);
-    position: relative;
-  }
-
-  .stat:last-child { border-right: none; }
-
-  .stat-num {
-    font-family: var(--serif);
-    font-size: 3rem;
-    font-weight: 300;
-    color: var(--white);
-    line-height: 1;
-    margin-bottom: 0.4rem;
-  }
-
-  .stat-num span { color: var(--rain-bright); }
-
-  .stat-label {
-    font-family: var(--mono);
-    font-size: 0.65rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--mist);
-  }
-
-  /* ── SECTION BASE ── */
-  section { padding: 7rem 3rem; }
-
-  .section-tag {
-    font-family: var(--mono);
-    font-size: 0.65rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--rain-bright);
-    margin-bottom: 1rem;
-    display: flex; align-items: center; gap: 0.75rem;
-  }
-
-  .section-tag::before {
-    content: '';
-    display: block; width: 24px; height: 1px;
-    background: var(--rain-bright);
-  }
-
-  h2 {
-    font-family: var(--serif);
-    font-size: clamp(2.2rem, 4vw, 3.4rem);
-    font-weight: 300;
-    line-height: 1.15;
-    color: var(--white);
-    margin-bottom: 1.5rem;
-  }
-
-  /* ── TECHNOLOGY ── */
-  .tech-section {
-    background: var(--sky);
-    padding: 7rem 3rem;
-  }
-
-  .tech-intro {
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 4rem; align-items: start;
-    margin-bottom: 5rem;
-  }
-
-  .tech-desc { color: var(--mist); font-size: 1rem; line-height: 1.8; }
-
-  .tech-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1px;
-    background: rgba(255,255,255,0.06);
-  }
-
-  .tech-card {
-    background: var(--sky);
-    padding: 2.5rem 2rem;
-    transition: background 0.4s;
-    cursor: default;
-  }
-
-  .tech-card:hover { background: var(--slate); }
-
-  .tech-num {
-    font-family: var(--mono);
-    font-size: 0.65rem;
-    letter-spacing: 0.2em;
-    color: var(--rain-bright);
-    margin-bottom: 1.5rem;
-  }
-
-  .tech-icon {
-    width: 40px; height: 40px;
-    margin-bottom: 1.5rem;
-    opacity: 0.6;
-  }
-
-  .tech-title {
-    font-family: var(--serif);
-    font-size: 1.5rem;
-    font-weight: 400;
-    color: var(--white);
-    margin-bottom: 0.75rem;
-  }
-
-  .tech-body { color: var(--mist); font-size: 0.9rem; line-height: 1.7; }
-
-  /* ── MISSION ── */
-  .mission-section {
-    position: relative;
-    padding: 8rem 3rem;
-    background: var(--deep);
-    overflow: hidden;
-  }
-
-  .mission-bg {
-    position: absolute;
-    top: 0; right: 0; bottom: 0;
-    width: 55%;
-    background: linear-gradient(135deg, var(--sky) 0%, #0d2040 100%);
-    clip-path: polygon(10% 0%, 100% 0%, 100% 100%, 0% 100%);
-  }
-
-  .mission-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 6rem;
-    position: relative; z-index: 1;
-    align-items: center;
-  }
-
-  .mission-text .section-tag { margin-bottom: 1.5rem; }
-
-  .mission-lead {
-    font-size: 1.1rem;
-    color: var(--mist);
-    margin-bottom: 2rem;
-    line-height: 1.85;
-  }
-
-  .mission-quote {
-    font-family: var(--serif);
-    font-size: 1.6rem;
-    font-style: italic;
-    font-weight: 300;
-    color: var(--cloud);
-    line-height: 1.45;
-    border-left: 2px solid var(--rain);
-    padding-left: 1.5rem;
-    margin: 2rem 0;
-  }
-
-  .mission-visual {
-    position: relative;
-    padding: 3rem;
-  }
-
-  .mission-diagram {
-    width: 100%; aspect-ratio: 1;
-    position: relative;
-    display: flex; align-items: center; justify-content: center;
-  }
-
-  /* ── PROCESS ── */
-  .process-section {
-    background: var(--sky);
-    padding: 7rem 3rem;
-  }
-
-  .process-header { max-width: 600px; margin-bottom: 4rem; }
-
-  .process-steps {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0;
-    position: relative;
-  }
-
-  .process-steps::before {
-    content: '';
-    position: absolute;
-    top: 28px; left: 14%;
-    right: 14%;
-    height: 1px;
-    background: linear-gradient(to right, transparent, var(--rain), var(--rain), transparent);
-    opacity: 0.3;
-    z-index: 0;
-  }
-
-  .process-step {
-    padding: 0 1.5rem;
-    position: relative; z-index: 1;
-  }
-
-  .step-num {
-    width: 56px; height: 56px;
-    border: 1px solid rgba(74,155,196,0.3);
-    display: flex; align-items: center; justify-content: center;
-    margin-bottom: 1.5rem;
-    font-family: var(--mono);
-    font-size: 0.7rem;
-    color: var(--rain-bright);
-    background: var(--sky);
-    position: relative;
-  }
-
-  .step-num::after {
-    content: '';
-    position: absolute;
-    inset: 4px;
-    border: 1px solid rgba(74,155,196,0.15);
-  }
-
-  .step-title {
-    font-family: var(--serif);
-    font-size: 1.3rem;
-    color: var(--white);
-    margin-bottom: 0.75rem;
-  }
-
-  .step-body {
-    font-size: 0.88rem;
-    color: var(--mist);
-    line-height: 1.7;
-  }
-
-  /* ── IMPACT ── */
-  .impact-section {
-    padding: 7rem 3rem;
-    background: var(--deep);
-  }
-
-  .impact-header {
-    display: flex; justify-content: space-between; align-items: flex-end;
-    margin-bottom: 4rem;
-  }
-
-  .impact-header h2 { max-width: 480px; margin-bottom: 0; }
-
-  .impact-grid {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
-    grid-template-rows: 280px 280px;
-    gap: 1px;
-    background: rgba(255,255,255,0.05);
-  }
-
-  .impact-card {
-    background: var(--sky);
-    padding: 2.5rem;
-    position: relative;
-    overflow: hidden;
-    cursor: default;
-    transition: background 0.3s;
-  }
-
-  .impact-card:hover { background: var(--slate); }
-
-  .impact-card.large { grid-row: span 2; }
-
-  .impact-card-num {
-    font-family: var(--serif);
-    font-size: 4rem;
-    font-weight: 300;
-    color: var(--white);
-    line-height: 1;
-    margin-bottom: 0.5rem;
-  }
-
-  .impact-card-num span { color: var(--rain-bright); }
-
-  .impact-card-label {
-    font-family: var(--mono);
-    font-size: 0.62rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--rain);
-    margin-bottom: 1rem;
-  }
-
-  .impact-card-body {
-    font-size: 0.88rem;
-    color: var(--mist);
-    line-height: 1.7;
-  }
-
-  .impact-card-bg {
-    position: absolute;
-    bottom: -30%; right: -10%;
-    font-family: var(--serif);
-    font-size: 12rem;
-    font-weight: 300;
-    color: rgba(255,255,255,0.02);
-    line-height: 1;
-    pointer-events: none;
-    user-select: none;
-  }
-
-  /* ── RESEARCH ── */
-  .research-section {
-    background: var(--sky);
-    padding: 7rem 3rem;
-  }
-
-  .research-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: center;
-    margin-top: 3rem;
-  }
-
-  .research-items { display: flex; flex-direction: column; gap: 0; }
-
-  .research-item {
-    padding: 2rem 0;
-    border-bottom: 1px solid rgba(255,255,255,0.07);
-    display: flex; gap: 1.5rem; align-items: flex-start;
-  }
-
-  .research-item:first-child { border-top: 1px solid rgba(255,255,255,0.07); }
-
-  .research-year {
-    font-family: var(--mono);
-    font-size: 0.65rem;
-    letter-spacing: 0.1em;
-    color: var(--rain-bright);
-    min-width: 50px;
-    padding-top: 0.2rem;
-  }
-
-  .research-text h4 {
-    font-family: var(--serif);
-    font-size: 1.1rem;
-    font-weight: 400;
-    color: var(--white);
-    margin-bottom: 0.4rem;
-  }
-
-  .research-text p { font-size: 0.85rem; color: var(--mist); }
-
-  .research-visual {
-    position: relative;
-    aspect-ratio: 4/3;
-    background: var(--slate);
-    display: flex; align-items: center; justify-content: center;
-    overflow: hidden;
-  }
-
-  /* SVG cloud diagram in research */
-  .cloud-diagram {
-    width: 90%; height: 90%;
-  }
-
-  /* ── CAREERS ── */
-  .careers-section {
-    padding: 7rem 3rem;
-    background: linear-gradient(160deg, var(--deep) 0%, var(--sky) 100%);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .careers-bg-text {
-    position: absolute;
-    bottom: -5%;
-    left: -2%;
-    font-family: var(--serif);
-    font-size: clamp(8rem, 18vw, 15rem);
-    font-weight: 300;
-    color: rgba(255,255,255,0.025);
-    line-height: 1;
-    pointer-events: none;
-    white-space: nowrap;
-  }
-
-  .careers-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 5rem;
-    align-items: center;
-    position: relative; z-index: 1;
-  }
-
-  .careers-content .section-tag { margin-bottom: 1.5rem; }
-  .careers-content p { color: var(--mist); font-size: 1rem; line-height: 1.8; margin-bottom: 2rem; }
-
-  .open-roles {
-    display: flex; flex-direction: column; gap: 1px;
-  }
-
-  .role-item {
-    background: rgba(26,42,64,0.8);
-    padding: 1.2rem 1.5rem;
-    display: flex; justify-content: space-between; align-items: center;
-    cursor: pointer;
-    transition: background 0.3s;
-    text-decoration: none;
-  }
-
-  .role-item:hover { background: var(--slate); }
-
-  .role-title {
-    font-family: var(--sans);
-    font-weight: 400;
-    color: var(--white);
-    font-size: 0.9rem;
-  }
-
-  .role-dept {
-    font-family: var(--mono);
-    font-size: 0.6rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--rain-bright);
-  }
-
-  .role-arrow {
-    font-size: 0.75rem;
-    color: var(--mist);
-    transition: color 0.3s, transform 0.3s;
-  }
-
-  .role-item:hover .role-arrow { color: var(--rain-bright); transform: translateX(3px); }
-
-  /* ── FOOTER ── */
-  footer {
-    background: var(--deep);
-    border-top: 1px solid rgba(255,255,255,0.06);
-    padding: 4rem 3rem;
-  }
-
-  .footer-top {
-    display: grid;
-    grid-template-columns: 1.5fr 1fr 1fr 1fr;
-    gap: 3rem;
-    margin-bottom: 3rem;
-    padding-bottom: 3rem;
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-  }
-
-  .footer-brand p {
-    color: var(--mist);
-    font-size: 0.88rem;
-    line-height: 1.7;
-    margin-top: 1rem;
-    max-width: 280px;
-  }
-
-  .footer-col-title {
-    font-family: var(--mono);
-    font-size: 0.62rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--rain-bright);
-    margin-bottom: 1.2rem;
-  }
-
-  .footer-links {
-    list-style: none;
-    display: flex; flex-direction: column; gap: 0.6rem;
-  }
-
-  .footer-links a {
-    color: var(--mist);
-    text-decoration: none;
-    font-size: 0.88rem;
-    transition: color 0.3s;
-  }
-
-  .footer-links a:hover { color: var(--white); }
-
-  .footer-bottom {
-    display: flex; justify-content: space-between; align-items: center;
-  }
-
-  .footer-copy {
-    font-family: var(--mono);
-    font-size: 0.62rem;
-    letter-spacing: 0.1em;
-    color: rgba(143,170,191,0.5);
-  }
-
-  .footer-tagline {
-    font-family: var(--serif);
-    font-style: italic;
-    font-size: 1rem;
-    color: rgba(200,216,232,0.3);
-  }
-
-  /* ── ANIMATIONS ── */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  .animate-in {
-    animation: fadeUp 0.8s ease forwards;
-    opacity: 0;
-  }
-
-  .delay-1 { animation-delay: 0.1s; }
-  .delay-2 { animation-delay: 0.25s; }
-  .delay-3 { animation-delay: 0.4s; }
-  .delay-4 { animation-delay: 0.55s; }
-
-  /* Intersection observer targets */
-  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
-  .revealed { opacity: 1; transform: translateY(0); }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --ember:    #C4622D;
+  --ember-lt: #E8854A;
+  --gold:     #C9A44A;
+  --gold-lt:  #E8C97A;
+  --ash:      #1A1410;
+  --soot:     #0D0B08;
+  --smoke:    #2E2520;
+  --ivory:    #F0EAE0;
+  --parchment:#D4C9B0;
+  --warm-gray:#8A7D6E;
+  --serif:    'Cormorant Garamond', Georgia, serif;
+  --display:  'Cinzel', serif;
+  --sans:     'Lato', sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--soot);
+  color: var(--ivory);
+  font-family: var(--sans);
+  font-weight: 300;
+  overflow-x: hidden;
+}
+
+/* ─── GRAIN OVERLAY ─── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+  opacity: 0.4;
+}
+
+/* ─── NAV ─── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem 4rem;
+  background: linear-gradient(to bottom, rgba(13,11,8,0.92) 0%, transparent 100%);
+}
+
+.logo {
+  font-family: var(--display);
+  font-size: 1.4rem;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  color: var(--ivory);
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.logo span {
+  color: var(--ember);
+}
+
+.nav-links {
+  display: flex;
+  gap: 3rem;
+  list-style: none;
+}
+
+.nav-links a {
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--parchment);
+  text-decoration: none;
+  opacity: 0.8;
+  transition: opacity 0.3s, color 0.3s;
+}
+
+.nav-links a:hover {
+  opacity: 1;
+  color: var(--gold-lt);
+}
+
+.nav-cta {
+  font-family: var(--sans);
+  font-size: 0.68rem;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--soot);
+  background: var(--ember);
+  padding: 0.7rem 1.8rem;
+  text-decoration: none;
+  transition: background 0.3s;
+}
+
+.nav-cta:hover { background: var(--ember-lt); }
+
+/* ─── HERO ─── */
+.hero {
+  position: relative;
+  height: 100vh;
+  min-height: 700px;
+  display: flex;
+  align-items: flex-end;
+  padding: 0 4rem 7rem;
+  overflow: hidden;
+}
+
+/* The painting canvas — CSS art of a figure in firelight */
+.hero-painting {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.hero-painting canvas {
+  width: 100%;
+  height: 100%;
+}
+
+/* Deep atmospheric layers */
+.hero-sky {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 68% 30%, rgba(160,70,20,0.55) 0%, transparent 65%),
+    radial-gradient(ellipse 40% 40% at 65% 38%, rgba(220,120,40,0.4) 0%, transparent 50%),
+    radial-gradient(ellipse 100% 80% at 50% 0%, rgba(60,30,10,0.9) 0%, transparent 70%),
+    linear-gradient(to bottom, #0D0B08 0%, #1a0e06 35%, #2a1508 55%, #1a0d05 100%);
+}
+
+/* Oil-painting-style fire glow — warm light source center-right */
+.hero-glow {
+  position: absolute;
+  top: 15%; right: 20%;
+  width: 600px; height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle,
+    rgba(255,180,60,0.28) 0%,
+    rgba(220,100,30,0.20) 30%,
+    rgba(160,50,10,0.10) 55%,
+    transparent 70%
+  );
+  mix-blend-mode: screen;
+  pointer-events: none;
+  animation: breathe 4s ease-in-out infinite;
+}
+
+@keyframes breathe {
+  0%, 100% { transform: scale(1); opacity: 0.9; }
+  50%       { transform: scale(1.06); opacity: 1; }
+}
+
+/* Silhouette figure — oil painting style with SVG */
+.hero-figure {
+  position: absolute;
+  right: 8%;
+  bottom: 0;
+  width: 45%;
+  height: 90%;
+  pointer-events: none;
+}
+
+/* Ground plane */
+.hero-ground {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 30%;
+  background: linear-gradient(to top,
+    rgba(8,4,2,0.95) 0%,
+    rgba(20,10,4,0.6) 40%,
+    transparent 100%
+  );
+}
+
+.hero-content {
+  position: relative;
+  z-index: 5;
+  max-width: 640px;
+}
+
+.hero-eyebrow {
+  font-family: var(--sans);
+  font-size: 0.65rem;
+  font-weight: 400;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--ember-lt);
+  margin-bottom: 1.8rem;
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.hero-eyebrow::before {
+  content: '';
+  display: block;
+  width: 36px; height: 1px;
+  background: var(--ember-lt);
+  opacity: 0.7;
+}
+
+h1 {
+  font-family: var(--serif);
+  font-size: clamp(3.4rem, 6.5vw, 5.8rem);
+  font-weight: 300;
+  line-height: 1.04;
+  color: var(--ivory);
+  margin-bottom: 2rem;
+  letter-spacing: -0.01em;
+}
+
+h1 em {
+  font-style: italic;
+  color: var(--gold-lt);
+  font-weight: 300;
+}
+
+.hero-sub {
+  font-size: 1.05rem;
+  font-weight: 300;
+  line-height: 1.85;
+  color: var(--parchment);
+  opacity: 0.85;
+  max-width: 500px;
+  margin-bottom: 3rem;
+}
+
+.cta-group {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.btn-fire {
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--soot);
+  background: var(--ember);
+  padding: 1rem 2.4rem;
+  text-decoration: none;
+  display: inline-block;
+  transition: background 0.3s, transform 0.2s;
+}
+.btn-fire:hover { background: var(--ember-lt); transform: translateY(-1px); }
+
+.btn-outline {
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--parchment);
+  border: 1px solid rgba(212,201,176,0.3);
+  padding: 1rem 2.4rem;
+  text-decoration: none;
+  display: inline-block;
+  transition: border-color 0.3s, color 0.3s;
+}
+.btn-outline:hover { border-color: var(--gold-lt); color: var(--gold-lt); }
+
+/* Scroll cue */
+.hero-scroll-cue {
+  position: absolute;
+  bottom: 2.5rem;
+  right: 4rem;
+  z-index: 5;
+  writing-mode: vertical-rl;
+  font-family: var(--sans);
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--warm-gray);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  opacity: 0.6;
+}
+.hero-scroll-cue::after {
+  content: '';
+  width: 1px; height: 48px;
+  background: linear-gradient(to bottom, var(--warm-gray), transparent);
+}
+
+/* ─── STATEMENT BAND ─── */
+.statement {
+  background: var(--ember);
+  padding: 2rem 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.statement p {
+  font-family: var(--serif);
+  font-size: clamp(1.1rem, 2vw, 1.5rem);
+  font-weight: 400;
+  font-style: italic;
+  color: var(--ivory);
+  text-align: center;
+  letter-spacing: 0.01em;
+  line-height: 1.5;
+}
+
+/* ─── SECTION FOUNDATIONS ─── */
+section { padding: 8rem 4rem; }
+
+.tag {
+  font-family: var(--sans);
+  font-size: 0.62rem;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ember-lt);
+  margin-bottom: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+.tag::before {
+  content: '';
+  display: block;
+  width: 24px; height: 1px;
+  background: var(--ember-lt);
+}
+
+h2 {
+  font-family: var(--serif);
+  font-size: clamp(2.2rem, 4vw, 3.6rem);
+  font-weight: 300;
+  line-height: 1.12;
+  color: var(--ivory);
+  margin-bottom: 1.5rem;
+}
+
+h2 em {
+  font-style: italic;
+  color: var(--gold-lt);
+}
+
+/* ─── HOW WE WORK ─── */
+.how {
+  background: var(--ash);
+  padding: 8rem 4rem;
+}
+
+.how-intro {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+  align-items: end;
+  margin-bottom: 6rem;
+}
+
+.how-intro p {
+  font-size: 1.05rem;
+  line-height: 1.9;
+  color: var(--parchment);
+  opacity: 0.8;
+}
+
+/* Painting-style illustration panel */
+.how-art {
+  position: relative;
+  height: 480px;
+  overflow: hidden;
+}
+
+.how-art-canvas {
+  width: 100%; height: 100%;
+}
+
+/* Steps */
+.how-steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: rgba(255,255,255,0.05);
+}
+
+.step {
+  background: var(--ash);
+  padding: 3rem 2.5rem;
+  transition: background 0.4s;
+  position: relative;
+  overflow: hidden;
+}
+
+.step:hover { background: var(--smoke); }
+
+.step-num {
+  font-family: var(--display);
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  color: var(--ember);
+  margin-bottom: 2rem;
+}
+
+.step-icon {
+  width: 48px; height: 48px;
+  margin-bottom: 1.8rem;
+  opacity: 0.7;
+}
+
+.step-title {
+  font-family: var(--serif);
+  font-size: 1.55rem;
+  font-weight: 400;
+  color: var(--ivory);
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.step-body {
+  font-size: 0.88rem;
+  line-height: 1.8;
+  color: var(--warm-gray);
+}
+
+.step-watermark {
+  position: absolute;
+  bottom: -1rem; right: -0.5rem;
+  font-family: var(--serif);
+  font-size: 8rem;
+  font-weight: 300;
+  color: rgba(255,255,255,0.025);
+  line-height: 1;
+  pointer-events: none;
+}
+
+/* ─── PAINTING BREAK — WORKSHOP SCENE ─── */
+.painting-break {
+  position: relative;
+  height: 70vh;
+  min-height: 500px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pb-canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+.pb-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right,
+    rgba(13,11,8,0.85) 0%,
+    rgba(13,11,8,0.3) 50%,
+    rgba(13,11,8,0.7) 100%
+  );
+}
+
+.pb-content {
+  position: relative; z-index: 2;
+  text-align: center;
+  max-width: 720px;
+  padding: 0 2rem;
+}
+
+.pb-content h2 {
+  font-size: clamp(2.5rem, 5vw, 4.2rem);
+  margin-bottom: 1.5rem;
+}
+
+.pb-content p {
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  font-style: italic;
+  color: var(--parchment);
+  line-height: 1.7;
+  opacity: 0.85;
+}
+
+/* ─── AGENTS SECTION ─── */
+.agents {
+  background: var(--soot);
+  padding: 8rem 4rem;
+}
+
+.agents-head {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: end;
+  margin-bottom: 5rem;
+}
+
+.agents-head p {
+  font-size: 1rem;
+  line-height: 1.9;
+  color: var(--parchment);
+  opacity: 0.8;
+}
+
+.agents-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: rgba(255,255,255,0.04);
+}
+
+.agent-card {
+  background: var(--soot);
+  padding: 3rem;
+  position: relative;
+  transition: background 0.4s;
+  overflow: hidden;
+}
+
+.agent-card:hover { background: var(--ash); }
+
+.agent-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 2px; height: 0;
+  background: var(--ember);
+  transition: height 0.5s ease;
+}
+
+.agent-card:hover::before { height: 100%; }
+
+.agent-tag {
+  font-family: var(--sans);
+  font-size: 0.6rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ember-lt);
+  margin-bottom: 1.5rem;
+}
+
+.agent-title {
+  font-family: var(--serif);
+  font-size: 1.7rem;
+  font-weight: 400;
+  color: var(--ivory);
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.agent-body {
+  font-size: 0.9rem;
+  line-height: 1.85;
+  color: var(--warm-gray);
+  margin-bottom: 1.5rem;
+}
+
+.agent-examples {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.agent-examples li {
+  font-size: 0.8rem;
+  color: var(--parchment);
+  opacity: 0.6;
+  padding-left: 1rem;
+  position: relative;
+}
+
+.agent-examples li::before {
+  content: '—';
+  position: absolute; left: 0;
+  color: var(--ember);
+  opacity: 0.7;
+}
+
+/* ─── PROMETHEUS MYTH SECTION ─── */
+.myth {
+  background: var(--ash);
+  padding: 8rem 4rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.myth-bg-text {
+  position: absolute;
+  bottom: -8%;
+  left: -2%;
+  font-family: var(--display);
+  font-size: clamp(8rem, 18vw, 14rem);
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  color: rgba(196,98,45,0.04);
+  pointer-events: none;
+  white-space: nowrap;
+  text-transform: uppercase;
+}
+
+.myth-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 7rem;
+  align-items: center;
+  position: relative; z-index: 1;
+}
+
+.myth-text p {
+  font-size: 1rem;
+  line-height: 1.95;
+  color: var(--parchment);
+  opacity: 0.8;
+  margin-bottom: 1.5rem;
+}
+
+.myth-pull {
+  font-family: var(--serif);
+  font-size: 1.55rem;
+  font-style: italic;
+  font-weight: 300;
+  color: var(--gold-lt);
+  line-height: 1.5;
+  border-left: 2px solid var(--ember);
+  padding-left: 2rem;
+  margin: 2.5rem 0;
+}
+
+/* Oil painting portrait in myth section */
+.myth-portrait {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+}
+
+/* ─── RESULTS ─── */
+.results {
+  background: var(--soot);
+  padding: 8rem 4rem;
+}
+
+.results-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 5rem;
+}
+
+.results-head h2 { max-width: 500px; margin-bottom: 0; }
+
+.results-grid {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr;
+  grid-template-rows: 260px 260px;
+  gap: 1px;
+  background: rgba(255,255,255,0.04);
+}
+
+.result-tile {
+  background: var(--soot);
+  padding: 3rem;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.3s;
+}
+
+.result-tile:hover { background: var(--ash); }
+.result-tile.span-col { grid-column: 1; grid-row: 1 / span 2; }
+.result-tile.featured { background: var(--ash); }
+
+.result-num {
+  font-family: var(--serif);
+  font-size: clamp(3rem, 5vw, 5rem);
+  font-weight: 300;
+  color: var(--ivory);
+  line-height: 1;
+  margin-bottom: 0.4rem;
+}
+
+.result-num span { color: var(--ember-lt); }
+
+.result-label {
+  font-family: var(--sans);
+  font-size: 0.6rem;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ember-lt);
+  margin-bottom: 1rem;
+}
+
+.result-body {
+  font-size: 0.88rem;
+  line-height: 1.75;
+  color: var(--warm-gray);
+}
+
+.result-bg {
+  position: absolute;
+  bottom: -1rem; right: -0.5rem;
+  font-family: var(--serif);
+  font-size: 9rem;
+  color: rgba(255,255,255,0.025);
+  line-height: 1;
+  pointer-events: none;
+}
+
+/* ─── PROCESS PAINTING PANEL ─── */
+.process-visual {
+  position: relative;
+  height: 60vh;
+  min-height: 440px;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  padding: 5rem 4rem;
+}
+
+.pv-canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+.pv-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top,
+    rgba(13,11,8,0.92) 0%,
+    rgba(13,11,8,0.2) 60%,
+    rgba(13,11,8,0.6) 100%
+  );
+}
+
+.pv-content {
+  position: relative; z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  width: 100%;
+}
+
+.pv-step {
+  position: relative;
+}
+
+.pv-num {
+  font-family: var(--display);
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  color: var(--ember-lt);
+  margin-bottom: 0.8rem;
+}
+
+.pv-title {
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: var(--ivory);
+  margin-bottom: 0.5rem;
+}
+
+.pv-body {
+  font-size: 0.8rem;
+  line-height: 1.7;
+  color: var(--warm-gray);
+}
+
+/* Horizontal connector */
+.pv-content::before {
+  content: '';
+  position: absolute;
+  top: 0.45rem;
+  left: 8%;
+  right: 8%;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--ember), var(--ember), transparent);
+  opacity: 0.2;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* ─── INDUSTRIES ─── */
+.industries {
+  background: var(--ash);
+  padding: 8rem 4rem;
+}
+
+.industries-head { margin-bottom: 4rem; }
+
+.industry-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.industry-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.8rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  cursor: default;
+  transition: padding-left 0.4s;
+  position: relative;
+}
+
+.industry-item:first-child { border-top: 1px solid rgba(255,255,255,0.06); }
+
+.industry-item:hover { padding-left: 1.2rem; }
+
+.industry-item::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 0;
+  background: var(--ember);
+  opacity: 0.12;
+  transition: width 0.4s;
+}
+
+.industry-item:hover::before { width: 100%; }
+
+.industry-name {
+  font-family: var(--serif);
+  font-size: 1.6rem;
+  font-weight: 300;
+  color: var(--ivory);
+}
+
+.industry-tag {
+  font-family: var(--sans);
+  font-size: 0.62rem;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--warm-gray);
+}
+
+.industry-arrow {
+  font-size: 0.85rem;
+  color: var(--ember-lt);
+  opacity: 0;
+  transform: translateX(-8px);
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+.industry-item:hover .industry-arrow { opacity: 1; transform: translateX(0); }
+
+/* ─── CALL TO ACTION ─── */
+.cta-section {
+  position: relative;
+  height: 60vh;
+  min-height: 480px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.cta-canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+.cta-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(13,11,8,0.72);
+}
+
+.cta-content {
+  position: relative; z-index: 2;
+  text-align: center;
+  max-width: 640px;
+  padding: 0 2rem;
+}
+
+.cta-content h2 { font-size: clamp(2.4rem, 5vw, 4rem); margin-bottom: 1.2rem; }
+
+.cta-content p {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: var(--parchment);
+  opacity: 0.8;
+  margin-bottom: 2.5rem;
+}
+
+/* ─── FOOTER ─── */
+footer {
+  background: var(--soot);
+  border-top: 1px solid rgba(255,255,255,0.05);
+  padding: 5rem 4rem 3rem;
+}
+
+.footer-top {
+  display: grid;
+  grid-template-columns: 1.8fr 1fr 1fr 1fr;
+  gap: 4rem;
+  margin-bottom: 4rem;
+  padding-bottom: 4rem;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.footer-brand .logo { display: block; margin-bottom: 1.2rem; }
+
+.footer-brand p {
+  font-size: 0.88rem;
+  line-height: 1.8;
+  color: var(--warm-gray);
+  max-width: 280px;
+}
+
+.footer-col-head {
+  font-family: var(--sans);
+  font-size: 0.6rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ember-lt);
+  margin-bottom: 1.5rem;
+}
+
+.footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.8rem; }
+
+.footer-links a {
+  font-size: 0.88rem;
+  color: var(--warm-gray);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-links a:hover { color: var(--ivory); }
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-copy {
+  font-family: var(--sans);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  color: rgba(138,125,110,0.5);
+}
+
+.footer-myth {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1rem;
+  color: rgba(196,98,45,0.35);
+}
+
+/* ─── SCROLL REVEALS ─── */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.85s ease, transform 0.85s ease;
+}
+.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Staggered delays */
+.d1 { transition-delay: 0.05s; }
+.d2 { transition-delay: 0.15s; }
+.d3 { transition-delay: 0.25s; }
+.d4 { transition-delay: 0.35s; }
+
+/* Hero entrance */
+@keyframes heroIn {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.hero-eyebrow { animation: heroIn 1s 0.3s ease both; }
+.hero h1      { animation: heroIn 1s 0.5s ease both; }
+.hero-sub     { animation: heroIn 1s 0.7s ease both; }
+.cta-group    { animation: heroIn 1s 0.9s ease both; }
+
 </style>
 </head>
 <body>
 
 <!-- NAV -->
 <nav>
-  <a href="#" class="nav-logo">Storm<span>rise</span></a>
+  <a href="#" class="logo">Prome<span>theus</span></a>
   <ul class="nav-links">
-    <li><a href="#technology">Technology</a></li>
-    <li><a href="#mission">Mission</a></li>
-    <li><a href="#research">Research</a></li>
-    <li><a href="#impact">Impact</a></li>
-    <li><a href="#careers">Careers</a></li>
-    <li><a href="#" style="color:var(--rain-bright)">Contact</a></li>
+    <li><a href="#how">Our Method</a></li>
+    <li><a href="#agents">AI Agents</a></li>
+    <li><a href="#results">Results</a></li>
+    <li><a href="#industries">Industries</a></li>
+    <li><a href="#contact">Contact</a></li>
   </ul>
+  <a href="#contact" class="nav-cta">Ignite Your Business</a>
 </nav>
 
 <!-- HERO -->
-<section class="hero">
-  <div class="hero-canvas">
-    <!-- Cloud shapes -->
-    <div class="cloud-layer">
-      <div class="cloud-shape" style="width:600px;height:300px;top:5%;left:10%;animation-duration:18s;animation-direction:alternate;"></div>
-      <div class="cloud-shape" style="width:400px;height:200px;top:15%;right:5%;animation-duration:22s;animation-direction:alternate-reverse;"></div>
-      <div class="cloud-shape" style="width:800px;height:250px;top:30%;left:-5%;animation-duration:28s;animation-direction:alternate;opacity:0.5;"></div>
-    </div>
-    <!-- Horizontal light shimmer at cloud base -->
-    <div style="position:absolute;bottom:35%;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,rgba(74,155,196,0.15),transparent);"></div>
-  </div>
+<div class="hero">
+  <div class="hero-painting">
+    <div class="hero-sky"></div>
+    <div class="hero-glow"></div>
 
-  <!-- Rain drops (JS generated) -->
-  <div class="rain-layer" id="rainLayer"></div>
+    <!-- Oil-painting-style hero figure: a person standing before a glowing horizon -->
+    <svg class="hero-figure" viewBox="0 0 600 800" preserveAspectRatio="xMidYMax meet" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="hg1" cx="50%" cy="40%" r="60%">
+          <stop offset="0%" stop-color="#FF9A40" stop-opacity="0.35"/>
+          <stop offset="100%" stop-color="#2A1508" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="fg1" cx="50%" cy="20%" r="80%">
+          <stop offset="0%" stop-color="#E87030" stop-opacity="0.2"/>
+          <stop offset="100%" stop-color="#0D0B08" stop-opacity="0"/>
+        </radialGradient>
+        <!-- Impasto oil brushstroke filter -->
+        <filter id="paint" x="-20%" y="-20%" width="140%" height="140%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.04 0.06" numOctaves="4" seed="2" result="noise"/>
+          <feDisplacementMap in="SourceGraphic" in2="noise" scale="6" xChannelSelector="R" yChannelSelector="G"/>
+        </filter>
+      </defs>
+
+      <!-- Sky atmosphere layers — impasto clouds -->
+      <ellipse cx="300" cy="160" rx="280" ry="130" fill="rgba(60,25,8,0.3)" filter="url(#paint)"/>
+      <ellipse cx="420" cy="200" rx="200" ry="100" fill="rgba(90,35,10,0.2)" filter="url(#paint)"/>
+      <ellipse cx="180" cy="240" rx="180" ry="90" fill="rgba(40,18,6,0.25)" filter="url(#paint)"/>
+
+      <!-- Warm glow emanating from center — the fire / AI light source -->
+      <ellipse cx="300" cy="320" rx="180" ry="120" fill="url(#hg1)"/>
+      <ellipse cx="300" cy="260" rx="100" ry="80" fill="rgba(255,160,60,0.12)"/>
+
+      <!-- Distant landscape silhouette — painterly horizon -->
+      <path d="M0 580 Q80 520 150 540 Q200 555 250 500 Q290 460 320 490 Q360 520 400 480 Q450 440 500 460 Q550 475 600 450 L600 800 L0 800 Z" fill="rgba(18,10,4,0.85)" filter="url(#paint)"/>
+      <path d="M0 620 Q100 580 200 595 Q300 610 400 575 Q500 545 600 565 L600 800 L0 800 Z" fill="rgba(12,7,2,0.9)"/>
+
+      <!-- Figure silhouette — person facing away toward the light, arms slightly open -->
+      <!-- Body: painterly dark silhouette -->
+      <g filter="url(#paint)">
+        <!-- Legs -->
+        <path d="M265 750 Q268 700 272 670 Q275 640 278 620 L300 620 Q302 640 305 670 Q308 700 312 750 Z" fill="rgba(10,6,2,0.95)"/>
+        <!-- Coat/jacket body -->
+        <path d="M240 620 Q245 570 248 540 Q255 490 270 460 Q280 440 300 435 Q320 440 330 460 Q345 490 352 540 Q355 570 360 620 Z" fill="rgba(10,6,2,0.95)"/>
+        <!-- Left arm reaching slightly outward -->
+        <path d="M248 540 Q230 510 210 490 Q196 475 185 465 Q190 458 198 455 Q215 465 232 478 Q250 495 260 520 Z" fill="rgba(10,6,2,0.95)"/>
+        <!-- Right arm -->
+        <path d="M352 540 Q370 510 390 490 Q404 475 415 465 Q410 458 402 455 Q385 465 368 478 Q350 495 340 520 Z" fill="rgba(10,6,2,0.95)"/>
+        <!-- Head -->
+        <ellipse cx="300" cy="415" rx="28" ry="32" fill="rgba(10,6,2,0.95)"/>
+        <!-- Shoulder line -->
+        <path d="M240 490 Q270 478 300 475 Q330 478 360 490" stroke="rgba(10,6,2,0.9)" stroke-width="8" fill="none"/>
+      </g>
+
+      <!-- Figure's edge lit by fire — warm rim light on left side -->
+      <path d="M248 540 Q246 510 255 480 Q265 455 278 440 Q285 437 288 438 Q268 460 262 490 Q255 515 253 545 Z" fill="rgba(200,100,30,0.18)"/>
+      <path d="M240 620 Q238 590 242 560 Q246 540 250 528 Q248 555 244 578 Q242 598 242 620 Z" fill="rgba(180,80,20,0.15)"/>
+
+      <!-- Ground shadow -->
+      <ellipse cx="300" cy="770" rx="80" ry="18" fill="rgba(5,3,1,0.7)"/>
+
+      <!-- Light rays from the horizon (the AI / fire) -->
+      <g opacity="0.12">
+        <line x1="300" y1="320" x2="100" y2="580" stroke="#FF9A40" stroke-width="1"/>
+        <line x1="300" y1="320" x2="180" y2="600" stroke="#FF9A40" stroke-width="1.5"/>
+        <line x1="300" y1="320" x2="260" y2="610" stroke="#FF9A40" stroke-width="1"/>
+        <line x1="300" y1="320" x2="340" y2="610" stroke="#FF9A40" stroke-width="1"/>
+        <line x1="300" y1="320" x2="420" y2="600" stroke="#FF9A40" stroke-width="1.5"/>
+        <line x1="300" y1="320" x2="500" y2="580" stroke="#FF9A40" stroke-width="1"/>
+      </g>
+
+      <!-- The fire / AI orb — glowing ember at horizon -->
+      <circle cx="300" cy="325" r="28" fill="rgba(255,180,60,0.15)"/>
+      <circle cx="300" cy="325" r="16" fill="rgba(255,160,50,0.25)"/>
+      <circle cx="300" cy="325" r="8" fill="rgba(255,200,80,0.6)"/>
+      <circle cx="300" cy="325" r="4" fill="rgba(255,230,150,0.9)"/>
+    </svg>
+
+    <div class="hero-ground"></div>
+  </div>
 
   <div class="hero-content">
-    <div class="hero-eyebrow animate-in">Next-Generation Atmospheric Engineering</div>
-    <h1 class="animate-in delay-1">
-      We make the <em>sky</em><br>give back what we're owed.
+    <div class="hero-eyebrow">AI Operations Consulting</div>
+    <h1>
+      We bring the <em>fire</em><br>
+      to your business.
     </h1>
-    <p class="hero-sub animate-in delay-2">
-      Stormrise combines precision drone technology, advanced radar arrays, and AI-driven weather modeling to deliver controlled precipitation — ending drought one cloud at a time.
+    <p class="hero-sub">
+      Prometheus embeds with your team, maps every bottleneck, then builds and deploys AI agents that eliminate the friction holding your people back.
     </p>
-    <div class="hero-cta animate-in delay-3">
-      <a href="#technology" class="btn-primary">Explore the Technology</a>
-      <a href="#mission" class="btn-ghost">Our Mission</a>
+    <div class="cta-group">
+      <a href="#contact" class="btn-fire">Begin the Engagement</a>
+      <a href="#how" class="btn-outline">How We Work</a>
     </div>
   </div>
+  <div class="hero-scroll-cue">Scroll to explore</div>
+</div>
 
-  <div class="hero-scroll">Scroll to explore</div>
+<!-- STATEMENT BAND -->
+<div class="statement reveal">
+  <p>"Every company is sitting on a gold mine of wasted hours. We find them. We fix them. We free your people to do what only humans can."</p>
+</div>
+
+<!-- HOW WE WORK -->
+<section class="how" id="how">
+  <div class="how-intro">
+    <div>
+      <div class="tag reveal">Our Method</div>
+      <h2 class="reveal">We embed. We diagnose.<br><em>We transform.</em></h2>
+    </div>
+    <p class="reveal">
+      Most consultants hand you a slide deck and leave. Prometheus stays until the work is done. Our team of AI engineers and operational strategists becomes part of your company — learning your workflows, your people, and your pain points from the inside. Then we build and deploy the solutions ourselves.
+    </p>
+  </div>
+
+  <!-- Painting-style illustration: a figure at a forge, painterly -->
+  <div class="how-art reveal" style="margin-bottom: 5rem;">
+    <svg class="how-art-canvas" viewBox="0 0 1200 480" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="forge" cx="42%" cy="60%" r="35%">
+          <stop offset="0%" stop-color="#FF9A40" stop-opacity="0.5"/>
+          <stop offset="40%" stop-color="#C4622D" stop-opacity="0.25"/>
+          <stop offset="100%" stop-color="#0D0B08" stop-opacity="0"/>
+        </radialGradient>
+        <filter id="oil" x="-10%" y="-10%" width="120%" height="120%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.025 0.04" numOctaves="5" seed="8" result="n"/>
+          <feDisplacementMap in="SourceGraphic" in2="n" scale="10" xChannelSelector="R" yChannelSelector="G"/>
+        </filter>
+        <linearGradient id="groundGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#1A0D05"/>
+          <stop offset="100%" stop-color="#0A0603"/>
+        </linearGradient>
+      </defs>
+
+      <!-- Background: deep forge interior -->
+      <rect width="1200" height="480" fill="#0D0B08"/>
+
+      <!-- Atmospheric warmth from forge -->
+      <ellipse cx="500" cy="300" rx="420" ry="260" fill="url(#forge)"/>
+      <ellipse cx="500" cy="320" rx="200" ry="130" fill="rgba(220,100,30,0.15)"/>
+
+      <!-- Ceiling/wall shadows -->
+      <path d="M0 0 L1200 0 L1200 120 Q900 80 600 100 Q300 120 0 90 Z" fill="rgba(8,5,2,0.7)"/>
+
+      <!-- Ground -->
+      <rect x="0" y="380" width="1200" height="100" fill="url(#groundGrad)"/>
+
+      <!-- Forge/anvil suggestion — abstract dark mass -->
+      <ellipse cx="500" cy="370" rx="120" ry="30" fill="rgba(5,3,1,0.8)" filter="url(#oil)"/>
+      <rect x="430" y="300" width="140" height="75" rx="4" fill="rgba(20,10,5,0.9)" filter="url(#oil)"/>
+
+      <!-- Sparks -->
+      <g opacity="0.85">
+        <circle cx="510" cy="290" r="2.5" fill="#FFD080"/>
+        <circle cx="488" cy="278" r="1.8" fill="#FFAA40"/>
+        <circle cx="535" cy="270" r="1.5" fill="#FFE090"/>
+        <circle cx="472" cy="285" r="2" fill="#FF9030"/>
+        <circle cx="548" cy="285" r="1.2" fill="#FFD070"/>
+        <circle cx="520" cy="260" r="1.8" fill="#FFAA40"/>
+        <circle cx="495" cy="260" r="1" fill="#FFEE90"/>
+        <circle cx="465" cy="272" r="1.5" fill="#FF8020"/>
+        <circle cx="540" cy="265" r="2" fill="#FFCC60"/>
+        <circle cx="558" cy="275" r="1.2" fill="#FFD080"/>
+      </g>
+
+      <!-- Spark trails -->
+      <g stroke-linecap="round" opacity="0.4">
+        <line x1="510" y1="290" x2="522" y2="265" stroke="#FFAA40" stroke-width="0.8"/>
+        <line x1="488" y1="278" x2="478" y2="255" stroke="#FF8030" stroke-width="0.8"/>
+        <line x1="535" y1="270" x2="548" y2="248" stroke="#FFD060" stroke-width="0.6"/>
+        <line x1="520" y1="260" x2="530" y2="238" stroke="#FFB040" stroke-width="0.8"/>
+        <line x1="495" y1="260" x2="485" y2="240" stroke="#FF9030" stroke-width="0.6"/>
+      </g>
+
+      <!-- Worker figures: two silhouettes -->
+      <g filter="url(#oil)">
+        <!-- Figure left, leaning toward forge -->
+        <path d="M340 370 Q342 330 348 300 Q355 275 368 258 Q378 248 385 250 Q380 265 376 285 Q370 310 368 340 Q366 355 364 370 Z" fill="rgba(10,6,2,0.95)"/>
+        <ellipse cx="390" cy="244" rx="22" ry="26" fill="rgba(10,6,2,0.95)"/>
+        <!-- Arms reaching forward -->
+        <path d="M376 285 Q400 275 425 272 Q440 270 450 272" stroke="rgba(10,6,2,0.95)" stroke-width="16" fill="none" stroke-linecap="round"/>
+
+        <!-- Figure right, standing observing -->
+        <path d="M660 375 Q662 335 665 305 Q668 280 672 265 Q682 248 690 246 Q698 248 704 265 Q708 280 710 305 Q713 335 715 375 Z" fill="rgba(10,6,2,0.95)"/>
+        <ellipse cx="690" cy="234" rx="22" ry="26" fill="rgba(10,6,2,0.95)"/>
+        <!-- Arm raised slightly, consulting -->
+        <path d="M704 280 Q720 265 738 258 Q748 255 755 258" stroke="rgba(10,6,2,0.95)" stroke-width="14" fill="none" stroke-linecap="round"/>
+      </g>
+
+      <!-- Rim light on left figure from forge -->
+      <path d="M376 300 Q373 280 378 265 Q384 258 390 258 Q385 270 383 285 Q380 300 379 315 Z" fill="rgba(220,100,30,0.25)"/>
+
+      <!-- Right side wall / darkness -->
+      <path d="M800 0 L1200 0 L1200 480 L900 480 Q1000 380 950 300 Q920 240 800 180 Z" fill="rgba(8,5,2,0.6)"/>
+
+      <!-- Subtle text overlaid: "AUDIT · DESIGN · DEPLOY" -->
+      <text x="600" y="440" font-family="'Lato', sans-serif" font-size="11" font-weight="400" letter-spacing="18" fill="rgba(138,125,110,0.25)" text-anchor="middle">AUDIT · DESIGN · DEPLOY · AUTOMATE</text>
+    </svg>
+  </div>
+
+  <div class="how-steps">
+    <div class="step reveal d1">
+      <div class="step-num">Phase I</div>
+      <svg class="step-icon" viewBox="0 0 48 48" fill="none">
+        <circle cx="24" cy="24" r="20" stroke="rgba(196,98,45,0.5)" stroke-width="1"/>
+        <path d="M14 24 Q19 16 24 20 Q29 24 34 16" stroke="rgba(232,133,74,0.8)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <circle cx="14" cy="24" r="2.5" fill="rgba(196,98,45,0.7)"/>
+        <circle cx="24" cy="20" r="2.5" fill="rgba(196,98,45,0.7)"/>
+        <circle cx="34" cy="16" r="2.5" fill="rgba(201,164,74,0.9)"/>
+      </svg>
+      <div class="step-title">Deep Diagnostic</div>
+      <p class="step-body">We spend two to four weeks inside your operation — shadowing teams, mapping workflows, and conducting structured interviews to surface every hidden bottleneck, repetitive task, and process gap.</p>
+      <div class="step-watermark">I</div>
+    </div>
+    <div class="step reveal d2">
+      <div class="step-num">Phase II</div>
+      <svg class="step-icon" viewBox="0 0 48 48" fill="none">
+        <rect x="8" y="12" width="32" height="24" rx="2" stroke="rgba(196,98,45,0.5)" stroke-width="1"/>
+        <path d="M16 24 L22 30 L32 18" stroke="rgba(232,133,74,0.8)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <div class="step-title">Solution Architecture</div>
+      <p class="step-body">Our engineers design a custom AI stack targeting your highest-impact problems — prioritized by hours saved, error rate reduction, and revenue impact. No generic software. Purpose-built for you.</p>
+      <div class="step-watermark">II</div>
+    </div>
+    <div class="step reveal d3">
+      <div class="step-num">Phase III</div>
+      <svg class="step-icon" viewBox="0 0 48 48" fill="none">
+        <circle cx="24" cy="24" r="8" stroke="rgba(196,98,45,0.5)" stroke-width="1"/>
+        <circle cx="24" cy="24" r="3" fill="rgba(232,133,74,0.7)"/>
+        <path d="M24 8 L24 14 M24 34 L24 40 M8 24 L14 24 M34 24 L40 24" stroke="rgba(196,98,45,0.4)" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M13 13 L17 17 M31 31 L35 35 M13 35 L17 31 M31 17 L35 13" stroke="rgba(196,98,45,0.3)" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <div class="step-title">Build & Deploy</div>
+      <p class="step-body">We build, test, and deploy your AI agents — integrating them directly into your existing tools and systems. We train your team, hand off documentation, and stay on until adoption is complete.</p>
+      <div class="step-watermark">III</div>
+    </div>
+  </div>
 </section>
 
-<!-- STATS BAND -->
-<div class="stats-band reveal">
-  <div class="stat">
-    <div class="stat-num">80<span>+</span></div>
-    <div class="stat-label">Years of cloud seeding science</div>
-  </div>
-  <div class="stat">
-    <div class="stat-num">15<span>%</span></div>
-    <div class="stat-label">Average precipitation increase</div>
-  </div>
-  <div class="stat">
-    <div class="stat-num">3.2<span>B</span></div>
-    <div class="stat-label">People facing water scarcity</div>
-  </div>
-  <div class="stat">
-    <div class="stat-num">0</div>
-    <div class="stat-label">Harmful byproducts</div>
+<!-- PAINTING BREAK: Hallway scene -->
+<div class="painting-break">
+  <svg class="pb-canvas" viewBox="0 0 1400 700" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <radialGradient id="hallLight" cx="50%" cy="40%" r="55%">
+        <stop offset="0%" stop-color="#D4A050" stop-opacity="0.45"/>
+        <stop offset="50%" stop-color="#8A4010" stop-opacity="0.2"/>
+        <stop offset="100%" stop-color="#0D0B08" stop-opacity="0"/>
+      </radialGradient>
+      <filter id="oilPaint" x="-15%" y="-15%" width="130%" height="130%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.03 0.05" numOctaves="4" seed="12"/>
+        <feDisplacementMap in="SourceGraphic" scale="12" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+    </defs>
+
+    <rect width="1400" height="700" fill="#100C08"/>
+
+    <!-- Corridor vanishing point light -->
+    <ellipse cx="700" cy="300" rx="350" ry="220" fill="url(#hallLight)"/>
+    <ellipse cx="700" cy="290" rx="150" ry="100" fill="rgba(200,140,60,0.15)"/>
+
+    <!-- Floor perspective lines -->
+    <path d="M0 700 L700 400 L1400 700" fill="rgba(15,10,5,0.5)"/>
+    <path d="M0 700 L700 380 L1400 700" fill="rgba(12,8,3,0.3)"/>
+
+    <!-- Ceiling -->
+    <path d="M0 0 L700 200 L1400 0 L1400 150 L700 300 L0 150 Z" fill="rgba(8,5,2,0.7)"/>
+
+    <!-- Wall panels suggestion — painterly architectural depth -->
+    <g filter="url(#oilPaint)" opacity="0.6">
+      <rect x="60" y="80" width="180" height="450" fill="rgba(25,15,8,0.4)" rx="2"/>
+      <rect x="280" y="120" width="140" height="380" fill="rgba(20,12,6,0.3)" rx="2"/>
+      <rect x="980" y="120" width="140" height="380" fill="rgba(20,12,6,0.3)" rx="2"/>
+      <rect x="1160" y="80" width="180" height="450" fill="rgba(25,15,8,0.4)" rx="2"/>
+    </g>
+
+    <!-- Figures in the corridor — 3 people discussing -->
+    <g filter="url(#oilPaint)">
+      <!-- Center figure, facing us slightly, the Prometheus consultant -->
+      <path d="M660 680 Q663 620 668 580 Q674 540 680 510 Q688 485 700 475 Q712 485 720 510 Q726 540 732 580 Q737 620 740 680 Z" fill="rgba(10,6,2,0.95)"/>
+      <ellipse cx="700" cy="462" rx="24" ry="28" fill="rgba(10,6,2,0.95)"/>
+
+      <!-- Left figure, side profile -->
+      <path d="M510 685 Q514 638 518 598 Q524 560 532 535 Q540 515 548 508 Q556 512 562 528 Q568 550 572 580 Q576 615 578 655 Q580 668 582 685 Z" fill="rgba(10,6,2,0.9)"/>
+      <ellipse cx="553" cy="496" rx="20" ry="24" fill="rgba(10,6,2,0.9)"/>
+
+      <!-- Right figure -->
+      <path d="M820 685 Q822 638 826 598 Q832 558 840 530 Q848 510 856 506 Q864 510 870 528 Q876 548 880 578 Q884 612 886 650 Q888 668 890 685 Z" fill="rgba(10,6,2,0.9)"/>
+      <ellipse cx="853" cy="494" rx="20" ry="24" fill="rgba(10,6,2,0.9)"/>
+    </g>
+
+    <!-- Warm rim light on center figure -->
+    <path d="M680 510 Q677 490 684 475 Q692 468 700 468 Q694 480 692 498 Q690 515 690 535 Z" fill="rgba(200,120,40,0.3)"/>
+  </svg>
+  <div class="pb-overlay"></div>
+  <div class="pb-content reveal">
+    <h2>The bottleneck is never<br><em>where you think it is.</em></h2>
+    <p>We've found $2M in annual waste hiding in a single email thread. We've seen entire teams spending 60% of their week doing work a $30 AI agent now does in seconds. The fire is already there — we just show you where to hold it.</p>
   </div>
 </div>
 
-<!-- TECHNOLOGY -->
-<section class="tech-section" id="technology">
-  <div class="tech-intro">
+<!-- AI AGENTS -->
+<section class="agents" id="agents">
+  <div class="agents-head">
     <div>
-      <div class="section-tag reveal">Technology</div>
-      <h2 class="reveal">An integrated system.<br>A complete solution.</h2>
+      <div class="tag reveal">AI Agents</div>
+      <h2 class="reveal">Automated workers that<br><em>never clock out.</em></h2>
     </div>
-    <p class="tech-desc reveal">
-      Our platform modernizes a proven process through a tightly integrated triad of software, hardware, and data validation. Every component is engineered to work together — closing the loop from atmospheric detection to verified rainfall.
+    <p class="reveal">
+      We don't hand you a chatbot. We build custom AI agents — persistent, intelligent workers that integrate into your actual systems, learn your business rules, and execute complex multi-step tasks without human handholding. Your team gets their time back. Your business gets faster.
     </p>
   </div>
 
-  <div class="tech-grid reveal">
-    <div class="tech-card">
-      <div class="tech-num">01 — Software</div>
-      <svg class="tech-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="20" cy="20" r="18" stroke="rgba(74,155,196,0.6)" stroke-width="1"/>
-        <circle cx="20" cy="20" r="10" stroke="rgba(74,155,196,0.4)" stroke-width="1"/>
-        <circle cx="20" cy="20" r="3" fill="rgba(114,196,240,0.8)"/>
-        <line x1="20" y1="2" x2="20" y2="10" stroke="rgba(74,155,196,0.6)" stroke-width="1"/>
-        <line x1="20" y1="30" x2="20" y2="38" stroke="rgba(74,155,196,0.6)" stroke-width="1"/>
-        <line x1="2" y1="20" x2="10" y2="20" stroke="rgba(74,155,196,0.6)" stroke-width="1"/>
-        <line x1="30" y1="20" x2="38" y2="20" stroke="rgba(74,155,196,0.6)" stroke-width="1"/>
-      </svg>
-      <div class="tech-title">Target</div>
-      <p class="tech-body">Our proprietary weather awareness platform ingests real-time atmospheric data, identifies seeding windows, and plots optimal flight corridors — all autonomously.</p>
+  <div class="agents-grid reveal">
+    <div class="agent-card">
+      <div class="agent-tag">Operations</div>
+      <div class="agent-title">Workflow Automation Agents</div>
+      <p class="agent-body">End-to-end process execution. Agents that trigger on events, pull from multiple systems, make decisions, and complete tasks that previously required a human every step of the way.</p>
+      <ul class="agent-examples">
+        <li>Invoice processing &amp; approval routing</li>
+        <li>New hire onboarding task orchestration</li>
+        <li>Vendor data reconciliation</li>
+        <li>Compliance documentation generation</li>
+      </ul>
     </div>
-    <div class="tech-card">
-      <div class="tech-num">02 — Drone</div>
-      <svg class="tech-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M8 20 L20 8 L32 20 L20 32 Z" stroke="rgba(74,155,196,0.6)" stroke-width="1" fill="none"/>
-        <circle cx="20" cy="20" r="4" stroke="rgba(114,196,240,0.7)" stroke-width="1"/>
-        <line x1="4" y1="16" x2="8" y2="20" stroke="rgba(74,155,196,0.5)" stroke-width="1"/>
-        <line x1="4" y1="24" x2="8" y2="20" stroke="rgba(74,155,196,0.5)" stroke-width="1"/>
-        <line x1="36" y1="16" x2="32" y2="20" stroke="rgba(74,155,196,0.5)" stroke-width="1"/>
-        <line x1="36" y1="24" x2="32" y2="20" stroke="rgba(74,155,196,0.5)" stroke-width="1"/>
-      </svg>
-      <div class="tech-title">Deliver</div>
-      <p class="tech-body">Autonomous fixed-wing UAVs carrying silver iodide flares fly precise flight plans into identified cloud formations, releasing seeding agents at calculated altitudes.</p>
+    <div class="agent-card">
+      <div class="agent-tag">Communications</div>
+      <div class="agent-title">Intelligent Inbox &amp; Scheduling Agents</div>
+      <p class="agent-body">Email triage, meeting scheduling, follow-up drafting, and CRM updates — handled autonomously with your voice and your rules baked in.</p>
+      <ul class="agent-examples">
+        <li>Lead qualification &amp; response drafting</li>
+        <li>Executive calendar optimization</li>
+        <li>Customer escalation detection &amp; routing</li>
+        <li>Meeting summary &amp; action item capture</li>
+      </ul>
     </div>
-    <div class="tech-card">
-      <div class="tech-num">03 — Radar</div>
-      <svg class="tech-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M20 36 L20 20 L34 10" stroke="rgba(114,196,240,0.7)" stroke-width="1" fill="none"/>
-        <path d="M20 20 Q28 14 36 18" stroke="rgba(74,155,196,0.4)" stroke-width="1" fill="none"/>
-        <path d="M20 20 Q24 8 32 8" stroke="rgba(74,155,196,0.25)" stroke-width="1" fill="none"/>
-        <circle cx="20" cy="20" r="2" fill="rgba(114,196,240,0.9)"/>
-        <path d="M4 36 Q12 20 20 20" stroke="rgba(74,155,196,0.2)" stroke-width="1" fill="none" stroke-dasharray="2,3"/>
-      </svg>
-      <div class="tech-title">Validate</div>
-      <p class="tech-body">Dual-polarization radar tracks precipitation from inception to ground impact, providing rigorous, independent validation of every seeding event and its quantified yield.</p>
+    <div class="agent-card">
+      <div class="agent-tag">Analytics</div>
+      <div class="agent-title">Data &amp; Reporting Agents</div>
+      <p class="agent-body">Agents that pull from your data sources, synthesize insights, and deliver the reports your team used to spend entire days building — on a schedule, in the format you need.</p>
+      <ul class="agent-examples">
+        <li>Daily KPI briefings to Slack or email</li>
+        <li>Anomaly detection &amp; alert escalation</li>
+        <li>Competitive intelligence monitoring</li>
+        <li>Sales pipeline health scoring</li>
+      </ul>
+    </div>
+    <div class="agent-card">
+      <div class="agent-tag">Custom Build</div>
+      <div class="agent-title">Bespoke Process Agents</div>
+      <p class="agent-body">Your business is unique. Some of your biggest bottlenecks don't fit a template. We engineer agents from the ground up for workflows that no off-the-shelf tool has ever touched.</p>
+      <ul class="agent-examples">
+        <li>Industry-specific regulatory filing agents</li>
+        <li>Multi-system data migration orchestrators</li>
+        <li>Complex approval chain automation</li>
+        <li>AI-augmented quality control pipelines</li>
+      </ul>
     </div>
   </div>
 </section>
 
-<!-- MISSION -->
-<section class="mission-section" id="mission">
-  <div class="mission-bg"></div>
-  <div class="mission-grid">
-    <div class="mission-text">
-      <div class="section-tag reveal">Mission</div>
-      <h2 class="reveal">Restoring the world's water table</h2>
-      <p class="mission-lead reveal">
-        Drought is not an act of nature — it's a solvable engineering problem. The atmosphere holds vast quantities of water that never reach the ground. Our mission is to close that gap with precision, transparency, and rigorous science.
-      </p>
-      <blockquote class="mission-quote reveal">
-        "We don't control the weather. We nudge it — carefully, measurably, accountably."
-      </blockquote>
-      <p class="reveal" style="color:var(--mist);font-size:0.9rem;">
-        Cloud seeding has been in responsible use for over eight decades. Our commitment to scientific transparency means every operation is documented, every result is published, and every claim is independently verifiable.
-      </p>
+<!-- MYTH / ABOUT -->
+<section class="myth">
+  <div class="myth-bg-text">Prometheus</div>
+  <div class="myth-grid">
+    <div class="myth-text">
+      <div class="tag reveal">Who We Are</div>
+      <h2 class="reveal">We stole the fire<br><em>from the gods.</em><br>Now we give it to you.</h2>
+      <div class="myth-pull reveal">
+        "Prometheus didn't invent fire. He brought it to those who needed it most."
+      </div>
+      <p class="reveal">AI is the most transformative force in the history of business. But for most companies, it's still locked behind a wall of complexity, cost, and confusion. We tear that wall down.</p>
+      <p class="reveal" style="transition-delay:0.1s">Our team is made up of AI engineers, operations veterans, and industry specialists who have spent careers understanding how businesses actually work — and where they break. We don't theorize. We execute.</p>
       <br>
-      <a href="#research" class="btn-ghost reveal" style="margin-top:1rem;">Read our research →</a>
+      <a href="#contact" class="btn-fire reveal" style="transition-delay:0.2s">Work With Us</a>
     </div>
 
-    <div class="mission-visual reveal">
-      <svg class="cloud-diagram" viewBox="0 0 360 300" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <!-- Sky gradient fill -->
+    <!-- Oil painting portrait: figure with torch/fire -->
+    <div class="myth-portrait reveal">
+      <svg viewBox="0 0 460 580" style="width:100%;height:100%" fill="none" xmlns="http://www.w3.org/2000/svg">
         <defs>
-          <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#1a3a5c" stop-opacity="0.4"/>
-            <stop offset="100%" stop-color="#0a1628" stop-opacity="0.2"/>
+          <radialGradient id="torchGlow" cx="58%" cy="22%" r="50%">
+            <stop offset="0%" stop-color="#FF9A40" stop-opacity="0.7"/>
+            <stop offset="35%" stop-color="#C4622D" stop-opacity="0.35"/>
+            <stop offset="100%" stop-color="#1A0D05" stop-opacity="0"/>
+          </radialGradient>
+          <filter id="oilFig" x="-5%" y="-5%" width="110%" height="110%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.035 0.05" numOctaves="4" seed="5"/>
+            <feDisplacementMap in="SourceGraphic" scale="8" xChannelSelector="R" yChannelSelector="G"/>
+          </filter>
+          <linearGradient id="bgFig" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#1A0E06"/>
+            <stop offset="100%" stop-color="#0A0603"/>
           </linearGradient>
         </defs>
-        <rect width="360" height="300" fill="url(#skyGrad)" rx="4"/>
 
-        <!-- Ground -->
-        <rect x="0" y="250" width="360" height="50" fill="rgba(26,42,64,0.6)" rx="0"/>
-        <line x1="0" y1="250" x2="360" y2="250" stroke="rgba(74,155,196,0.2)" stroke-width="0.5"/>
+        <rect width="460" height="580" fill="url(#bgFig)" rx="2"/>
 
-        <!-- Cloud -->
-        <ellipse cx="180" cy="80" rx="90" ry="45" fill="rgba(200,216,232,0.08)" stroke="rgba(200,216,232,0.2)" stroke-width="0.75"/>
-        <ellipse cx="140" cy="90" rx="55" ry="35" fill="rgba(200,216,232,0.06)" stroke="rgba(200,216,232,0.15)" stroke-width="0.5"/>
-        <ellipse cx="220" cy="85" rx="60" ry="38" fill="rgba(200,216,232,0.06)" stroke="rgba(200,216,232,0.15)" stroke-width="0.5"/>
+        <!-- Torch glow atmosphere -->
+        <ellipse cx="268" cy="130" rx="220" ry="200" fill="url(#torchGlow)"/>
 
-        <!-- Silver iodide particles -->
-        <circle cx="160" cy="100" r="2" fill="rgba(201,168,76,0.8)"/>
-        <circle cx="180" cy="95" r="2" fill="rgba(201,168,76,0.8)"/>
-        <circle cx="200" cy="105" r="2" fill="rgba(201,168,76,0.8)"/>
-        <circle cx="170" cy="110" r="1.5" fill="rgba(201,168,76,0.6)"/>
-        <circle cx="190" cy="108" r="1.5" fill="rgba(201,168,76,0.6)"/>
+        <!-- Background painterly strokes -->
+        <path d="M0 0 Q200 80 460 40 L460 300 Q300 260 100 280 Q50 285 0 300 Z" fill="rgba(30,16,6,0.4)" filter="url(#oilFig)"/>
+        <path d="M0 300 Q150 320 300 290 Q400 270 460 300 L460 580 L0 580 Z" fill="rgba(12,8,3,0.6)"/>
 
-        <!-- Rain drops -->
-        <line x1="155" y1="125" x2="150" y2="155" stroke="rgba(74,155,196,0.7)" stroke-width="1" stroke-linecap="round"/>
-        <line x1="170" y1="130" x2="165" y2="165" stroke="rgba(74,155,196,0.7)" stroke-width="1" stroke-linecap="round"/>
-        <line x1="185" y1="125" x2="180" y2="160" stroke="rgba(74,155,196,0.8)" stroke-width="1.2" stroke-linecap="round"/>
-        <line x1="200" y1="130" x2="196" y2="162" stroke="rgba(74,155,196,0.7)" stroke-width="1" stroke-linecap="round"/>
-        <line x1="215" y1="125" x2="210" y2="157" stroke="rgba(74,155,196,0.6)" stroke-width="1" stroke-linecap="round"/>
-        <line x1="145" y1="160" x2="141" y2="185" stroke="rgba(74,155,196,0.5)" stroke-width="0.8" stroke-linecap="round"/>
-        <line x1="175" y1="170" x2="171" y2="195" stroke="rgba(74,155,196,0.5)" stroke-width="0.8" stroke-linecap="round"/>
-        <line x1="205" y1="165" x2="200" y2="192" stroke="rgba(74,155,196,0.5)" stroke-width="0.8" stroke-linecap="round"/>
-        <line x1="190" y1="165" x2="185" y2="198" stroke="rgba(74,155,196,0.6)" stroke-width="0.8" stroke-linecap="round"/>
-        <line x1="162" y1="168" x2="158" y2="197" stroke="rgba(74,155,196,0.5)" stroke-width="0.8" stroke-linecap="round"/>
-
-        <!-- Drone -->
-        <g transform="translate(100,130) rotate(-8)">
-          <rect x="-18" y="-4" width="36" height="8" fill="none" stroke="rgba(114,196,240,0.8)" stroke-width="0.75" rx="2"/>
-          <rect x="-8" y="-9" width="16" height="5" fill="none" stroke="rgba(114,196,240,0.5)" stroke-width="0.5" rx="1"/>
+        <!-- Figure: standing, arm raised holding torch/light -->
+        <g filter="url(#oilFig)">
+          <!-- Robes / clothing mass -->
+          <path d="M180 570 Q185 500 190 450 Q198 390 210 350 Q220 320 228 300 L232 298 L235 298 Q242 320 252 350 Q264 390 272 450 Q278 500 282 570 Z" fill="rgba(30,18,8,0.95)"/>
+          <!-- Upper body -->
+          <path d="M195 340 Q205 290 215 268 Q222 250 230 244 Q238 250 245 268 Q255 290 265 340 Z" fill="rgba(25,14,6,0.97)"/>
+          <!-- Head -->
+          <ellipse cx="230" cy="232" rx="26" ry="30" fill="rgba(22,12,5,0.95)"/>
+          <!-- Raised arm holding something aloft -->
+          <path d="M245 275 Q268 245 285 218 Q295 198 296 178" stroke="rgba(22,12,5,0.97)" stroke-width="20" fill="none" stroke-linecap="round"/>
+          <!-- Other arm, slightly out -->
+          <path d="M215 285 Q195 268 175 258 Q162 250 155 252" stroke="rgba(22,12,5,0.95)" stroke-width="16" fill="none" stroke-linecap="round"/>
         </g>
 
-        <!-- Drone trail -->
-        <path d="M82 134 Q110 128 135 118" stroke="rgba(201,168,76,0.4)" stroke-width="0.75" stroke-dasharray="3,4" fill="none"/>
+        <!-- The torch / fire held aloft -->
+        <ellipse cx="296" cy="162" rx="18" ry="28" fill="rgba(255,160,50,0.2)"/>
+        <ellipse cx="296" cy="155" rx="12" ry="20" fill="rgba(255,130,30,0.35)"/>
+        <ellipse cx="296" cy="150" rx="7" ry="14" fill="rgba(255,200,80,0.6)"/>
+        <circle cx="296" cy="148" r="5" fill="rgba(255,230,130,0.9)"/>
+        <circle cx="296" cy="146" r="2.5" fill="rgba(255,248,200,1)"/>
 
-        <!-- Radar arc -->
-        <path d="M30 240 Q30 210 55 195" stroke="rgba(74,155,196,0.4)" stroke-width="0.75" fill="none"/>
-        <path d="M30 240 Q40 200 70 185" stroke="rgba(74,155,196,0.25)" stroke-width="0.75" fill="none"/>
-        <path d="M30 240 Q55 195 85 178" stroke="rgba(74,155,196,0.15)" stroke-width="0.75" fill="none"/>
-        <circle cx="30" cy="240" r="3" fill="rgba(74,155,196,0.8)"/>
+        <!-- Sparks from torch -->
+        <circle cx="306" cy="138" r="1.5" fill="rgba(255,220,80,0.8)"/>
+        <circle cx="288" cy="135" r="1.2" fill="rgba(255,180,50,0.7)"/>
+        <circle cx="310" cy="145" r="1" fill="rgba(255,240,100,0.6)"/>
+        <circle cx="283" cy="143" r="1.5" fill="rgba(255,160,40,0.7)"/>
+        <circle cx="302" cy="128" r="1" fill="rgba(255,200,80,0.5)"/>
 
-        <!-- Labels -->
-        <text x="104" y="155" font-family="'DM Mono', monospace" font-size="8" fill="rgba(114,196,240,0.7)" letter-spacing="1">UAV</text>
-        <text x="180" y="78" font-family="'DM Mono', monospace" font-size="8" fill="rgba(200,216,232,0.5)" text-anchor="middle" letter-spacing="1">cloud mass</text>
-        <text x="174" y="92" font-family="'DM Mono', monospace" font-size="7" fill="rgba(201,168,76,0.7)" text-anchor="middle" letter-spacing="1">AgI seeding</text>
-        <text x="36" y="255" font-family="'DM Mono', monospace" font-size="7" fill="rgba(74,155,196,0.6)" letter-spacing="1">radar</text>
+        <!-- Fire rim light on figure's right side -->
+        <path d="M265 275 Q268 258 264 245 Q258 232 248 226 Q258 234 262 248 Q266 260 266 278 Z" fill="rgba(220,100,30,0.3)"/>
+        <path d="M296 178 Q294 195 295 210" stroke="rgba(100,50,15,0.6)" stroke-width="6" fill="none" stroke-linecap="round"/>
 
-        <!-- Ground marks -->
-        <line x1="140" y1="250" x2="140" y2="260" stroke="rgba(74,155,196,0.3)" stroke-width="0.5"/>
-        <line x1="180" y1="250" x2="180" y2="264" stroke="rgba(74,155,196,0.4)" stroke-width="0.5"/>
-        <line x1="220" y1="250" x2="220" y2="258" stroke="rgba(74,155,196,0.3)" stroke-width="0.5"/>
-        <ellipse cx="180" cy="264" rx="18" ry="5" fill="rgba(74,155,196,0.08)" stroke="rgba(74,155,196,0.15)" stroke-width="0.5"/>
-        <text x="180" y="268" font-family="'DM Mono', monospace" font-size="7" fill="rgba(74,155,196,0.5)" text-anchor="middle">precipitation</text>
+        <!-- Dark vignette edges -->
+        <rect width="460" height="580" fill="url(#bgFig)" opacity="0.2" rx="2" style="mix-blend-mode:multiply"/>
+
+        <!-- Atmospheric depth on edges -->
+        <path d="M0 0 L80 0 L0 200 Z" fill="rgba(8,4,1,0.5)"/>
+        <path d="M460 0 L380 0 L460 180 Z" fill="rgba(8,4,1,0.4)"/>
+        <path d="M0 580 L0 400 L120 580 Z" fill="rgba(5,3,1,0.6)"/>
+        <path d="M460 580 L460 420 L340 580 Z" fill="rgba(5,3,1,0.6)"/>
       </svg>
     </div>
   </div>
 </section>
 
-<!-- PROCESS -->
-<section class="process-section" id="process">
-  <div class="process-header">
-    <div class="section-tag reveal">How it works</div>
-    <h2 class="reveal">From atmosphere to aquifer</h2>
+<!-- RESULTS -->
+<section class="results" id="results">
+  <div class="results-head reveal">
+    <h2>What our clients<br><em>actually get.</em></h2>
+    <a href="#contact" class="btn-outline">See case studies →</a>
   </div>
 
-  <div class="process-steps">
-    <div class="process-step reveal">
-      <div class="step-num">01</div>
-      <div class="step-title">Atmospheric scan</div>
-      <p class="step-body">Our platform continuously monitors humidity, cloud composition, and temperature profiles to identify seeding-viable windows — typically 2–6 hours before they peak.</p>
-    </div>
-    <div class="process-step reveal" style="transition-delay:0.1s">
-      <div class="step-num">02</div>
-      <div class="step-title">Mission planning</div>
-      <p class="step-body">AI-generated flight plans route autonomous UAVs to optimal insertion altitudes and positions within supercooled cloud layers for maximum seeding efficiency.</p>
-    </div>
-    <div class="process-step reveal" style="transition-delay:0.2s">
-      <div class="step-num">03</div>
-      <div class="step-title">Seeding operation</div>
-      <p class="step-body">Drones release calibrated silver iodide flares, providing ice nuclei that trigger the Bergeron process — converting water vapor to ice crystals that fall as rain or snow.</p>
-    </div>
-    <div class="process-step reveal" style="transition-delay:0.3s">
-      <div class="step-num">04</div>
-      <div class="step-title">Validation & report</div>
-      <p class="step-body">Radar tracks every precipitation event. Post-operation analysis compares seeded versus control areas, and full results are published within 72 hours.</p>
-    </div>
-  </div>
-</section>
-
-<!-- IMPACT -->
-<section class="impact-section" id="impact">
-  <div class="impact-header reveal">
-    <h2>Measured results.<br>Real outcomes.</h2>
-    <a href="#" class="btn-ghost">View all data →</a>
-  </div>
-
-  <div class="impact-grid reveal">
-    <div class="impact-card large">
-      <div class="impact-card-label">Watershed restoration</div>
-      <div class="impact-card-num">12<span>M</span></div>
-      <p class="impact-card-body" style="font-size:1rem;max-width:320px;line-height:1.8;">
-        Acre-feet of additional water delivered to drought-stressed watersheds across the American West in our operational programs to date — water that directly recharges aquifers, rivers, and reservoirs.
+  <div class="results-grid reveal">
+    <div class="result-tile span-col featured">
+      <div class="result-label">Average time reclaimed per employee</div>
+      <div class="result-num">11<span>hrs</span></div>
+      <p class="result-body" style="font-size:1rem;max-width:340px;line-height:1.85;">
+        Eleven hours a week, per knowledge worker. That's what our clients recover on average in the first six months of an engagement — time that goes back into the work that drives revenue, innovation, and competitive advantage.
       </p>
-      <div class="impact-card-bg">~</div>
+      <div class="result-bg">∞</div>
     </div>
-    <div class="impact-card">
-      <div class="impact-card-label">Wildfire risk reduction</div>
-      <div class="impact-card-num">31<span>%</span></div>
-      <p class="impact-card-body">Reduction in Fire Weather Index scores in seeded mountain watersheds versus control basins.</p>
+    <div class="result-tile">
+      <div class="result-label">Average ROI — Year One</div>
+      <div class="result-num">6<span>×</span></div>
+      <p class="result-body">Every dollar spent on a Prometheus engagement returns six in recovered labor, reduced errors, and accelerated cycles.</p>
     </div>
-    <div class="impact-card">
-      <div class="impact-card-label">Snowpack increase</div>
-      <div class="impact-card-num">18<span>%</span></div>
-      <p class="impact-card-body">Average snowpack increase in our Sierra Nevada winter program over a 3-year study period.</p>
+    <div class="result-tile">
+      <div class="result-label">Error rate reduction</div>
+      <div class="result-num">91<span>%</span></div>
+      <p class="result-body">Across all automated workflows, our clients see a 91% average reduction in process errors within 90 days of deployment.</p>
     </div>
-    <div class="impact-card">
-      <div class="impact-card-label">Cost vs. alternatives</div>
-      <div class="impact-card-num">4<span>×</span></div>
-      <p class="impact-card-body">Cloud-seeded water costs 4x less per acre-foot than desalination — and works at scale without infrastructure.</p>
+    <div class="result-tile">
+      <div class="result-label">Deployment timeline</div>
+      <div class="result-num">8<span>wks</span></div>
+      <p class="result-body">From kickoff to live agents in production. We move fast because we've built this before.</p>
     </div>
-    <div class="impact-card">
-      <div class="impact-card-label">Operations to date</div>
-      <div class="impact-card-num">247</div>
-      <p class="impact-card-body">Completed seeding missions across 6 states, with zero classified safety incidents.</p>
-    </div>
-  </div>
-</section>
-
-<!-- RESEARCH -->
-<section class="research-section" id="research">
-  <div class="section-tag reveal">Research</div>
-  <h2 class="reveal">Science and transparency</h2>
-
-  <div class="research-grid">
-    <div class="research-items reveal">
-      <div class="research-item">
-        <div class="research-year">2025</div>
-        <div class="research-text">
-          <h4>Dual-pol radar attribution of seeded precipitation events in orographic terrain</h4>
-          <p>Journal of Applied Meteorology · Peer reviewed</p>
-        </div>
-      </div>
-      <div class="research-item">
-        <div class="research-year">2024</div>
-        <div class="research-text">
-          <h4>Quantifying aquifer recharge from winter cloud seeding in the Colorado River Basin</h4>
-          <p>Water Resources Research · Peer reviewed</p>
-        </div>
-      </div>
-      <div class="research-item">
-        <div class="research-year">2024</div>
-        <div class="research-text">
-          <h4>UAV-delivered glaciogenic seeding: efficiency and dispersion modeling</h4>
-          <p>Atmospheric Research · Preprint</p>
-        </div>
-      </div>
-      <div class="research-item">
-        <div class="research-year">2023</div>
-        <div class="research-text">
-          <h4>Environmental fate of silver iodide in seeded mountain watersheds: a 5-year study</h4>
-          <p>Environmental Science & Technology · Peer reviewed</p>
-        </div>
-      </div>
-      <br>
-      <a href="#" class="btn-ghost reveal">All publications →</a>
-    </div>
-
-    <div class="research-visual reveal">
-      <svg viewBox="0 0 380 280" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
-        <rect width="380" height="280" fill="rgba(10,22,40,0.9)" rx="4"/>
-
-        <!-- Grid lines -->
-        <line x1="50" y1="30" x2="50" y2="230" stroke="rgba(255,255,255,0.06)" stroke-width="0.5"/>
-        <line x1="50" y1="230" x2="350" y2="230" stroke="rgba(255,255,255,0.06)" stroke-width="0.5"/>
-        <line x1="50" y1="180" x2="350" y2="180" stroke="rgba(255,255,255,0.04)" stroke-width="0.5" stroke-dasharray="4,6"/>
-        <line x1="50" y1="130" x2="350" y2="130" stroke="rgba(255,255,255,0.04)" stroke-width="0.5" stroke-dasharray="4,6"/>
-        <line x1="50" y1="80" x2="350" y2="80" stroke="rgba(255,255,255,0.04)" stroke-width="0.5" stroke-dasharray="4,6"/>
-
-        <!-- Control baseline -->
-        <path d="M60 200 Q110 195 160 198 Q210 200 260 194 Q300 190 340 196" stroke="rgba(143,170,191,0.3)" stroke-width="1.5" fill="none"/>
-
-        <!-- Seeded line -->
-        <path d="M60 200 Q80 185 110 170 Q150 148 200 135 Q250 120 300 108 Q320 102 340 98" stroke="rgba(74,155,196,0.9)" stroke-width="2" fill="none"/>
-
-        <!-- Area fill under seeded -->
-        <path d="M60 200 Q80 185 110 170 Q150 148 200 135 Q250 120 300 108 Q320 102 340 98 L340 230 L60 230 Z" fill="rgba(74,155,196,0.06)"/>
-
-        <!-- Data points -->
-        <circle cx="110" cy="170" r="3" fill="rgba(74,155,196,0.9)"/>
-        <circle cx="200" cy="135" r="3" fill="rgba(74,155,196,0.9)"/>
-        <circle cx="300" cy="108" r="3" fill="rgba(74,155,196,0.9)"/>
-
-        <!-- Axis labels -->
-        <text x="55" y="250" font-family="'DM Mono', monospace" font-size="7" fill="rgba(143,170,191,0.5)" letter-spacing="1">2021</text>
-        <text x="145" y="250" font-family="'DM Mono', monospace" font-size="7" fill="rgba(143,170,191,0.5)" letter-spacing="1">2022</text>
-        <text x="235" y="250" font-family="'DM Mono', monospace" font-size="7" fill="rgba(143,170,191,0.5)" letter-spacing="1">2023</text>
-        <text x="325" y="250" font-family="'DM Mono', monospace" font-size="7" fill="rgba(143,170,191,0.5)" letter-spacing="1">2024</text>
-
-        <!-- Legend -->
-        <line x1="60" y1="20" x2="80" y2="20" stroke="rgba(74,155,196,0.9)" stroke-width="2"/>
-        <text x="85" y="24" font-family="'DM Mono', monospace" font-size="7" fill="rgba(200,216,232,0.7)" letter-spacing="1">seeded watershed</text>
-        <line x1="200" y1="20" x2="220" y2="20" stroke="rgba(143,170,191,0.3)" stroke-width="1.5"/>
-        <text x="225" y="24" font-family="'DM Mono', monospace" font-size="7" fill="rgba(200,216,232,0.4)" letter-spacing="1">control</text>
-
-        <!-- Chart title -->
-        <text x="50" y="270" font-family="'DM Mono', monospace" font-size="7" fill="rgba(143,170,191,0.4)" letter-spacing="0.5">Cumulative precipitation anomaly (% above baseline)</text>
-      </svg>
+    <div class="result-tile">
+      <div class="result-label">Client retention</div>
+      <div class="result-num">94<span>%</span></div>
+      <p class="result-body">Once the fire is lit, no one wants to go back to the dark.</p>
     </div>
   </div>
 </section>
 
-<!-- CAREERS -->
-<section class="careers-section" id="careers">
-  <div class="careers-bg-text">Rainmakers</div>
-  <div class="careers-grid">
-    <div class="careers-content">
-      <div class="section-tag reveal">Careers</div>
-      <h2 class="reveal">Become a Stormrise engineer</h2>
-      <p class="reveal">We're solving one of this century's most important problems with hardware, software, and atmospheric science. If you want to build things that matter — machines that touch the sky and bring water to a thirsty world — come build with us.</p>
-      <a href="#" class="btn-primary reveal">See all open roles</a>
-    </div>
+<!-- PROCESS VISUAL PANEL -->
+<div class="process-visual">
+  <svg class="pv-canvas" viewBox="0 0 1400 560" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <radialGradient id="pvLight" cx="30%" cy="50%" r="55%">
+        <stop offset="0%" stop-color="#A04020" stop-opacity="0.45"/>
+        <stop offset="100%" stop-color="#0D0B08" stop-opacity="0"/>
+      </radialGradient>
+      <filter id="oilScene">
+        <feTurbulence type="fractalNoise" baseFrequency="0.02 0.04" numOctaves="4" seed="3"/>
+        <feDisplacementMap in="SourceGraphic" scale="14" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+    </defs>
 
-    <div class="open-roles reveal">
-      <a href="#" class="role-item">
-        <div>
-          <div class="role-dept">Atmospheric Science</div>
-          <div class="role-title">Sr. Cloud Physicist</div>
-        </div>
-        <div class="role-arrow">→</div>
-      </a>
-      <a href="#" class="role-item">
-        <div>
-          <div class="role-dept">Engineering</div>
-          <div class="role-title">Autonomous Systems Engineer</div>
-        </div>
-        <div class="role-arrow">→</div>
-      </a>
-      <a href="#" class="role-item">
-        <div>
-          <div class="role-dept">Software</div>
-          <div class="role-title">Weather Platform Lead</div>
-        </div>
-        <div class="role-arrow">→</div>
-      </a>
-      <a href="#" class="role-item">
-        <div>
-          <div class="role-dept">Research</div>
-          <div class="role-title">Radar Meteorologist</div>
-        </div>
-        <div class="role-arrow">→</div>
-      </a>
-      <a href="#" class="role-item">
-        <div>
-          <div class="role-dept">Operations</div>
-          <div class="role-title">Field Operations Director</div>
-        </div>
-        <div class="role-arrow">→</div>
-      </a>
+    <rect width="1400" height="560" fill="#100C08"/>
+    <ellipse cx="420" cy="280" rx="500" ry="300" fill="url(#pvLight)"/>
+    <ellipse cx="420" cy="300" rx="200" ry="150" fill="rgba(180,80,20,0.12)"/>
+
+    <!-- Ground reflection -->
+    <path d="M0 480 L1400 480 L1400 560 L0 560 Z" fill="rgba(12,8,3,0.7)"/>
+    <path d="M0 440 Q400 430 700 448 Q1000 460 1400 445 L1400 480 L0 480 Z" fill="rgba(16,10,4,0.5)"/>
+
+    <!-- Sky atmosphere -->
+    <path d="M0 0 L1400 0 L1400 200 Q900 150 700 170 Q400 190 0 160 Z" fill="rgba(8,5,2,0.5)"/>
+
+    <!-- Abstract landscape elements — painterly dark shapes -->
+    <path d="M0 350 Q200 300 350 320 Q450 330 500 300 Q550 270 600 310 Q700 360 800 330 Q900 300 1000 340 Q1100 370 1200 320 Q1300 280 1400 310 L1400 480 L0 480 Z" fill="rgba(10,6,3,0.6)" filter="url(#oilScene)"/>
+
+    <!-- Three heroic figures in silhouette — walking forward -->
+    <g filter="url(#oilScene)">
+      <!-- Figure 1 -->
+      <path d="M360 470 Q363 420 367 388 Q372 360 378 340 Q386 322 392 316 Q398 322 403 340 Q409 360 414 388 Q418 418 420 470 Z" fill="rgba(8,5,2,0.97)"/>
+      <ellipse cx="392" cy="305" rx="20" ry="24" fill="rgba(8,5,2,0.97)"/>
+      <!-- Figure 2 (closer, larger) -->
+      <path d="M610 475 Q614 418 620 378 Q628 342 636 318 Q646 298 656 292 Q666 298 674 318 Q682 342 688 378 Q694 418 698 475 Z" fill="rgba(8,5,2,0.97)"/>
+      <ellipse cx="656" cy="280" rx="24" ry="28" fill="rgba(8,5,2,0.97)"/>
+      <!-- Figure 3 -->
+      <path d="M840 472 Q843 425 848 390 Q854 360 861 340 Q868 322 875 318 Q882 322 888 340 Q895 360 901 390 Q906 422 908 472 Z" fill="rgba(8,5,2,0.97)"/>
+      <ellipse cx="875" cy="308" rx="20" ry="24" fill="rgba(8,5,2,0.97)"/>
+    </g>
+
+    <!-- Rim light — toward the distant glow ahead -->
+    <path d="M636 325 Q633 310 638 298 Q646 290 656 290 Q650 302 648 316 Q646 330 647 348 Z" fill="rgba(200,100,30,0.25)"/>
+  </svg>
+  <div class="pv-overlay"></div>
+  <div class="pv-content">
+    <div class="pv-step reveal">
+      <div class="pv-num">Week 1–2</div>
+      <div class="pv-title">Embed &amp; Listen</div>
+      <p class="pv-body">We sit with your teams, attend your meetings, and map your workflows from the inside.</p>
+    </div>
+    <div class="pv-step reveal d1">
+      <div class="pv-num">Week 3–4</div>
+      <div class="pv-title">Diagnose &amp; Prioritize</div>
+      <p class="pv-body">We present a ranked list of every identified bottleneck, with time and revenue impact quantified.</p>
+    </div>
+    <div class="pv-step reveal d2">
+      <div class="pv-num">Week 5–6</div>
+      <div class="pv-title">Build &amp; Test</div>
+      <p class="pv-body">Our engineers build your custom agents, testing against real workflows in a staging environment.</p>
+    </div>
+    <div class="pv-step reveal d3">
+      <div class="pv-num">Week 7–8</div>
+      <div class="pv-title">Deploy &amp; Train</div>
+      <p class="pv-body">We go live, train your team, and monitor performance until everything is running at full fire.</p>
+    </div>
+  </div>
+</div>
+
+<!-- INDUSTRIES -->
+<section class="industries" id="industries">
+  <div class="industries-head">
+    <div class="tag reveal">Industries</div>
+    <h2 class="reveal">We work across<br><em>every sector.</em></h2>
+  </div>
+
+  <div class="industry-list reveal">
+    <div class="industry-item">
+      <span class="industry-name">Professional Services</span>
+      <span class="industry-tag">Legal · Accounting · Consulting</span>
+      <span class="industry-arrow">→</span>
+    </div>
+    <div class="industry-item">
+      <span class="industry-name">Healthcare &amp; Life Sciences</span>
+      <span class="industry-tag">Clinics · Insurance · Pharma</span>
+      <span class="industry-arrow">→</span>
+    </div>
+    <div class="industry-item">
+      <span class="industry-name">Real Estate &amp; Construction</span>
+      <span class="industry-tag">Brokerage · Development · Property Mgmt</span>
+      <span class="industry-arrow">→</span>
+    </div>
+    <div class="industry-item">
+      <span class="industry-name">Financial Services</span>
+      <span class="industry-tag">Banking · Lending · Wealth Management</span>
+      <span class="industry-arrow">→</span>
+    </div>
+    <div class="industry-item">
+      <span class="industry-name">E-Commerce &amp; Retail</span>
+      <span class="industry-tag">Operations · Logistics · Customer Success</span>
+      <span class="industry-arrow">→</span>
+    </div>
+    <div class="industry-item">
+      <span class="industry-name">Manufacturing &amp; Logistics</span>
+      <span class="industry-tag">Supply Chain · Quality · Procurement</span>
+      <span class="industry-arrow">→</span>
+    </div>
+    <div class="industry-item">
+      <span class="industry-name">Technology &amp; SaaS</span>
+      <span class="industry-tag">Startups · Scale-ups · Enterprise</span>
+      <span class="industry-arrow">→</span>
     </div>
   </div>
 </section>
+
+<!-- CTA SECTION -->
+<div class="cta-section" id="contact">
+  <svg class="cta-canvas" viewBox="0 0 1400 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <radialGradient id="ctaGlow" cx="50%" cy="50%" r="55%">
+        <stop offset="0%" stop-color="#C4622D" stop-opacity="0.5"/>
+        <stop offset="50%" stop-color="#6A2808" stop-opacity="0.25"/>
+        <stop offset="100%" stop-color="#0D0B08" stop-opacity="0"/>
+      </radialGradient>
+      <filter id="oilCta">
+        <feTurbulence type="fractalNoise" baseFrequency="0.025 0.04" numOctaves="4" seed="7"/>
+        <feDisplacementMap in="SourceGraphic" scale="16" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+    </defs>
+    <rect width="1400" height="600" fill="#0D0B08"/>
+    <ellipse cx="700" cy="300" rx="600" ry="350" fill="url(#ctaGlow)"/>
+    <ellipse cx="700" cy="300" rx="250" ry="150" fill="rgba(200,100,30,0.12)"/>
+    <!-- Horizon landscape -->
+    <path d="M0 500 Q200 440 400 460 Q600 480 700 430 Q800 380 1000 440 Q1200 490 1400 445 L1400 600 L0 600 Z" fill="rgba(10,6,3,0.7)" filter="url(#oilCta)"/>
+    <!-- Group of figures silhouette on horizon -->
+    <g filter="url(#oilCta)" opacity="0.9">
+      <ellipse cx="580" cy="428" rx="18" ry="22" fill="rgba(8,4,2,0.9)"/>
+      <rect x="570" y="430" width="20" height="60" rx="3" fill="rgba(8,4,2,0.9)"/>
+      <ellipse cx="640" cy="420" rx="20" ry="24" fill="rgba(8,4,2,0.9)"/>
+      <rect x="628" y="422" width="22" height="65" rx="3" fill="rgba(8,4,2,0.9)"/>
+      <ellipse cx="700" cy="415" rx="22" ry="26" fill="rgba(8,4,2,0.9)"/>
+      <rect x="686" y="418" width="26" height="70" rx="3" fill="rgba(8,4,2,0.9)"/>
+      <ellipse cx="762" cy="420" rx="20" ry="24" fill="rgba(8,4,2,0.9)"/>
+      <rect x="750" y="422" width="22" height="65" rx="3" fill="rgba(8,4,2,0.9)"/>
+      <ellipse cx="820" cy="428" rx="18" ry="22" fill="rgba(8,4,2,0.9)"/>
+      <rect x="810" y="430" width="20" height="60" rx="3" fill="rgba(8,4,2,0.9)"/>
+    </g>
+    <!-- Central fire -->
+    <ellipse cx="700" cy="408" rx="28" ry="16" fill="rgba(255,180,60,0.15)"/>
+    <ellipse cx="700" cy="402" rx="16" ry="10" fill="rgba(255,140,40,0.3)"/>
+    <circle cx="700" cy="398" r="6" fill="rgba(255,210,80,0.7)"/>
+    <circle cx="700" cy="396" r="3" fill="rgba(255,240,160,0.95)"/>
+  </svg>
+  <div class="cta-overlay"></div>
+  <div class="cta-content reveal">
+    <div class="tag" style="justify-content:center;">Begin the Engagement</div>
+    <h2>Ready to find your<br><em>hidden hours?</em></h2>
+    <p>Start with a free 90-minute diagnostic call. We'll identify your three biggest AI opportunities before we ever send a proposal.</p>
+    <div class="cta-group" style="justify-content:center;">
+      <a href="mailto:engage@prometheus-ai.com" class="btn-fire">Schedule a Diagnostic Call</a>
+      <a href="#how" class="btn-outline">Learn More First</a>
+    </div>
+  </div>
+</div>
 
 <!-- FOOTER -->
 <footer>
   <div class="footer-top">
     <div class="footer-brand">
-      <a href="#" class="nav-logo">Storm<span>rise</span></a>
-      <p>Engineering precipitation for a water-scarce world. Based in Santa Monica, California.</p>
+      <a href="#" class="logo">Prome<span>theus</span></a>
+      <p>AI operations consulting. We embed, we diagnose, we build, we automate. Your business, transformed.</p>
     </div>
     <div>
-      <div class="footer-col-title">Company</div>
+      <div class="footer-col-head">Services</div>
       <ul class="footer-links">
-        <li><a href="#">Technology</a></li>
-        <li><a href="#">Research</a></li>
-        <li><a href="#">Use Cases</a></li>
+        <li><a href="#">Operations Audit</a></li>
+        <li><a href="#">AI Agent Deployment</a></li>
+        <li><a href="#">Workflow Automation</a></li>
+        <li><a href="#">Team Training</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-head">Company</div>
+      <ul class="footer-links">
         <li><a href="#">About</a></li>
-        <li><a href="#">Press Kit</a></li>
-      </ul>
-    </div>
-    <div>
-      <div class="footer-col-title">Resources</div>
-      <ul class="footer-links">
-        <li><a href="#">Publications</a></li>
-        <li><a href="#">FAQ</a></li>
-        <li><a href="#">Safety Data</a></li>
+        <li><a href="#">Case Studies</a></li>
         <li><a href="#">Blog</a></li>
+        <li><a href="#">Careers</a></li>
       </ul>
     </div>
     <div>
-      <div class="footer-col-title">Get in touch</div>
+      <div class="footer-col-head">Connect</div>
       <ul class="footer-links">
-        <li><a href="#">Careers</a></li>
         <li><a href="#">Contact</a></li>
-        <li><a href="#">Partners</a></li>
-        <li><a href="#">Investors</a></li>
+        <li><a href="#">LinkedIn</a></li>
+        <li><a href="#">Newsletter</a></li>
+        <li><a href="#">engage@prometheus-ai.com</a></li>
       </ul>
     </div>
   </div>
   <div class="footer-bottom">
-    <div class="footer-copy">© 2026 Stormrise Technology Inc. — Rain. Engineered in America.</div>
-    <div class="footer-tagline">When clouds give, everyone wins.</div>
+    <div class="footer-copy">© 2026 Prometheus AI Consulting — All rights reserved.</div>
+    <div class="footer-myth">Fire. Given freely.</div>
   </div>
 </footer>
 
 <script>
-  // Generate rain drops
-  const layer = document.getElementById('rainLayer');
-  for (let i = 0; i < 60; i++) {
-    const drop = document.createElement('div');
-    drop.className = 'rain-drop';
-    const left = Math.random() * 100;
-    const duration = 1.2 + Math.random() * 2.5;
-    const delay = Math.random() * 4;
-    const height = 40 + Math.random() * 80;
-    const opacity = 0.2 + Math.random() * 0.5;
-    drop.style.cssText = `left:${left}%;height:${height}px;animation-duration:${duration}s;animation-delay:${delay}s;opacity:0;`;
-    layer.appendChild(drop);
-  }
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('revealed');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
-  // Intersection observer for reveal animations
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('revealed');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+// Subtle parallax on hero figure
+const heroFig = document.querySelector('.hero-figure');
+const heroGlow = document.querySelector('.hero-glow');
+window.addEventListener('scroll', () => {
+  const y = window.scrollY;
+  if (heroFig) heroFig.style.transform = `translateY(${y * 0.18}px)`;
+  if (heroGlow) heroGlow.style.transform = `translateY(${y * 0.08}px) scale(${1 + y * 0.0003})`;
+}, { passive: true });
 </script>
 </body>
 </html>
