@@ -1538,7 +1538,7 @@ footer {
   <div class="pb-overlay"></div>
   <div class="pb-content reveal">
     <h2>The bottleneck is never<br><em>where you think it is.</em></h2>
-    <p>We've found $2M in annual waste hiding in a single email thread. We've seen entire teams spending 60% of their week doing work a $30 AI agent now does in seconds. The fire is already there — we just show you where to hold it.</p>
+    <p>The waste is never where leadership thinks it is. It hides in handoffs, in inboxes, in the small repetitive tasks nobody ever counted. We find it, we quantify it, and we eliminate it. The fire is already there — we just show you where to hold it.</p>
   </div>
 </div>
 
@@ -1713,8 +1713,8 @@ footer {
     </div>
     <div class="tool-tile">
       <div class="tool-category">Automation Platform</div>
-      <div class="tool-name">OpenClaw</div>
-      <p class="tool-body">Our backbone for orchestrating multi-agent workflows, connecting AI systems to real business data, and deploying automations that run without babysitting. Purpose-built for the kind of scale our clients need.</p>
+      <div class="tool-name">n8n</div>
+      <p class="tool-body">Our backbone for orchestrating multi-agent workflows, connecting AI systems to real business data, and deploying automations that run without babysitting. Open, self-hostable, and built for the kind of scale our clients need.</p>
       <div class="tool-use">Workflow orchestration · Agent deployment · System integration</div>
     </div>
     <div class="tool-tile">
@@ -1909,7 +1909,7 @@ footer {
     <h2>Ready to find your<br><em>hidden hours?</em></h2>
     <p>Start with a free 90-minute diagnostic call. We'll identify your three biggest AI opportunities before we ever send a proposal.</p>
     <div class="cta-group" style="justify-content:center;">
-      <a href="mailto:engage@prometheus-ai.com" class="btn-fire">Schedule a Diagnostic Call</a>
+      <a href="#" class="btn-fire">Schedule a Diagnostic Call</a>
       <a href="#how" class="btn-outline">Learn More First</a>
     </div>
   </div>
@@ -1925,28 +1925,25 @@ footer {
     <div>
       <div class="footer-col-head">Services</div>
       <ul class="footer-links">
-        <li><a href="#">Operations Audit</a></li>
-        <li><a href="#">AI Agent Deployment</a></li>
-        <li><a href="#">Workflow Automation</a></li>
-        <li><a href="#">Team Training</a></li>
+        <li><a href="#how">Operations Audit</a></li>
+        <li><a href="#agents">AI Agent Deployment</a></li>
+        <li><a href="#agents">Workflow Automation</a></li>
+        <li><a href="#how">Team Training</a></li>
       </ul>
     </div>
     <div>
-      <div class="footer-col-head">Company</div>
+      <div class="footer-col-head">Navigate</div>
       <ul class="footer-links">
-        <li><a href="#">About</a></li>
-        <li><a href="#">Case Studies</a></li>
-        <li><a href="#">Blog</a></li>
-        <li><a href="#">Careers</a></li>
+        <li><a href="#how">Our Method</a></li>
+        <li><a href="#agents">AI Agents</a></li>
+        <li><a href="#tools">Tools</a></li>
+        <li><a href="#industries">Industries</a></li>
       </ul>
     </div>
     <div>
       <div class="footer-col-head">Connect</div>
       <ul class="footer-links">
-        <li><a href="#">Contact</a></li>
-        <li><a href="#">LinkedIn</a></li>
-        <li><a href="#">Newsletter</a></li>
-        <li><a href="#">engage@prometheus-ai.com</a></li>
+        <li><a href="#contact">Get in Touch</a></li>
       </ul>
     </div>
   </div>
