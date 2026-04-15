@@ -1022,6 +1022,196 @@ footer {
 .hero-sub     { animation: heroIn 1s 0.7s ease both; }
 .cta-group    { animation: heroIn 1s 0.9s ease both; }
 
+/* ─── HAMBURGER BUTTON ─── */
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  z-index: 1002;
+}
+.nav-hamburger span {
+  display: block;
+  width: 22px;
+  height: 1px;
+  background: var(--ivory);
+  transition: transform 0.3s, opacity 0.3s;
+}
+.nav-hamburger.active span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.nav-hamburger.active span:nth-child(2) { opacity: 0; }
+.nav-hamburger.active span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+/* ─── MOBILE NAV OVERLAY ─── */
+.nav-mobile-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  background: var(--soot);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  padding: 2rem;
+}
+.nav-mobile-overlay.open { display: flex; }
+.nav-mobile-overlay a {
+  font-family: var(--serif);
+  font-size: 1.8rem;
+  font-weight: 300;
+  color: var(--ivory);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  padding: 0.9rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  width: 100%;
+  text-align: center;
+  transition: color 0.2s;
+}
+.nav-mobile-overlay a:first-of-type { border-top: 1px solid rgba(255,255,255,0.07); }
+.nav-mobile-overlay a:hover { color: var(--gold-lt); }
+.nav-mobile-cta-link {
+  font-family: var(--sans) !important;
+  font-size: 0.7rem !important;
+  letter-spacing: 0.18em !important;
+  text-transform: uppercase;
+  color: var(--soot) !important;
+  background: var(--ember);
+  padding: 1rem 2.4rem !important;
+  margin-top: 2rem;
+  border: none !important;
+  width: auto !important;
+  display: inline-block;
+}
+.nav-mobile-cta-link:hover { background: var(--ember-lt); color: var(--soot) !important; }
+
+/* ─── RESPONSIVE: TABLET (≤1024px) ─── */
+@media (max-width: 1024px) {
+  nav { padding: 1.5rem 2.5rem; }
+  .hero { padding: 0 2.5rem 6rem; }
+  .statement { padding: 1.8rem 2.5rem; }
+  section { padding: 6rem 2.5rem; }
+  .how { padding: 6rem 2.5rem; }
+  .agents { padding: 6rem 2.5rem; }
+  .myth { padding: 6rem 2.5rem; }
+  .industries { padding: 6rem 2.5rem; }
+  footer { padding: 4rem 2.5rem 2.5rem; }
+  .process-visual { padding: 4rem 2.5rem; }
+}
+
+/* ─── RESPONSIVE: SMALL TABLET / LARGE PHONE (≤768px) ─── */
+@media (max-width: 768px) {
+  /* Navigation */
+  nav { padding: 1.2rem 1.5rem; }
+  .nav-links, .nav-cta { display: none; }
+  .nav-hamburger { display: flex; }
+
+  /* Hero */
+  .hero { padding: 0 1.5rem 5rem; min-height: 580px; }
+  .hero-figure { opacity: 0.2; }
+  .hero-scroll-cue { right: 1.5rem; }
+
+  /* Section foundations */
+  section { padding: 5rem 1.5rem; }
+  .how { padding: 5rem 1.5rem; }
+  .agents { padding: 5rem 1.5rem; }
+  .myth { padding: 5rem 1.5rem; }
+  .industries { padding: 5rem 1.5rem; }
+  .statement { padding: 1.5rem 1.5rem; }
+  footer { padding: 4rem 1.5rem 2rem; }
+
+  /* Process visual */
+  .process-visual {
+    height: auto;
+    min-height: 0;
+    padding: 4rem 1.5rem 3rem;
+    align-items: flex-start;
+  }
+
+  /* How section */
+  .how-intro {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+  .how-art { height: 220px; }
+  .how-steps { grid-template-columns: 1fr; }
+
+  /* Agents section */
+  .agents-head { grid-template-columns: 1fr; gap: 2rem; margin-bottom: 3rem; }
+  .agents-grid { grid-template-columns: 1fr; }
+
+  /* Myth section */
+  .myth-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .myth-portrait { aspect-ratio: 3 / 2; }
+
+  /* Tools section */
+  .tools { padding: 5rem 1.5rem; }
+  .tools-head { margin-bottom: 3rem; }
+
+  /* Process visual content */
+  .pv-content { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+  .pv-content::before { display: none; }
+
+  /* Footer */
+  .footer-top {
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    margin-bottom: 3rem;
+    padding-bottom: 3rem;
+  }
+  .footer-brand { grid-column: 1 / -1; }
+}
+
+/* ─── RESPONSIVE: MOBILE PHONE (≤600px) ─── */
+@media (max-width: 600px) {
+  section { padding: 4rem 1.2rem; }
+  .how { padding: 4rem 1.2rem; }
+  .agents { padding: 4rem 1.2rem; }
+  .myth { padding: 4rem 1.2rem; }
+  .industries { padding: 4rem 1.2rem; }
+
+  /* Industries list — stack vertically */
+  .industry-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3rem;
+    padding: 1.4rem 0;
+  }
+  .industry-arrow { display: none; }
+  .industry-tag { font-size: 0.58rem; }
+
+  /* Footer */
+  .footer-top { grid-template-columns: 1fr; gap: 2rem; }
+  .footer-bottom { flex-direction: column; gap: 0.8rem; text-align: center; }
+}
+
+/* ─── RESPONSIVE: SMALL PHONES (≤480px) ─── */
+@media (max-width: 480px) {
+  nav { padding: 1rem 1.2rem; }
+
+  /* Hero */
+  .hero { padding: 0 1.2rem 4rem; }
+  .hero-sub { font-size: 0.95rem; }
+  .hero-scroll-cue { display: none; }
+  .hero-figure { display: none; }
+
+  /* Process steps single column */
+  .pv-content { grid-template-columns: 1fr; }
+  .process-visual { padding: 3rem 1.2rem; }
+
+  /* Painting break */
+  .painting-break { min-height: 320px; }
+
+  /* How section */
+  .how-art { height: 180px; }
+  .how-intro { margin-bottom: 2rem; }
+}
+
 </style>
 </head>
 <body>
@@ -1037,7 +1227,20 @@ footer {
     <li><a href="#contact">Contact</a></li>
   </ul>
   <a href="#contact" class="nav-cta">Ignite Your Business</a>
+  <button class="nav-hamburger" id="navToggle" aria-label="Open navigation">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- MOBILE NAV OVERLAY -->
+<div class="nav-mobile-overlay" id="navOverlay">
+  <a href="#how" onclick="closeNav()">Our Method</a>
+  <a href="#agents" onclick="closeNav()">AI Agents</a>
+  <a href="#tools" onclick="closeNav()">Tools</a>
+  <a href="#industries" onclick="closeNav()">Industries</a>
+  <a href="#contact" onclick="closeNav()">Contact</a>
+  <a href="#contact" class="nav-mobile-cta-link" onclick="closeNav()">Ignite Your Business</a>
+</div>
 
 <!-- HERO -->
 <div class="hero">
@@ -1774,6 +1977,29 @@ window.addEventListener('scroll', () => {
   if (heroFig) heroFig.style.transform = `translateY(${y * 0.18}px)`;
   if (heroGlow) heroGlow.style.transform = `translateY(${y * 0.08}px) scale(${1 + y * 0.0003})`;
 }, { passive: true });
+
+// Mobile navigation
+const navToggle = document.getElementById('navToggle');
+const navOverlay = document.getElementById('navOverlay');
+
+function closeNav() {
+  navOverlay.classList.remove('open');
+  navToggle.classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+if (navToggle) {
+  navToggle.addEventListener('click', () => {
+    const isOpen = navOverlay.classList.contains('open');
+    if (isOpen) {
+      closeNav();
+    } else {
+      navOverlay.classList.add('open');
+      navToggle.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+  });
+}
 </script>
 </body>
 </html>
