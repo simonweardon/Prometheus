@@ -892,6 +892,120 @@ h2 em {
 
 .industry-item:hover .industry-arrow { opacity: 1; transform: translateX(0); }
 
+/* ─── CUSTOM SOFTWARE ─── */
+.custom-software {
+  background: var(--soot);
+  padding: 8rem 4rem;
+  border-top: 1px solid rgba(255,255,255,0.04);
+}
+
+.custom-software-head {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: end;
+  margin-bottom: 5rem;
+}
+
+.custom-software-head p {
+  font-size: 1rem;
+  line-height: 1.9;
+  color: var(--parchment);
+  opacity: 0.8;
+}
+
+.custom-software-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: rgba(255,255,255,0.04);
+  margin-bottom: 4rem;
+}
+
+.software-card {
+  background: var(--soot);
+  padding: 3rem;
+  position: relative;
+  transition: background 0.4s;
+  overflow: hidden;
+}
+
+.software-card:hover { background: var(--ash); }
+
+.software-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 2px; height: 0;
+  background: var(--gold);
+  transition: height 0.5s ease;
+}
+
+.software-card:hover::before { height: 100%; }
+
+.software-card-tag {
+  font-family: var(--sans);
+  font-size: 0.6rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1.5rem;
+}
+
+.software-card-title {
+  font-family: var(--serif);
+  font-size: 1.7rem;
+  font-weight: 400;
+  color: var(--ivory);
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.software-card-body {
+  font-size: 0.9rem;
+  line-height: 1.85;
+  color: var(--warm-gray);
+  margin-bottom: 1.5rem;
+}
+
+.software-card-examples {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.software-card-examples li {
+  font-size: 0.78rem;
+  color: var(--parchment);
+  opacity: 0.65;
+  padding-left: 1rem;
+  position: relative;
+}
+
+.software-card-examples li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: var(--gold);
+  opacity: 0.7;
+}
+
+.custom-software-cta {
+  text-align: center;
+  padding-top: 1rem;
+}
+
+.custom-software-cta p {
+  font-family: var(--serif);
+  font-size: 1.1rem;
+  color: var(--parchment);
+  opacity: 0.75;
+  margin-bottom: 2rem;
+  font-style: italic;
+}
+
 /* ─── CALL TO ACTION ─── */
 .cta-section {
   position: relative;
@@ -1140,6 +1254,7 @@ footer {
   .agents { padding: 6rem 2.5rem; }
   .myth { padding: 6rem 2.5rem; }
   .industries { padding: 6rem 2.5rem; }
+  .custom-software { padding: 6rem 2.5rem; }
   footer { padding: 4rem 2.5rem 2.5rem; }
   .process-visual { padding: 4rem 2.5rem; }
 }
@@ -1162,6 +1277,7 @@ footer {
   .agents { padding: 5rem 1.5rem; }
   .myth { padding: 5rem 1.5rem; }
   .industries { padding: 5rem 1.5rem; }
+  .custom-software { padding: 5rem 1.5rem; }
   .statement { padding: 1.5rem 1.5rem; }
   footer { padding: 4rem 1.5rem 2rem; }
 
@@ -1185,6 +1301,10 @@ footer {
   /* Agents section */
   .agents-head { grid-template-columns: 1fr; gap: 2rem; margin-bottom: 3rem; }
   .agents-grid { grid-template-columns: 1fr; }
+
+  /* Custom software section */
+  .custom-software-head { grid-template-columns: 1fr; gap: 2rem; margin-bottom: 3rem; }
+  .custom-software-grid { grid-template-columns: 1fr; }
 
   /* Myth section */
   .myth-grid { grid-template-columns: 1fr; gap: 3rem; }
@@ -1215,6 +1335,7 @@ footer {
   .agents { padding: 4rem 1.2rem; }
   .myth { padding: 4rem 1.2rem; }
   .industries { padding: 4rem 1.2rem; }
+  .custom-software { padding: 4rem 1.2rem; }
 
   /* Industries list — stack vertically */
   .industry-item {
@@ -1265,6 +1386,7 @@ footer {
     <li><a href="#agents">AI Agents</a></li>
     <li><a href="#tools">Tools</a></li>
     <li><a href="#industries">Industries</a></li>
+    <li><a href="#custom-software">Custom Software</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
   <a href="#contact" class="nav-cta">Ignite Your Business</a>
@@ -1279,6 +1401,7 @@ footer {
   <a href="#agents" onclick="closeNav()">AI Agents</a>
   <a href="#tools" onclick="closeNav()">Tools</a>
   <a href="#industries" onclick="closeNav()">Industries</a>
+  <a href="#custom-software" onclick="closeNav()">Custom Software</a>
   <a href="#contact" onclick="closeNav()">Contact</a>
   <a href="#contact" class="nav-mobile-cta-link" onclick="closeNav()">Ignite Your Business</a>
 </div>
@@ -1946,6 +2069,60 @@ footer {
   </div>
 </section>
 
+<!-- CUSTOM SOFTWARE -->
+<section class="custom-software" id="custom-software">
+  <div class="custom-software-head">
+    <div>
+      <div class="tag reveal">Custom Software</div>
+      <h2 class="reveal">Can't find software<br>that fits? <em>We'll build it.</em></h2>
+    </div>
+    <p class="reveal">
+      Off-the-shelf software is built for the average business — not yours. If you've searched and nothing quite fits the way you operate, we engineer the solution from scratch. We build fully custom software across any industry, with deep specialization in the sectors where precision matters most.
+    </p>
+  </div>
+
+  <div class="custom-software-grid reveal">
+    <div class="software-card">
+      <div class="software-card-tag">Specialization</div>
+      <div class="software-card-title">Fintech Software</div>
+      <p class="software-card-body">Financial technology demands more than generic platforms can give. We build purpose-engineered fintech solutions — from payment processing engines and lending platforms to compliance dashboards and portfolio management tools — built to your exact regulatory and operational requirements.</p>
+      <ul class="software-card-examples">
+        <li>Custom payment &amp; transaction processing</li>
+        <li>Lending &amp; underwriting platforms</li>
+        <li>Regulatory compliance &amp; reporting tools</li>
+        <li>Portfolio &amp; wealth management dashboards</li>
+      </ul>
+    </div>
+    <div class="software-card">
+      <div class="software-card-tag">Specialization</div>
+      <div class="software-card-title">CRM Software</div>
+      <p class="software-card-body">Your customer relationships don't fit a Salesforce template. We build custom CRM systems wired to your actual sales process, your data sources, and your team's workflow — with none of the bloat, none of the workarounds, and all of the functionality you've been asking for.</p>
+      <ul class="software-card-examples">
+        <li>Sales pipeline &amp; deal management</li>
+        <li>Client lifecycle &amp; communication tracking</li>
+        <li>Custom field structures &amp; reporting</li>
+        <li>Native integration with your existing stack</li>
+      </ul>
+    </div>
+    <div class="software-card">
+      <div class="software-card-tag">Specialization</div>
+      <div class="software-card-title">Service Operations Software</div>
+      <p class="software-card-body">Service businesses run on coordination, scheduling, and follow-through. We build operations software that mirrors how your service actually delivers — from job management and field dispatch to client portals and automated billing — so your team spends time serving, not administrating.</p>
+      <ul class="software-card-examples">
+        <li>Job &amp; project management systems</li>
+        <li>Field dispatch &amp; scheduling platforms</li>
+        <li>Client portals &amp; service tracking</li>
+        <li>Automated invoicing &amp; billing workflows</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="custom-software-cta reveal">
+    <p>We build for any industry. These are just where we're sharpest.</p>
+    <a href="#contact" class="btn-fire">Tell Us What You Need</a>
+  </div>
+</section>
+
 <!-- CTA SECTION -->
 <div class="cta-section" id="contact">
   <svg class="cta-canvas" viewBox="0 0 1400 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
@@ -2009,6 +2186,7 @@ footer {
         <li><a href="#how">Operations Audit</a></li>
         <li><a href="#agents">AI Agent Deployment</a></li>
         <li><a href="#agents">Workflow Automation</a></li>
+        <li><a href="#custom-software">Custom Software</a></li>
         <li><a href="#how">Team Training</a></li>
       </ul>
     </div>
@@ -2019,6 +2197,7 @@ footer {
         <li><a href="#agents">AI Agents</a></li>
         <li><a href="#tools">Tools</a></li>
         <li><a href="#industries">Industries</a></li>
+        <li><a href="#custom-software">Custom Software</a></li>
       </ul>
     </div>
     <div>
