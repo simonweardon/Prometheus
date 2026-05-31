@@ -1904,12 +1904,6 @@ footer {
 
   <div class="tools-grid reveal">
     <div class="tool-tile">
-      <div class="tool-category">AI Research</div>
-      <div class="tool-name">Google Deep Research</div>
-      <p class="tool-body">Multi-step AI-powered research that synthesizes sources, follows citation chains, and surfaces insights that standard search buries. We use it for competitive analysis, client discovery, and staying ahead of the field.</p>
-      <div class="tool-use">Deep analysis · Market research · Competitive intel</div>
-    </div>
-    <div class="tool-tile">
       <div class="tool-category">AI Engineering</div>
       <div class="tool-name">Claude Code</div>
       <p class="tool-body">Anthropic's agentic CLI that reasons over entire codebases, writes and edits files, runs tests, and handles the scaffolding that slows engineers down. Our default environment for building and iterating on agent systems.</p>
@@ -1950,6 +1944,60 @@ footer {
       <div class="tool-name">Slack + Integrations</div>
       <p class="tool-body">The operational nervous system — wired to Linear, GitHub, and our agent pipelines so status surfaces where the team already lives. We build the same kind of connected communication layers for our clients.</p>
       <div class="tool-use">Team coordination · Automated alerts · Client channels</div>
+    </div>
+    <div class="tool-tile">
+      <div class="tool-category">Frontier LLM</div>
+      <div class="tool-name">ChatGPT</div>
+      <p class="tool-body">OpenAI's reasoning workhorse — custom GPTs, advanced data analysis, and the deepest plugin ecosystem in the field. We run it alongside Claude so every problem meets the model best suited to crack it.</p>
+      <div class="tool-use">Reasoning · Custom GPTs · Data analysis</div>
+    </div>
+    <div class="tool-tile">
+      <div class="tool-category">Multimodal AI</div>
+      <div class="tool-name">Gemini</div>
+      <p class="tool-body">Google's long-context, multimodal model. Million-token windows that swallow entire codebases, contract libraries, or video archives in a single pass — and answer with the whole picture in view.</p>
+      <div class="tool-use">Long-context analysis · Video understanding · Document review</div>
+    </div>
+    <div class="tool-tile">
+      <div class="tool-category">Workflow Automation</div>
+      <div class="tool-name">n8n</div>
+      <p class="tool-body">Self-hosted, open-source workflow automation. Where Zapier ends, n8n begins — custom logic, full control, and the ability to deploy inside a client's firewall when the data can't leave the building.</p>
+      <div class="tool-use">Custom workflows · Self-hosted automation · Secure pipelines</div>
+    </div>
+    <div class="tool-tile">
+      <div class="tool-category">App Integration</div>
+      <div class="tool-name">Zapier</div>
+      <p class="tool-body">The fastest path from "we need these systems talking" to working pipeline. Thousands of integrations, zero infrastructure — we use it to glue the long tail of SaaS into a coherent flow.</p>
+      <div class="tool-use">SaaS integration · Rapid prototyping · Cross-app triggers</div>
+    </div>
+    <div class="tool-tile">
+      <div class="tool-category">Voice AI</div>
+      <div class="tool-name">ElevenLabs</div>
+      <p class="tool-body">State-of-the-art voice synthesis and cloning. We use it to build voice agents that handle inbound calls, narrate reports, and turn written knowledge into something a human can actually listen to.</p>
+      <div class="tool-use">Voice agents · Call automation · Audio content</div>
+    </div>
+    <div class="tool-tile">
+      <div class="tool-category">UI Generation</div>
+      <div class="tool-name">v0 by Vercel</div>
+      <p class="tool-body">AI-powered interface generation. Describe the screen, get a working React component — production-grade and ready to ship. We use it to prototype client dashboards in hours, not weeks.</p>
+      <div class="tool-use">Rapid prototyping · Dashboard generation · UI iteration</div>
+    </div>
+    <div class="tool-tile">
+      <div class="tool-category">Agent Framework</div>
+      <div class="tool-name">LangGraph</div>
+      <p class="tool-body">The orchestration layer for serious agent systems. Stateful, controllable, and built for the kind of multi-step workflows that production demands. Every complex agent we ship runs on it.</p>
+      <div class="tool-use">Agent orchestration · Stateful workflows · Production agents</div>
+    </div>
+    <div class="tool-tile">
+      <div class="tool-category">Vector Database</div>
+      <div class="tool-name">Pinecone</div>
+      <p class="tool-body">High-performance vector search at scale. We use it as the retrieval backbone for RAG systems — turning a client's documents, tickets, and tribal knowledge into something every agent can query in milliseconds.</p>
+      <div class="tool-use">RAG systems · Semantic search · Knowledge retrieval</div>
+    </div>
+    <div class="tool-tile">
+      <div class="tool-category">Agent Observability</div>
+      <div class="tool-name">LangSmith</div>
+      <p class="tool-body">The microscope for agent systems. Every prompt, every tool call, every token logged and traceable — so when something breaks at 3am, we know exactly which step failed and why.</p>
+      <div class="tool-use">Tracing · Evaluation · Production monitoring</div>
     </div>
   </div>
 </section>
