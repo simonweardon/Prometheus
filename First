@@ -1412,76 +1412,185 @@ footer {
     <div class="hero-sky"></div>
     <div class="hero-glow"></div>
 
-    <!-- Oil-painting-style hero figure: a person standing before a glowing horizon -->
+    <!-- Oil-painting-style hero figure: a Promethean figure on a rocky outcrop facing the dawn fire -->
     <svg class="hero-figure" viewBox="0 0 600 800" preserveAspectRatio="xMidYMax meet" fill="none" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <radialGradient id="hg1" cx="50%" cy="40%" r="60%">
-          <stop offset="0%" stop-color="#FF9A40" stop-opacity="0.35"/>
+          <stop offset="0%" stop-color="#FFB060" stop-opacity="0.45"/>
+          <stop offset="55%" stop-color="#A04018" stop-opacity="0.18"/>
           <stop offset="100%" stop-color="#2A1508" stop-opacity="0"/>
         </radialGradient>
-        <radialGradient id="fg1" cx="50%" cy="20%" r="80%">
-          <stop offset="0%" stop-color="#E87030" stop-opacity="0.2"/>
-          <stop offset="100%" stop-color="#0D0B08" stop-opacity="0"/>
+        <radialGradient id="hgCore" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#FFF0C8" stop-opacity="1"/>
+          <stop offset="35%" stop-color="#FFC870" stop-opacity="0.8"/>
+          <stop offset="100%" stop-color="#FF8030" stop-opacity="0"/>
         </radialGradient>
-        <!-- Impasto oil brushstroke filter -->
+        <linearGradient id="cloakGrad" x1="0" y1="0" x2="1" y2="0.4">
+          <stop offset="0%" stop-color="#1A0E07"/>
+          <stop offset="40%" stop-color="#0A0502"/>
+          <stop offset="100%" stop-color="#050201"/>
+        </linearGradient>
+        <linearGradient id="rimLight" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#E88040" stop-opacity="0.55"/>
+          <stop offset="100%" stop-color="#E88040" stop-opacity="0"/>
+        </linearGradient>
+        <linearGradient id="mountFar" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#3A1F10" stop-opacity="0.5"/>
+          <stop offset="100%" stop-color="#1A0D06" stop-opacity="0.85"/>
+        </linearGradient>
+        <!-- Impasto oil brushstroke filter, broad strokes -->
         <filter id="paint" x="-20%" y="-20%" width="140%" height="140%">
-          <feTurbulence type="fractalNoise" baseFrequency="0.04 0.06" numOctaves="4" seed="2" result="noise"/>
-          <feDisplacementMap in="SourceGraphic" in2="noise" scale="6" xChannelSelector="R" yChannelSelector="G"/>
+          <feTurbulence type="fractalNoise" baseFrequency="0.018 0.045" numOctaves="5" seed="2" result="noise"/>
+          <feDisplacementMap in="SourceGraphic" in2="noise" scale="9" xChannelSelector="R" yChannelSelector="G"/>
         </filter>
+        <!-- Finer brush, for figure detail -->
+        <filter id="paintFine" x="-10%" y="-10%" width="120%" height="120%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.06 0.09" numOctaves="3" seed="4" result="n2"/>
+          <feDisplacementMap in="SourceGraphic" in2="n2" scale="3" xChannelSelector="R" yChannelSelector="G"/>
+        </filter>
+        <!-- Soft blur for atmospheric haze -->
+        <filter id="atmoBlur"><feGaussianBlur stdDeviation="14"/></filter>
       </defs>
 
-      <!-- Sky atmosphere layers — impasto clouds -->
-      <ellipse cx="300" cy="160" rx="280" ry="130" fill="rgba(60,25,8,0.3)" filter="url(#paint)"/>
-      <ellipse cx="420" cy="200" rx="200" ry="100" fill="rgba(90,35,10,0.2)" filter="url(#paint)"/>
-      <ellipse cx="180" cy="240" rx="180" ry="90" fill="rgba(40,18,6,0.25)" filter="url(#paint)"/>
+      <!-- ── DEEP SKY ATMOSPHERE: layered painterly clouds ── -->
+      <ellipse cx="320" cy="120" rx="340" ry="160" fill="rgba(70,30,10,0.35)" filter="url(#paint)"/>
+      <ellipse cx="440" cy="180" rx="220" ry="110" fill="rgba(110,45,15,0.28)" filter="url(#paint)"/>
+      <ellipse cx="160" cy="220" rx="200" ry="95" fill="rgba(45,22,8,0.32)" filter="url(#paint)"/>
+      <ellipse cx="380" cy="250" rx="150" ry="60" fill="rgba(130,55,18,0.18)" filter="url(#paint)"/>
+      <ellipse cx="220" cy="155" rx="110" ry="35" fill="rgba(160,75,25,0.12)" filter="url(#paint)"/>
 
-      <!-- Warm glow emanating from center — the fire / AI light source -->
-      <ellipse cx="300" cy="320" rx="180" ry="120" fill="url(#hg1)"/>
-      <ellipse cx="300" cy="260" rx="100" ry="80" fill="rgba(255,160,60,0.12)"/>
+      <!-- ── DISTANT MOUNTAIN RANGE — atmospheric perspective layers ── -->
+      <path d="M0 500 Q60 460 130 470 Q200 480 270 440 Q340 400 410 430 Q480 460 560 425 Q590 415 600 420 L600 560 L0 560 Z"
+            fill="url(#mountFar)" opacity="0.7" filter="url(#paint)"/>
+      <path d="M0 540 Q80 495 160 510 Q240 525 320 480 Q400 440 480 470 Q540 490 600 470 L600 600 L0 600 Z"
+            fill="rgba(22,12,5,0.85)" filter="url(#paint)"/>
 
-      <!-- Distant landscape silhouette — painterly horizon -->
-      <path d="M0 580 Q80 520 150 540 Q200 555 250 500 Q290 460 320 490 Q360 520 400 480 Q450 440 500 460 Q550 475 600 450 L600 800 L0 800 Z" fill="rgba(18,10,4,0.85)" filter="url(#paint)"/>
-      <path d="M0 620 Q100 580 200 595 Q300 610 400 575 Q500 545 600 565 L600 800 L0 800 Z" fill="rgba(12,7,2,0.9)"/>
+      <!-- ── WARM HALO surrounding the distant fire ── -->
+      <ellipse cx="300" cy="330" rx="260" ry="170" fill="url(#hg1)"/>
+      <ellipse cx="300" cy="320" rx="120" ry="90" fill="rgba(255,170,70,0.18)" filter="url(#atmoBlur)"/>
 
-      <!-- Figure silhouette — person facing away toward the light, arms slightly open -->
-      <!-- Body: painterly dark silhouette -->
-      <g filter="url(#paint)">
-        <!-- Legs -->
-        <path d="M265 750 Q268 700 272 670 Q275 640 278 620 L300 620 Q302 640 305 670 Q308 700 312 750 Z" fill="rgba(10,6,2,0.95)"/>
-        <!-- Coat/jacket body -->
-        <path d="M240 620 Q245 570 248 540 Q255 490 270 460 Q280 440 300 435 Q320 440 330 460 Q345 490 352 540 Q355 570 360 620 Z" fill="rgba(10,6,2,0.95)"/>
-        <!-- Left arm reaching slightly outward -->
-        <path d="M248 540 Q230 510 210 490 Q196 475 185 465 Q190 458 198 455 Q215 465 232 478 Q250 495 260 520 Z" fill="rgba(10,6,2,0.95)"/>
-        <!-- Right arm -->
-        <path d="M352 540 Q370 510 390 490 Q404 475 415 465 Q410 458 402 455 Q385 465 368 478 Q350 495 340 520 Z" fill="rgba(10,6,2,0.95)"/>
-        <!-- Head -->
-        <ellipse cx="300" cy="415" rx="28" ry="32" fill="rgba(10,6,2,0.95)"/>
-        <!-- Shoulder line -->
-        <path d="M240 490 Q270 478 300 475 Q330 478 360 490" stroke="rgba(10,6,2,0.9)" stroke-width="8" fill="none"/>
+      <!-- Volumetric god-rays from horizon -->
+      <g opacity="0.16" style="mix-blend-mode:screen">
+        <path d="M300 325 L90 600 L130 600 L300 330 Z" fill="rgba(255,180,90,0.5)"/>
+        <path d="M300 325 L210 620 L240 620 L300 332 Z" fill="rgba(255,160,70,0.6)"/>
+        <path d="M300 325 L360 620 L390 620 L300 332 Z" fill="rgba(255,160,70,0.6)"/>
+        <path d="M300 325 L470 600 L510 600 L300 330 Z" fill="rgba(255,180,90,0.5)"/>
       </g>
 
-      <!-- Figure's edge lit by fire — warm rim light on left side -->
-      <path d="M248 540 Q246 510 255 480 Q265 455 278 440 Q285 437 288 438 Q268 460 262 490 Q255 515 253 545 Z" fill="rgba(200,100,30,0.18)"/>
-      <path d="M240 620 Q238 590 242 560 Q246 540 250 528 Q248 555 244 578 Q242 598 242 620 Z" fill="rgba(180,80,20,0.15)"/>
+      <!-- ── PAINTERLY HORIZON: nearer ridges with reflected light ── -->
+      <path d="M0 590 Q100 550 200 565 Q300 580 400 545 Q500 515 600 530 L600 640 L0 640 Z"
+            fill="rgba(20,10,4,0.92)" filter="url(#paint)"/>
+      <!-- Warm rim on the nearer ridge -->
+      <path d="M120 580 Q200 560 280 568 Q360 575 440 555" stroke="rgba(210,110,40,0.35)" stroke-width="2" fill="none" filter="url(#paintFine)"/>
 
-      <!-- Ground shadow -->
-      <ellipse cx="300" cy="770" rx="80" ry="18" fill="rgba(5,3,1,0.7)"/>
+      <!-- ── ROCKY OUTCROP (foreground plinth the figure stands on) ── -->
+      <path d="M150 800 Q160 720 200 700 Q260 685 320 690 Q400 695 460 710 Q500 720 510 800 Z"
+            fill="rgba(6,3,1,0.95)" filter="url(#paint)"/>
+      <!-- Cracks of glowing magma in the rock -->
+      <path d="M210 740 Q240 730 270 745 Q295 758 280 770" stroke="rgba(200,90,25,0.45)" stroke-width="1.4" fill="none"/>
+      <path d="M340 720 Q370 735 395 730 Q420 728 430 745" stroke="rgba(180,70,20,0.35)" stroke-width="1" fill="none"/>
 
-      <!-- Light rays from the horizon (the AI / fire) -->
-      <g opacity="0.12">
-        <line x1="300" y1="320" x2="100" y2="580" stroke="#FF9A40" stroke-width="1"/>
-        <line x1="300" y1="320" x2="180" y2="600" stroke="#FF9A40" stroke-width="1.5"/>
-        <line x1="300" y1="320" x2="260" y2="610" stroke="#FF9A40" stroke-width="1"/>
-        <line x1="300" y1="320" x2="340" y2="610" stroke="#FF9A40" stroke-width="1"/>
-        <line x1="300" y1="320" x2="420" y2="600" stroke="#FF9A40" stroke-width="1.5"/>
-        <line x1="300" y1="320" x2="500" y2="580" stroke="#FF9A40" stroke-width="1"/>
+      <!-- ── THE FIGURE: properly proportioned, robed, on the outcrop ── -->
+      <g filter="url(#paintFine)">
+        <!-- Long cloak flowing behind, catching wind -->
+        <path d="M250 580 Q220 620 200 680 Q188 720 196 760 Q210 740 230 720 Q248 700 258 670 Q263 640 263 610 Z"
+              fill="url(#cloakGrad)"/>
+        <path d="M350 580 Q380 615 398 660 Q408 695 402 740 Q390 720 374 700 Q358 680 348 650 Q342 620 343 595 Z"
+              fill="url(#cloakGrad)"/>
+
+        <!-- Lower body / legs (slightly turned stance) -->
+        <path d="M278 700 Q276 660 280 622 L292 622 Q295 660 297 700 Q297 715 293 720 Q282 720 278 715 Z" fill="#070302"/>
+        <path d="M306 700 Q304 660 308 622 L320 622 Q323 660 326 700 Q326 715 320 720 Q310 720 306 715 Z" fill="#080402"/>
+
+        <!-- Boots / planted feet on rock -->
+        <ellipse cx="287" cy="722" rx="14" ry="6" fill="#040201"/>
+        <ellipse cx="316" cy="722" rx="14" ry="6" fill="#040201"/>
+
+        <!-- Torso: belted tunic shape, with painterly contour -->
+        <path d="M268 480 Q260 510 258 540 Q256 575 260 610 Q280 622 300 622 Q320 622 340 610 Q344 575 342 540 Q340 510 332 480 Q318 472 300 470 Q282 472 268 480 Z" fill="#0A0503"/>
+
+        <!-- Cloak draped over shoulders, flowing down -->
+        <path d="M252 478 Q248 510 252 545 Q256 580 268 610 Q260 585 258 555 Q256 520 260 488 Z" fill="#070302"/>
+        <path d="M348 478 Q352 510 348 545 Q344 580 332 610 Q340 585 342 555 Q344 520 340 488 Z" fill="#070302"/>
+
+        <!-- Belt suggestion (warm catch of light) -->
+        <path d="M262 562 Q300 568 338 562" stroke="rgba(150,70,25,0.45)" stroke-width="2" fill="none"/>
+
+        <!-- Shoulder yoke -->
+        <path d="M246 478 Q272 462 300 460 Q328 462 354 478 Q344 470 322 466 Q300 463 278 466 Q256 470 246 478 Z" fill="#050201"/>
+
+        <!-- Neck -->
+        <path d="M290 440 L290 460 L310 460 L310 440 Z" fill="#0A0503"/>
+
+        <!-- Head — turned slightly, viewed three-quarter back -->
+        <ellipse cx="300" cy="425" rx="22" ry="26" fill="#0A0503"/>
+        <!-- Hair mass -->
+        <path d="M280 410 Q284 396 300 393 Q318 396 320 412 Q322 430 318 442 Q310 432 300 430 Q288 432 282 442 Q278 428 280 410 Z" fill="#050201"/>
+
+        <!-- LEFT ARM raised, extended forward toward the light -->
+        <!-- Upper arm -->
+        <path d="M268 488 Q250 500 234 520 Q220 538 214 555 Q220 552 232 540 Q252 522 270 506 Z" fill="#0A0503"/>
+        <!-- Forearm reaching forward -->
+        <path d="M214 555 Q210 540 218 524 Q230 510 250 502 Q248 514 240 528 Q230 545 224 562 Z" fill="#080402"/>
+        <!-- Hand reaching toward fire (open) -->
+        <path d="M210 552 Q204 548 200 546 Q196 549 198 555 Q202 560 210 562 Z" fill="#0A0503"/>
+
+        <!-- RIGHT ARM down at side, holding cloth -->
+        <path d="M332 488 Q346 510 354 540 Q358 568 354 595 Q348 575 344 552 Q340 522 332 500 Z" fill="#0A0503"/>
       </g>
 
-      <!-- The fire / AI orb — glowing ember at horizon -->
-      <circle cx="300" cy="325" r="28" fill="rgba(255,180,60,0.15)"/>
-      <circle cx="300" cy="325" r="16" fill="rgba(255,160,50,0.25)"/>
-      <circle cx="300" cy="325" r="8" fill="rgba(255,200,80,0.6)"/>
-      <circle cx="300" cy="325" r="4" fill="rgba(255,230,150,0.9)"/>
+      <!-- ── WARM RIM LIGHT on figure's left side (toward fire) ── -->
+      <path d="M260 480 Q254 510 256 545 Q260 580 270 610" stroke="url(#rimLight)" stroke-width="3" fill="none" filter="url(#paintFine)"/>
+      <path d="M268 488 Q252 502 236 522 Q222 540 218 558" stroke="rgba(232,130,50,0.55)" stroke-width="2" fill="none"/>
+      <path d="M210 555 Q205 550 200 547" stroke="rgba(255,180,90,0.7)" stroke-width="1.4" fill="none"/>
+      <!-- Glow on cheek of figure -->
+      <ellipse cx="287" cy="430" rx="6" ry="9" fill="rgba(220,120,50,0.35)" filter="url(#atmoBlur)"/>
+      <!-- Highlight on shoulder -->
+      <path d="M250 478 Q258 472 268 470" stroke="rgba(232,133,74,0.5)" stroke-width="1.5" fill="none"/>
+
+      <!-- Cool reflected light on opposite side (subtle blue-violet) -->
+      <path d="M340 482 Q346 512 348 545 Q346 580 340 605" stroke="rgba(80,80,120,0.18)" stroke-width="2" fill="none"/>
+
+      <!-- ── THE DISTANT FIRE: layered ember at horizon ── -->
+      <ellipse cx="300" cy="328" rx="48" ry="36" fill="rgba(255,180,80,0.18)" filter="url(#atmoBlur)"/>
+      <ellipse cx="300" cy="325" rx="26" ry="22" fill="rgba(255,160,60,0.35)"/>
+      <ellipse cx="300" cy="322" rx="14" ry="12" fill="rgba(255,200,90,0.7)"/>
+      <ellipse cx="300" cy="320" rx="7" ry="6" fill="url(#hgCore)"/>
+      <circle cx="300" cy="318" r="2.5" fill="#FFFCEC"/>
+
+      <!-- ── FLOATING EMBERS rising from the fire ── -->
+      <g opacity="0.85">
+        <circle cx="285" cy="290" r="1.4" fill="#FFD080"/>
+        <circle cx="320" cy="270" r="1" fill="#FFB060"/>
+        <circle cx="270" cy="240" r="1.6" fill="#FFE0A0"/>
+        <circle cx="335" cy="220" r="1.2" fill="#FFC870"/>
+        <circle cx="295" cy="200" r="0.8" fill="#FFE090"/>
+        <circle cx="315" cy="160" r="1" fill="#FFB050"/>
+        <circle cx="260" cy="180" r="0.7" fill="#FFD070"/>
+        <circle cx="350" cy="120" r="1.1" fill="#FFC060"/>
+        <circle cx="245" cy="130" r="0.9" fill="#FFE090"/>
+      </g>
+      <!-- Soft ember trails -->
+      <g opacity="0.3">
+        <path d="M285 290 Q282 270 286 240" stroke="rgba(255,160,60,0.5)" stroke-width="0.6" fill="none"/>
+        <path d="M320 270 Q322 240 318 200" stroke="rgba(255,160,60,0.4)" stroke-width="0.5" fill="none"/>
+      </g>
+
+      <!-- ── ATMOSPHERIC HAZE drifting across the scene ── -->
+      <ellipse cx="280" cy="600" rx="280" ry="22" fill="rgba(80,40,15,0.25)" filter="url(#atmoBlur)"/>
+      <ellipse cx="340" cy="640" rx="260" ry="18" fill="rgba(60,30,10,0.3)" filter="url(#atmoBlur)"/>
+
+      <!-- Ground shadow under figure -->
+      <ellipse cx="302" cy="730" rx="62" ry="9" fill="rgba(2,1,0,0.75)" filter="url(#atmoBlur)"/>
+
+      <!-- Subtle dust motes catching light -->
+      <g opacity="0.4">
+        <circle cx="195" cy="440" r="0.6" fill="#E8A060"/>
+        <circle cx="420" cy="380" r="0.5" fill="#E8A060"/>
+        <circle cx="380" cy="490" r="0.7" fill="#FFB070"/>
+        <circle cx="170" cy="510" r="0.5" fill="#E8A060"/>
+        <circle cx="450" cy="450" r="0.6" fill="#E8A060"/>
+      </g>
     </svg>
 
     <div class="hero-ground"></div>
@@ -1565,84 +1674,265 @@ footer {
   <div class="how-art reveal" style="margin-bottom: 5rem;">
     <svg class="how-art-canvas" viewBox="0 0 1200 480" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
       <defs>
-        <radialGradient id="forge" cx="42%" cy="60%" r="35%">
-          <stop offset="0%" stop-color="#FF9A40" stop-opacity="0.5"/>
-          <stop offset="40%" stop-color="#C4622D" stop-opacity="0.25"/>
+        <radialGradient id="forge" cx="42%" cy="68%" r="38%">
+          <stop offset="0%" stop-color="#FFC070" stop-opacity="0.6"/>
+          <stop offset="25%" stop-color="#FF8030" stop-opacity="0.4"/>
+          <stop offset="55%" stop-color="#A03808" stop-opacity="0.22"/>
           <stop offset="100%" stop-color="#0D0B08" stop-opacity="0"/>
         </radialGradient>
-        <filter id="oil" x="-10%" y="-10%" width="120%" height="120%">
-          <feTurbulence type="fractalNoise" baseFrequency="0.025 0.04" numOctaves="5" seed="8" result="n"/>
-          <feDisplacementMap in="SourceGraphic" in2="n" scale="10" xChannelSelector="R" yChannelSelector="G"/>
-        </filter>
+        <radialGradient id="forgeCore" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#FFF4C8" stop-opacity="1"/>
+          <stop offset="35%" stop-color="#FFC060" stop-opacity="0.9"/>
+          <stop offset="100%" stop-color="#FF6020" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="moltenMetal" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#FFF8D8" stop-opacity="1"/>
+          <stop offset="40%" stop-color="#FFB050" stop-opacity="0.9"/>
+          <stop offset="100%" stop-color="#C84010" stop-opacity="0.7"/>
+        </radialGradient>
+        <linearGradient id="smoke" x1="0" y1="1" x2="0" y2="0">
+          <stop offset="0%" stop-color="rgba(40,20,10,0.6)"/>
+          <stop offset="100%" stop-color="rgba(40,20,10,0)"/>
+        </linearGradient>
+        <linearGradient id="anvilGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#1A0E08"/>
+          <stop offset="100%" stop-color="#040201"/>
+        </linearGradient>
+        <linearGradient id="stoneWall" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#1A1008" stop-opacity="0.9"/>
+          <stop offset="100%" stop-color="#0A0502" stop-opacity="1"/>
+        </linearGradient>
         <linearGradient id="groundGrad" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stop-color="#1A0D05"/>
           <stop offset="100%" stop-color="#0A0603"/>
         </linearGradient>
+        <filter id="oil" x="-10%" y="-10%" width="120%" height="120%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.018 0.035" numOctaves="5" seed="8" result="n"/>
+          <feDisplacementMap in="SourceGraphic" in2="n" scale="11" xChannelSelector="R" yChannelSelector="G"/>
+        </filter>
+        <filter id="oilFig" x="-5%" y="-5%" width="110%" height="110%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.05 0.08" numOctaves="3" seed="6" result="n2"/>
+          <feDisplacementMap in="SourceGraphic" in2="n2" scale="4" xChannelSelector="R" yChannelSelector="G"/>
+        </filter>
+        <filter id="softGlow"><feGaussianBlur stdDeviation="8"/></filter>
+        <filter id="bigBlur"><feGaussianBlur stdDeviation="22"/></filter>
       </defs>
 
-      <!-- Background: deep forge interior -->
-      <rect width="1200" height="480" fill="#0D0B08"/>
+      <!-- ── DEEP FORGE INTERIOR ── -->
+      <rect width="1200" height="480" fill="#0A0604"/>
 
-      <!-- Atmospheric warmth from forge -->
-      <ellipse cx="500" cy="300" rx="420" ry="260" fill="url(#forge)"/>
-      <ellipse cx="500" cy="320" rx="200" ry="130" fill="rgba(220,100,30,0.15)"/>
+      <!-- Heavy stone arch / vaulted ceiling -->
+      <path d="M0 0 L1200 0 L1200 90 Q1000 130 900 140 Q700 155 600 150 Q400 145 250 130 Q100 115 0 95 Z"
+            fill="url(#stoneWall)" filter="url(#oil)"/>
+      <!-- Vault edge highlight -->
+      <path d="M100 110 Q400 140 700 145 Q1000 140 1100 115"
+            stroke="rgba(80,40,15,0.4)" stroke-width="2" fill="none" filter="url(#oil)"/>
 
-      <!-- Ceiling/wall shadows -->
-      <path d="M0 0 L1200 0 L1200 120 Q900 80 600 100 Q300 120 0 90 Z" fill="rgba(8,5,2,0.7)"/>
+      <!-- Stone wall texture suggestion -->
+      <g opacity="0.4" filter="url(#oil)">
+        <rect x="60" y="80" width="80" height="40" fill="rgba(28,16,8,0.6)"/>
+        <rect x="140" y="60" width="100" height="50" fill="rgba(22,12,6,0.6)"/>
+        <rect x="900" y="70" width="90" height="50" fill="rgba(28,16,8,0.6)"/>
+        <rect x="1000" y="55" width="120" height="55" fill="rgba(22,12,6,0.6)"/>
+      </g>
 
-      <!-- Ground -->
+      <!-- Iron tongs and tools hanging on right wall (suggested) -->
+      <g opacity="0.6" stroke-linecap="round">
+        <line x1="1060" y1="120" x2="1060" y2="220" stroke="rgba(40,22,10,0.9)" stroke-width="3"/>
+        <line x1="1090" y1="115" x2="1080" y2="240" stroke="rgba(40,22,10,0.9)" stroke-width="2.5"/>
+        <line x1="1120" y1="125" x2="1108" y2="200" stroke="rgba(40,22,10,0.9)" stroke-width="3"/>
+        <circle cx="1060" cy="220" r="4" fill="rgba(40,22,10,0.9)"/>
+        <circle cx="1080" cy="240" r="3" fill="rgba(40,22,10,0.9)"/>
+        <circle cx="1108" cy="200" r="4" fill="rgba(40,22,10,0.9)"/>
+      </g>
+
+      <!-- ── ATMOSPHERIC HEAT BLOOM from forge ── -->
+      <ellipse cx="500" cy="320" rx="500" ry="280" fill="url(#forge)"/>
+      <ellipse cx="500" cy="320" rx="220" ry="160" fill="rgba(255,140,50,0.18)" filter="url(#softGlow)"/>
+
+      <!-- Smoke rising from forge — multiple layered plumes -->
+      <g filter="url(#bigBlur)" opacity="0.55">
+        <ellipse cx="500" cy="180" rx="120" ry="60" fill="rgba(60,30,15,0.7)"/>
+        <ellipse cx="470" cy="120" rx="100" ry="55" fill="rgba(50,28,14,0.6)"/>
+        <ellipse cx="540" cy="80" rx="140" ry="50" fill="rgba(40,22,12,0.5)"/>
+        <ellipse cx="460" cy="50" rx="160" ry="40" fill="rgba(30,16,8,0.5)"/>
+      </g>
+
+      <!-- ── GROUND PLANE: stone floor with reflections ── -->
       <rect x="0" y="380" width="1200" height="100" fill="url(#groundGrad)"/>
-
-      <!-- Forge/anvil suggestion — abstract dark mass -->
-      <ellipse cx="500" cy="370" rx="120" ry="30" fill="rgba(5,3,1,0.8)" filter="url(#oil)"/>
-      <rect x="430" y="300" width="140" height="75" rx="4" fill="rgba(20,10,5,0.9)" filter="url(#oil)"/>
-
-      <!-- Sparks -->
-      <g opacity="0.85">
-        <circle cx="510" cy="290" r="2.5" fill="#FFD080"/>
-        <circle cx="488" cy="278" r="1.8" fill="#FFAA40"/>
-        <circle cx="535" cy="270" r="1.5" fill="#FFE090"/>
-        <circle cx="472" cy="285" r="2" fill="#FF9030"/>
-        <circle cx="548" cy="285" r="1.2" fill="#FFD070"/>
-        <circle cx="520" cy="260" r="1.8" fill="#FFAA40"/>
-        <circle cx="495" cy="260" r="1" fill="#FFEE90"/>
-        <circle cx="465" cy="272" r="1.5" fill="#FF8020"/>
-        <circle cx="540" cy="265" r="2" fill="#FFCC60"/>
-        <circle cx="558" cy="275" r="1.2" fill="#FFD080"/>
+      <!-- Reflected warm glow on floor -->
+      <ellipse cx="500" cy="395" rx="320" ry="22" fill="rgba(220,90,30,0.25)" filter="url(#softGlow)"/>
+      <ellipse cx="500" cy="402" rx="200" ry="14" fill="rgba(255,140,60,0.18)" filter="url(#softGlow)"/>
+      <!-- Floor stone joints -->
+      <g opacity="0.25">
+        <line x1="0" y1="420" x2="1200" y2="420" stroke="rgba(60,35,18,0.6)" stroke-width="0.8"/>
+        <line x1="0" y1="450" x2="1200" y2="450" stroke="rgba(60,35,18,0.5)" stroke-width="0.6"/>
       </g>
 
-      <!-- Spark trails -->
-      <g stroke-linecap="round" opacity="0.4">
-        <line x1="510" y1="290" x2="522" y2="265" stroke="#FFAA40" stroke-width="0.8"/>
-        <line x1="488" y1="278" x2="478" y2="255" stroke="#FF8030" stroke-width="0.8"/>
-        <line x1="535" y1="270" x2="548" y2="248" stroke="#FFD060" stroke-width="0.6"/>
-        <line x1="520" y1="260" x2="530" y2="238" stroke="#FFB040" stroke-width="0.8"/>
-        <line x1="495" y1="260" x2="485" y2="240" stroke="#FF9030" stroke-width="0.6"/>
+      <!-- ── ANVIL (foreground left of forge) ── -->
+      <g filter="url(#oilFig)">
+        <!-- Wood block base -->
+        <path d="M340 410 L420 410 L425 460 L335 460 Z" fill="rgba(22,12,6,0.95)"/>
+        <!-- Anvil body -->
+        <path d="M310 360 L450 360 L440 380 L320 380 Z" fill="url(#anvilGrad)"/>
+        <path d="M320 380 L440 380 L432 410 L328 410 Z" fill="rgba(15,8,4,0.95)"/>
+        <!-- Anvil horn (pointed end) -->
+        <path d="M310 360 Q290 365 280 370 Q288 372 308 370 Z" fill="rgba(20,10,5,0.95)"/>
+        <!-- Top highlight on anvil -->
+        <path d="M315 358 L445 358" stroke="rgba(120,60,20,0.5)" stroke-width="1.5"/>
       </g>
 
-      <!-- Worker figures: two silhouettes -->
+      <!-- ── FORGE / HEARTH on the right of anvil ── -->
       <g filter="url(#oil)">
-        <!-- Figure left, leaning toward forge -->
-        <path d="M340 370 Q342 330 348 300 Q355 275 368 258 Q378 248 385 250 Q380 265 376 285 Q370 310 368 340 Q366 355 364 370 Z" fill="rgba(10,6,2,0.95)"/>
-        <ellipse cx="390" cy="244" rx="22" ry="26" fill="rgba(10,6,2,0.95)"/>
-        <!-- Arms reaching forward -->
-        <path d="M376 285 Q400 275 425 272 Q440 270 450 272" stroke="rgba(10,6,2,0.95)" stroke-width="16" fill="none" stroke-linecap="round"/>
-
-        <!-- Figure right, standing observing -->
-        <path d="M660 375 Q662 335 665 305 Q668 280 672 265 Q682 248 690 246 Q698 248 704 265 Q708 280 710 305 Q713 335 715 375 Z" fill="rgba(10,6,2,0.95)"/>
-        <ellipse cx="690" cy="234" rx="22" ry="26" fill="rgba(10,6,2,0.95)"/>
-        <!-- Arm raised slightly, consulting -->
-        <path d="M704 280 Q720 265 738 258 Q748 255 755 258" stroke="rgba(10,6,2,0.95)" stroke-width="14" fill="none" stroke-linecap="round"/>
+        <!-- Brick base -->
+        <path d="M510 360 L660 360 L680 460 L490 460 Z" fill="rgba(28,16,8,0.95)"/>
+        <!-- Hearth opening (glowing) -->
+        <path d="M540 290 Q540 270 580 268 Q620 266 640 270 Q660 275 660 295 Q660 340 640 358 Q580 365 530 358 Q510 340 540 290 Z"
+              fill="rgba(8,4,2,0.95)"/>
+        <!-- Chimney hood above -->
+        <path d="M500 280 L670 280 L640 200 L530 200 Z" fill="rgba(18,10,5,0.92)"/>
+      </g>
+      <!-- Glow inside hearth — molten interior -->
+      <ellipse cx="590" cy="325" rx="55" ry="38" fill="url(#forgeCore)"/>
+      <ellipse cx="590" cy="330" rx="30" ry="22" fill="rgba(255,200,80,0.85)"/>
+      <ellipse cx="590" cy="328" rx="12" ry="9" fill="rgba(255,250,210,0.95)"/>
+      <!-- Coals at base of forge -->
+      <g>
+        <circle cx="565" cy="355" r="3" fill="rgba(255,120,40,0.85)"/>
+        <circle cx="585" cy="352" r="4" fill="rgba(255,160,60,0.9)"/>
+        <circle cx="605" cy="356" r="3.5" fill="rgba(255,200,80,0.85)"/>
+        <circle cx="620" cy="350" r="2.5" fill="rgba(255,140,50,0.8)"/>
+        <circle cx="550" cy="350" r="2" fill="rgba(220,90,30,0.7)"/>
       </g>
 
-      <!-- Rim light on left figure from forge -->
-      <path d="M376 300 Q373 280 378 265 Q384 258 390 258 Q385 270 383 285 Q380 300 379 315 Z" fill="rgba(220,100,30,0.25)"/>
+      <!-- ── MOLTEN METAL on the anvil — what the smith is working ── -->
+      <ellipse cx="395" cy="358" rx="32" ry="5" fill="url(#moltenMetal)" filter="url(#softGlow)"/>
+      <ellipse cx="395" cy="358" rx="22" ry="3" fill="rgba(255,250,200,0.95)"/>
 
-      <!-- Right side wall / darkness -->
-      <path d="M800 0 L1200 0 L1200 480 L900 480 Q1000 380 950 300 Q920 240 800 180 Z" fill="rgba(8,5,2,0.6)"/>
+      <!-- ── SPARKS exploding from hammer strike ── -->
+      <g>
+        <circle cx="390" cy="345" r="2.8" fill="#FFF0C8"/>
+        <circle cx="372" cy="335" r="2" fill="#FFAA40"/>
+        <circle cx="412" cy="330" r="1.8" fill="#FFE090"/>
+        <circle cx="358" cy="340" r="2.2" fill="#FF9030"/>
+        <circle cx="428" cy="340" r="1.4" fill="#FFD070"/>
+        <circle cx="400" cy="318" r="2" fill="#FFAA40"/>
+        <circle cx="380" cy="310" r="1.2" fill="#FFEE90"/>
+        <circle cx="345" cy="328" r="1.8" fill="#FF8020"/>
+        <circle cx="440" cy="325" r="2.2" fill="#FFCC60"/>
+        <circle cx="455" cy="338" r="1.4" fill="#FFD080"/>
+        <circle cx="365" cy="298" r="1.2" fill="#FFE090"/>
+        <circle cx="415" cy="295" r="1" fill="#FFCC60"/>
+        <circle cx="385" cy="278" r="1.4" fill="#FFB050"/>
+        <circle cx="405" cy="260" r="0.9" fill="#FFE090"/>
+      </g>
+      <!-- Spark arcs / trails -->
+      <g stroke-linecap="round" opacity="0.55">
+        <path d="M390 345 Q394 320 388 295" stroke="#FFAA40" stroke-width="0.9" fill="none"/>
+        <path d="M372 335 Q368 310 360 280" stroke="#FF8030" stroke-width="0.8" fill="none"/>
+        <path d="M412 330 Q420 305 428 278" stroke="#FFD060" stroke-width="0.8" fill="none"/>
+        <path d="M428 340 Q445 320 455 295" stroke="#FFB040" stroke-width="0.9" fill="none"/>
+        <path d="M358 340 Q345 320 338 295" stroke="#FF9030" stroke-width="0.7" fill="none"/>
+      </g>
 
-      <!-- Subtle text overlaid: "AUDIT · DESIGN · DEPLOY" -->
-      <text x="600" y="440" font-family="'Lato', sans-serif" font-size="11" font-weight="400" letter-spacing="18" fill="rgba(138,125,110,0.25)" text-anchor="middle">AUDIT · DESIGN · DEPLOY · AUTOMATE</text>
+      <!-- ══════════════════════════════════════════════════════════════════
+           LEFT FIGURE: the smith — bent over anvil, hammer raised mid-strike
+           ══════════════════════════════════════════════════════════════════ -->
+      <g filter="url(#oilFig)">
+        <!-- Back leg (stance braced) -->
+        <path d="M268 460 Q272 420 280 388 Q290 370 305 360 Q318 355 320 360 Q318 380 312 405 Q304 430 298 460 Z" fill="#070302"/>
+        <!-- Front leg (forward planted) -->
+        <path d="M320 460 Q322 425 330 395 Q340 372 355 365 L368 365 Q366 385 360 410 Q352 435 348 460 Z" fill="#080402"/>
+        <!-- Boots -->
+        <ellipse cx="283" cy="460" rx="14" ry="5" fill="#040201"/>
+        <ellipse cx="338" cy="460" rx="14" ry="5" fill="#040201"/>
+
+        <!-- Torso bent forward toward anvil — leather apron -->
+        <path d="M295 365 Q280 340 270 305 Q265 275 270 252 Q283 240 305 240 L325 240 Q345 252 350 275 Q352 305 348 335 Q344 360 340 380 Q322 388 305 388 Z" fill="#0A0503"/>
+        <!-- Apron strap over shoulder -->
+        <path d="M310 248 Q316 268 322 290" stroke="rgba(80,42,18,0.55)" stroke-width="2" fill="none"/>
+
+        <!-- Head: bent down, watching the work, viewed from above-side -->
+        <ellipse cx="318" cy="222" rx="20" ry="22" transform="rotate(15 318 222)" fill="#0A0503"/>
+        <!-- Hair/cap -->
+        <path d="M302 210 Q310 196 326 198 Q340 204 340 220 Q330 212 318 213 Q308 215 302 222 Z" fill="#050201"/>
+
+        <!-- LEFT ARM: holding tongs, gripping work -->
+        <path d="M285 270 Q272 280 260 295 Q250 312 248 328 Q260 322 274 308 Q286 295 295 282 Z" fill="#0A0503"/>
+        <path d="M250 328 Q252 310 264 295 Q278 282 292 274" stroke="rgba(50,28,14,0.7)" stroke-width="3" fill="none"/>
+        <!-- Tongs reaching to metal -->
+        <line x1="252" y1="330" x2="385" y2="358" stroke="#0F0805" stroke-width="3" stroke-linecap="round"/>
+        <line x1="252" y1="332" x2="385" y2="365" stroke="#0F0805" stroke-width="3" stroke-linecap="round"/>
+
+        <!-- RIGHT ARM: raised hammer mid-swing -->
+        <path d="M345 265 Q358 248 372 232 Q385 218 395 215 Q400 215 405 220 Q392 230 378 245 Q368 258 358 275 Z" fill="#0A0503"/>
+        <!-- Hammer shaft -->
+        <line x1="400" y1="215" x2="445" y2="155" stroke="#3A2010" stroke-width="6" stroke-linecap="round"/>
+        <line x1="402" y1="217" x2="447" y2="157" stroke="#5A3018" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+        <!-- Hammer head -->
+        <path d="M428 138 L468 130 L478 158 L438 168 Z" fill="#1A0E07"/>
+        <path d="M428 138 L468 130 L470 145 L430 152 Z" fill="#2A1A0E"/>
+
+        <!-- Rim light on smith's back from forge -->
+        <path d="M325 240 Q345 245 350 270 Q352 300 348 330 Q344 355 340 378" stroke="rgba(232,130,50,0.5)" stroke-width="2.5" fill="none"/>
+        <path d="M348 270 Q354 295 350 320" stroke="rgba(255,170,80,0.55)" stroke-width="1.5" fill="none"/>
+      </g>
+
+      <!-- ══════════════════════════════════════════════════════════════════
+           RIGHT FIGURE: the consultant — standing, observing, hand on chin
+           ══════════════════════════════════════════════════════════════════ -->
+      <g filter="url(#oilFig)">
+        <!-- Legs (relaxed contrapposto) -->
+        <path d="M740 460 Q744 415 750 380 Q756 350 762 332 L774 332 Q776 352 778 380 Q782 415 780 460 Z" fill="#080402"/>
+        <path d="M780 460 Q780 416 784 382 Q788 352 794 334 L806 334 Q812 354 814 384 Q816 420 812 460 Z" fill="#080402"/>
+        <!-- Boots -->
+        <ellipse cx="760" cy="460" rx="13" ry="5" fill="#040201"/>
+        <ellipse cx="797" cy="460" rx="13" ry="5" fill="#040201"/>
+
+        <!-- Torso (overcoat, long lines) -->
+        <path d="M735 332 Q726 290 728 250 Q734 218 752 205 Q775 200 798 205 Q816 218 820 250 Q822 290 815 332 Q800 342 778 342 Q758 342 735 332 Z" fill="#0A0503"/>
+        <!-- Coat lapel -->
+        <path d="M772 215 L772 280 M780 215 L780 280" stroke="rgba(40,22,10,0.6)" stroke-width="1.5"/>
+
+        <!-- Shoulders -->
+        <path d="M732 210 Q758 196 778 195 Q798 196 822 210 Q810 202 790 200 Q770 198 750 200 Q738 204 732 210 Z" fill="#050201"/>
+
+        <!-- Neck -->
+        <path d="M770 184 L770 200 L786 200 L786 184 Z" fill="#0A0503"/>
+
+        <!-- Head turned slightly toward forge -->
+        <ellipse cx="780" cy="170" rx="19" ry="22" fill="#0A0503"/>
+        <!-- Hair -->
+        <path d="M763 158 Q769 144 782 142 Q795 144 800 158 Q800 172 795 180 Q788 170 780 168 Q772 170 765 180 Q763 170 763 158 Z" fill="#050201"/>
+
+        <!-- LEFT ARM: at side -->
+        <path d="M735 240 Q724 268 722 305 Q721 335 728 360 Q734 335 736 305 Q738 270 742 250 Z" fill="#0A0503"/>
+
+        <!-- RIGHT ARM: bent up, hand to chin in observation -->
+        <path d="M818 240 Q830 252 838 270 Q842 285 834 295 Q826 290 820 280 Q814 268 812 255 Z" fill="#0A0503"/>
+        <path d="M834 295 Q820 282 808 268 Q800 252 798 240 Q802 238 808 244 Q820 260 832 278 Z" fill="#080402"/>
+        <!-- Hand at chin -->
+        <ellipse cx="798" cy="186" rx="5" ry="6" fill="#0A0503"/>
+
+        <!-- Cool rim light on consultant from forge (across the room) -->
+        <path d="M730 230 Q724 270 724 320 Q726 355 730 380" stroke="rgba(200,100,40,0.35)" stroke-width="2" fill="none"/>
+        <path d="M778 195 Q768 200 762 210" stroke="rgba(220,120,50,0.35)" stroke-width="1.5" fill="none"/>
+      </g>
+
+      <!-- ── Heat wave shimmer above forge (subtle vertical lines) ── -->
+      <g opacity="0.18" stroke-linecap="round">
+        <path d="M555 270 Q558 250 553 232 Q549 215 555 200" stroke="rgba(255,160,80,0.5)" stroke-width="0.6" fill="none"/>
+        <path d="M590 268 Q594 245 588 225 Q584 208 592 190" stroke="rgba(255,160,80,0.5)" stroke-width="0.6" fill="none"/>
+        <path d="M625 270 Q620 248 626 228 Q632 210 628 192" stroke="rgba(255,160,80,0.5)" stroke-width="0.6" fill="none"/>
+      </g>
+
+      <!-- ── Vignette: dark right corner ── -->
+      <path d="M850 0 L1200 0 L1200 480 L920 480 Q1010 380 980 280 Q950 200 850 140 Z" fill="rgba(4,2,1,0.55)"/>
+      <path d="M0 0 L160 0 L0 240 Z" fill="rgba(4,2,1,0.4)"/>
+      <path d="M0 480 L0 360 L120 480 Z" fill="rgba(4,2,1,0.5)"/>
+
+      <!-- ── Caption strip ── -->
+      <text x="600" y="448" font-family="'Lato', sans-serif" font-size="11" font-weight="400" letter-spacing="18" fill="rgba(138,125,110,0.32)" text-anchor="middle">AUDIT · DESIGN · DEPLOY · AUTOMATE</text>
     </svg>
   </div>
 
@@ -1689,55 +1979,309 @@ footer {
 <div class="painting-break">
   <svg class="pb-canvas" viewBox="0 0 1400 700" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
     <defs>
-      <radialGradient id="hallLight" cx="50%" cy="40%" r="55%">
-        <stop offset="0%" stop-color="#D4A050" stop-opacity="0.45"/>
-        <stop offset="50%" stop-color="#8A4010" stop-opacity="0.2"/>
+      <radialGradient id="hallLight" cx="50%" cy="42%" r="50%">
+        <stop offset="0%" stop-color="#FFE0A0" stop-opacity="0.65"/>
+        <stop offset="30%" stop-color="#E0904A" stop-opacity="0.35"/>
+        <stop offset="65%" stop-color="#8A4010" stop-opacity="0.18"/>
         <stop offset="100%" stop-color="#0D0B08" stop-opacity="0"/>
       </radialGradient>
+      <radialGradient id="hallCore" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#FFF8E0" stop-opacity="1"/>
+        <stop offset="60%" stop-color="#FFB060" stop-opacity="0.5"/>
+        <stop offset="100%" stop-color="#FF6020" stop-opacity="0"/>
+      </radialGradient>
+      <linearGradient id="floorGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#1A0E06"/>
+        <stop offset="50%" stop-color="#100904"/>
+        <stop offset="100%" stop-color="#080502"/>
+      </linearGradient>
+      <linearGradient id="floorReflect" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="rgba(220,140,60,0.35)"/>
+        <stop offset="100%" stop-color="rgba(220,140,60,0)"/>
+      </linearGradient>
+      <linearGradient id="ceilingGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="rgba(5,3,1,1)"/>
+        <stop offset="100%" stop-color="rgba(28,16,8,0.6)"/>
+      </linearGradient>
+      <linearGradient id="columnGrad" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stop-color="rgba(8,4,2,1)"/>
+        <stop offset="50%" stop-color="rgba(30,18,9,0.92)"/>
+        <stop offset="100%" stop-color="rgba(8,4,2,1)"/>
+      </linearGradient>
+      <linearGradient id="columnLit" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stop-color="rgba(180,90,30,0)"/>
+        <stop offset="45%" stop-color="rgba(220,120,40,0.55)"/>
+        <stop offset="55%" stop-color="rgba(220,120,40,0.55)"/>
+        <stop offset="100%" stop-color="rgba(180,90,30,0)"/>
+      </linearGradient>
       <filter id="oilPaint" x="-15%" y="-15%" width="130%" height="130%">
-        <feTurbulence type="fractalNoise" baseFrequency="0.03 0.05" numOctaves="4" seed="12"/>
-        <feDisplacementMap in="SourceGraphic" scale="12" xChannelSelector="R" yChannelSelector="G"/>
+        <feTurbulence type="fractalNoise" baseFrequency="0.02 0.04" numOctaves="5" seed="12"/>
+        <feDisplacementMap in="SourceGraphic" scale="14" xChannelSelector="R" yChannelSelector="G"/>
       </filter>
+      <filter id="oilFine" x="-5%" y="-5%" width="110%" height="110%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.05 0.08" numOctaves="3" seed="9"/>
+        <feDisplacementMap in="SourceGraphic" scale="5" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+      <filter id="softGlow"><feGaussianBlur stdDeviation="10"/></filter>
+      <filter id="hazeBlur"><feGaussianBlur stdDeviation="20"/></filter>
     </defs>
 
-    <rect width="1400" height="700" fill="#100C08"/>
+    <rect width="1400" height="700" fill="#0A0604"/>
 
-    <!-- Corridor vanishing point light -->
-    <ellipse cx="700" cy="300" rx="350" ry="220" fill="url(#hallLight)"/>
-    <ellipse cx="700" cy="290" rx="150" ry="100" fill="rgba(200,140,60,0.15)"/>
+    <!-- ── DEEP VANISHING-POINT LIGHT (the doorway/altar at end of corridor) ── -->
+    <ellipse cx="700" cy="320" rx="420" ry="260" fill="url(#hallLight)"/>
+    <ellipse cx="700" cy="320" rx="200" ry="130" fill="rgba(255,180,80,0.22)" filter="url(#softGlow)"/>
+    <!-- The doorway itself -->
+    <path d="M660 200 Q660 180 680 178 L720 178 Q740 180 740 200 L740 360 L660 360 Z" fill="url(#hallCore)" opacity="0.85"/>
+    <ellipse cx="700" cy="270" rx="30" ry="60" fill="rgba(255,250,210,0.95)" filter="url(#softGlow)"/>
 
-    <!-- Floor perspective lines -->
-    <path d="M0 700 L700 400 L1400 700" fill="rgba(15,10,5,0.5)"/>
-    <path d="M0 700 L700 380 L1400 700" fill="rgba(12,8,3,0.3)"/>
-
-    <!-- Ceiling -->
-    <path d="M0 0 L700 200 L1400 0 L1400 150 L700 300 L0 150 Z" fill="rgba(8,5,2,0.7)"/>
-
-    <!-- Wall panels suggestion — painterly architectural depth -->
-    <g filter="url(#oilPaint)" opacity="0.6">
-      <rect x="60" y="80" width="180" height="450" fill="rgba(25,15,8,0.4)" rx="2"/>
-      <rect x="280" y="120" width="140" height="380" fill="rgba(20,12,6,0.3)" rx="2"/>
-      <rect x="980" y="120" width="140" height="380" fill="rgba(20,12,6,0.3)" rx="2"/>
-      <rect x="1160" y="80" width="180" height="450" fill="rgba(25,15,8,0.4)" rx="2"/>
+    <!-- ── CEILING with vaulted arches ── -->
+    <path d="M0 0 L1400 0 L1400 160 L700 320 L0 160 Z" fill="url(#ceilingGrad)"/>
+    <!-- Arch ribs / coffers -->
+    <g opacity="0.55" filter="url(#oilPaint)">
+      <path d="M0 120 Q200 180 400 200 Q550 215 700 220 Q850 215 1000 200 Q1200 180 1400 120"
+            stroke="rgba(40,22,10,0.85)" stroke-width="3" fill="none"/>
+      <path d="M0 60 Q200 100 400 120 Q550 130 700 135 Q850 130 1000 120 Q1200 100 1400 60"
+            stroke="rgba(40,22,10,0.7)" stroke-width="2" fill="none"/>
+      <!-- Cross arches converging to vanishing point -->
+      <path d="M180 0 L700 280" stroke="rgba(30,18,8,0.6)" stroke-width="1.5"/>
+      <path d="M380 0 L700 280" stroke="rgba(30,18,8,0.5)" stroke-width="1.2"/>
+      <path d="M1020 0 L700 280" stroke="rgba(30,18,8,0.5)" stroke-width="1.2"/>
+      <path d="M1220 0 L700 280" stroke="rgba(30,18,8,0.6)" stroke-width="1.5"/>
     </g>
 
-    <!-- Figures in the corridor — 3 people discussing -->
+    <!-- ── FLOOR (perspective with stone tiles) ── -->
+    <path d="M0 700 L700 350 L1400 700 Z" fill="url(#floorGrad)"/>
+    <!-- Floor reflection of doorway light -->
+    <ellipse cx="700" cy="600" rx="320" ry="80" fill="url(#floorReflect)" filter="url(#softGlow)"/>
+    <ellipse cx="700" cy="560" rx="180" ry="40" fill="rgba(255,170,80,0.25)" filter="url(#softGlow)"/>
+    <!-- Perspective tile lines on floor -->
+    <g opacity="0.35" stroke-linecap="round">
+      <line x1="200" y1="700" x2="700" y2="350" stroke="rgba(50,28,12,0.6)" stroke-width="0.8"/>
+      <line x1="450" y1="700" x2="700" y2="350" stroke="rgba(50,28,12,0.5)" stroke-width="0.7"/>
+      <line x1="950" y1="700" x2="700" y2="350" stroke="rgba(50,28,12,0.5)" stroke-width="0.7"/>
+      <line x1="1200" y1="700" x2="700" y2="350" stroke="rgba(50,28,12,0.6)" stroke-width="0.8"/>
+      <!-- Horizontal tile lines (perspective compressed) -->
+      <line x1="200" y1="640" x2="1200" y2="640" stroke="rgba(50,28,12,0.5)" stroke-width="0.7"/>
+      <line x1="350" y1="560" x2="1050" y2="560" stroke="rgba(50,28,12,0.45)" stroke-width="0.6"/>
+      <line x1="470" y1="500" x2="930" y2="500" stroke="rgba(50,28,12,0.4)" stroke-width="0.5"/>
+      <line x1="570" y1="450" x2="830" y2="450" stroke="rgba(50,28,12,0.35)" stroke-width="0.4"/>
+    </g>
+
+    <!-- ── COLUMNS receding in perspective ── -->
+    <!-- Left columns -->
     <g filter="url(#oilPaint)">
-      <!-- Center figure, facing us slightly, the Prometheus consultant -->
-      <path d="M660 680 Q663 620 668 580 Q674 540 680 510 Q688 485 700 475 Q712 485 720 510 Q726 540 732 580 Q737 620 740 680 Z" fill="rgba(10,6,2,0.95)"/>
-      <ellipse cx="700" cy="462" rx="24" ry="28" fill="rgba(10,6,2,0.95)"/>
+      <!-- Foreground left column -->
+      <path d="M40 100 L110 100 L130 700 L20 700 Z" fill="url(#columnGrad)"/>
+      <!-- Capital -->
+      <rect x="20" y="85" width="110" height="22" fill="rgba(20,12,5,0.95)"/>
+      <!-- Base -->
+      <rect x="14" y="680" width="124" height="20" fill="rgba(10,6,3,0.95)"/>
 
-      <!-- Left figure, side profile -->
-      <path d="M510 685 Q514 638 518 598 Q524 560 532 535 Q540 515 548 508 Q556 512 562 528 Q568 550 572 580 Q576 615 578 655 Q580 668 582 685 Z" fill="rgba(10,6,2,0.9)"/>
-      <ellipse cx="553" cy="496" rx="20" ry="24" fill="rgba(10,6,2,0.9)"/>
+      <!-- Mid-left column -->
+      <path d="M280 200 L330 200 L342 600 L268 600 Z" fill="url(#columnGrad)"/>
+      <rect x="266" y="190" width="78" height="16" fill="rgba(20,12,5,0.95)"/>
+      <rect x="262" y="590" width="86" height="14" fill="rgba(10,6,3,0.95)"/>
 
-      <!-- Right figure -->
-      <path d="M820 685 Q822 638 826 598 Q832 558 840 530 Q848 510 856 506 Q864 510 870 528 Q876 548 880 578 Q884 612 886 650 Q888 668 890 685 Z" fill="rgba(10,6,2,0.9)"/>
-      <ellipse cx="853" cy="494" rx="20" ry="24" fill="rgba(10,6,2,0.9)"/>
+      <!-- Distant left column -->
+      <path d="M470 270 L500 270 L506 500 L466 500 Z" fill="url(#columnGrad)" opacity="0.85"/>
+      <rect x="464" y="265" width="44" height="10" fill="rgba(20,12,5,0.9)"/>
+    </g>
+    <!-- Right columns (mirrored) -->
+    <g filter="url(#oilPaint)">
+      <path d="M1290 100 L1360 100 L1380 700 L1270 700 Z" fill="url(#columnGrad)"/>
+      <rect x="1270" y="85" width="110" height="22" fill="rgba(20,12,5,0.95)"/>
+      <rect x="1262" y="680" width="124" height="20" fill="rgba(10,6,3,0.95)"/>
+
+      <path d="M1070 200 L1120 200 L1132 600 L1058 600 Z" fill="url(#columnGrad)"/>
+      <rect x="1056" y="190" width="78" height="16" fill="rgba(20,12,5,0.95)"/>
+      <rect x="1052" y="590" width="86" height="14" fill="rgba(10,6,3,0.95)"/>
+
+      <path d="M900 270 L930 270 L934 500 L894 500 Z" fill="url(#columnGrad)" opacity="0.85"/>
+      <rect x="892" y="265" width="44" height="10" fill="rgba(20,12,5,0.9)"/>
     </g>
 
-    <!-- Warm rim light on center figure -->
-    <path d="M680 510 Q677 490 684 475 Q692 468 700 468 Q694 480 692 498 Q690 515 690 535 Z" fill="rgba(200,120,40,0.3)"/>
+    <!-- Warm rim light on inner edges of columns -->
+    <g opacity="0.7">
+      <rect x="100" y="100" width="6" height="600" fill="url(#columnLit)" filter="url(#oilFine)"/>
+      <rect x="320" y="200" width="4" height="400" fill="url(#columnLit)" filter="url(#oilFine)"/>
+      <rect x="494" y="270" width="2.5" height="230" fill="url(#columnLit)" filter="url(#oilFine)"/>
+      <rect x="1294" y="100" width="6" height="600" fill="url(#columnLit)" filter="url(#oilFine)"/>
+      <rect x="1076" y="200" width="4" height="400" fill="url(#columnLit)" filter="url(#oilFine)"/>
+      <rect x="900" y="270" width="2.5" height="230" fill="url(#columnLit)" filter="url(#oilFine)"/>
+    </g>
+
+    <!-- ── WALL PANELS between columns (deep recesses) ── -->
+    <g opacity="0.6" filter="url(#oilPaint)">
+      <rect x="140" y="120" width="120" height="450" fill="rgba(22,12,6,0.7)" rx="2"/>
+      <rect x="356" y="220" width="100" height="350" fill="rgba(18,10,5,0.7)" rx="2"/>
+      <rect x="940" y="220" width="100" height="350" fill="rgba(18,10,5,0.7)" rx="2"/>
+      <rect x="1140" y="120" width="120" height="450" fill="rgba(22,12,6,0.7)" rx="2"/>
+    </g>
+
+    <!-- ── HANGING LANTERNS / sconces on the walls ── -->
+    <g>
+      <!-- Left lantern -->
+      <line x1="200" y1="200" x2="200" y2="250" stroke="rgba(30,18,8,0.9)" stroke-width="1.5"/>
+      <circle cx="200" cy="260" r="10" fill="rgba(255,150,60,0.7)" filter="url(#softGlow)"/>
+      <circle cx="200" cy="260" r="4" fill="rgba(255,230,140,0.95)"/>
+      <ellipse cx="200" cy="262" rx="30" ry="22" fill="rgba(255,160,60,0.18)" filter="url(#softGlow)"/>
+
+      <!-- Right lantern -->
+      <line x1="1200" y1="200" x2="1200" y2="250" stroke="rgba(30,18,8,0.9)" stroke-width="1.5"/>
+      <circle cx="1200" cy="260" r="10" fill="rgba(255,150,60,0.7)" filter="url(#softGlow)"/>
+      <circle cx="1200" cy="260" r="4" fill="rgba(255,230,140,0.95)"/>
+      <ellipse cx="1200" cy="262" rx="30" ry="22" fill="rgba(255,160,60,0.18)" filter="url(#softGlow)"/>
+    </g>
+
+    <!-- ── DUST BEAMS / god-rays from doorway ── -->
+    <g opacity="0.22" style="mix-blend-mode:screen">
+      <path d="M700 310 L520 680 L590 680 L700 320 Z" fill="rgba(255,200,100,0.6)" filter="url(#softGlow)"/>
+      <path d="M700 310 L810 680 L880 680 L700 320 Z" fill="rgba(255,200,100,0.6)" filter="url(#softGlow)"/>
+      <path d="M700 310 L640 680 L660 680 L700 320 Z" fill="rgba(255,220,140,0.7)"/>
+      <path d="M700 310 L740 680 L760 680 L700 320 Z" fill="rgba(255,220,140,0.7)"/>
+    </g>
+
+    <!-- ── ATMOSPHERIC HAZE along corridor ── -->
+    <ellipse cx="700" cy="430" rx="380" ry="40" fill="rgba(120,60,25,0.18)" filter="url(#hazeBlur)"/>
+    <ellipse cx="700" cy="500" rx="450" ry="35" fill="rgba(80,40,15,0.2)" filter="url(#hazeBlur)"/>
+    <ellipse cx="700" cy="600" rx="500" ry="30" fill="rgba(60,30,12,0.2)" filter="url(#hazeBlur)"/>
+
+    <!-- Floating dust motes -->
+    <g opacity="0.7">
+      <circle cx="540" cy="410" r="0.8" fill="#FFD080"/>
+      <circle cx="610" cy="385" r="0.6" fill="#FFC070"/>
+      <circle cx="780" cy="400" r="0.9" fill="#FFE0A0"/>
+      <circle cx="870" cy="430" r="0.7" fill="#FFB060"/>
+      <circle cx="500" cy="480" r="0.8" fill="#FFD080"/>
+      <circle cx="900" cy="490" r="0.6" fill="#FFC070"/>
+      <circle cx="640" cy="380" r="0.5" fill="#FFE0A0"/>
+      <circle cx="760" cy="360" r="0.7" fill="#FFD090"/>
+    </g>
+
+    <!-- ══════════════════════════════════════════════════════════════════
+         THREE FIGURES walking in the corridor
+         ══════════════════════════════════════════════════════════════════ -->
+
+    <!-- CENTER FIGURE: walking forward, robed, leading -->
+    <g filter="url(#oilFine)">
+      <!-- Cloak flowing behind -->
+      <path d="M670 510 Q650 580 645 660 Q655 640 670 620 Q685 600 692 575 Z" fill="#080402"/>
+      <path d="M730 510 Q750 580 755 660 Q745 640 730 620 Q715 600 708 575 Z" fill="#080402"/>
+      <!-- Legs mid-stride -->
+      <path d="M684 660 Q686 610 690 575 L702 575 Q702 612 700 660 Q700 675 696 680 Q686 680 684 675 Z" fill="#070302"/>
+      <path d="M702 660 Q702 610 706 575 L716 575 Q720 612 720 660 Q720 675 712 680 Q702 680 702 675 Z" fill="#080402"/>
+      <!-- Feet -->
+      <ellipse cx="692" cy="680" rx="11" ry="4" fill="#040201"/>
+      <ellipse cx="710" cy="680" rx="11" ry="4" fill="#040201"/>
+
+      <!-- Torso — long coat -->
+      <path d="M680 460 Q670 420 672 380 Q678 350 695 340 L715 340 Q732 350 738 380 Q740 420 730 460 Q716 470 700 470 Q686 470 680 460 Z" fill="#0A0503"/>
+      <!-- Coat seam -->
+      <line x1="705" y1="350" x2="705" y2="465" stroke="rgba(30,16,8,0.6)" stroke-width="1"/>
+
+      <!-- Shoulders -->
+      <path d="M676 348 Q694 332 705 330 Q716 332 734 348 Q722 338 705 336 Q688 338 676 348 Z" fill="#050201"/>
+
+      <!-- Neck -->
+      <path d="M698 322 L698 338 L712 338 L712 322 Z" fill="#0A0503"/>
+
+      <!-- Head -->
+      <ellipse cx="705" cy="308" rx="17" ry="20" fill="#0A0503"/>
+      <!-- Hair -->
+      <path d="M690 297 Q698 286 710 285 Q721 287 720 302 Q716 295 707 296 Q698 297 692 305 Z" fill="#050201"/>
+
+      <!-- LEFT ARM swinging back -->
+      <path d="M676 370 Q666 395 660 420 Q656 445 660 470 Q665 445 668 420 Q672 395 678 380 Z" fill="#0A0503"/>
+      <!-- RIGHT ARM swinging forward -->
+      <path d="M734 370 Q745 392 752 415 Q756 438 750 458 Q748 438 744 418 Q740 395 736 380 Z" fill="#0A0503"/>
+    </g>
+    <!-- Rim light on center figure (from doorway) -->
+    <g opacity="0.85">
+      <path d="M695 340 Q686 380 686 420 Q686 450 692 470" stroke="rgba(255,180,80,0.55)" stroke-width="2.5" fill="none" filter="url(#oilFine)"/>
+      <path d="M715 340 Q724 380 724 420 Q724 450 718 470" stroke="rgba(255,180,80,0.55)" stroke-width="2.5" fill="none" filter="url(#oilFine)"/>
+      <ellipse cx="705" cy="306" rx="14" ry="8" fill="rgba(255,200,100,0.3)" filter="url(#softGlow)"/>
+      <path d="M705 330 L705 322" stroke="rgba(255,210,120,0.6)" stroke-width="2"/>
+    </g>
+    <!-- Shadow under center figure -->
+    <ellipse cx="700" cy="685" rx="40" ry="6" fill="rgba(0,0,0,0.7)" filter="url(#softGlow)"/>
+
+    <!-- LEFT FIGURE: side profile, gesturing -->
+    <g filter="url(#oilFine)">
+      <!-- Cloak/coat -->
+      <path d="M510 530 Q495 600 490 670 Q502 650 514 628 Q524 605 528 580 Z" fill="#080402"/>
+      <!-- Legs -->
+      <path d="M530 670 Q532 620 536 585 L547 585 Q548 622 548 670 Q548 682 543 685 Q532 685 530 682 Z" fill="#070302"/>
+      <path d="M548 670 Q550 620 554 585 L564 585 Q568 622 568 670 Q568 682 560 685 Q550 685 548 682 Z" fill="#080402"/>
+      <!-- Feet -->
+      <ellipse cx="540" cy="685" rx="10" ry="4" fill="#040201"/>
+      <ellipse cx="558" cy="685" rx="10" ry="4" fill="#040201"/>
+
+      <!-- Torso (slightly turned to center figure) -->
+      <path d="M525 475 Q517 440 520 405 Q526 378 542 370 L562 370 Q578 378 582 405 Q584 440 575 475 Q562 482 550 482 Q536 482 525 475 Z" fill="#0A0503"/>
+
+      <!-- Shoulders -->
+      <path d="M520 378 Q538 364 550 362 Q562 364 580 378 Q568 368 550 366 Q535 368 520 378 Z" fill="#050201"/>
+
+      <!-- Neck -->
+      <path d="M545 354 L545 368 L558 368 L558 354 Z" fill="#0A0503"/>
+
+      <!-- Head turned right toward center figure -->
+      <ellipse cx="555" cy="340" rx="16" ry="18" fill="#0A0503"/>
+      <!-- Hair -->
+      <path d="M542 330 Q548 320 558 318 Q570 320 572 334 Q564 326 555 327 Q548 328 544 335 Z" fill="#050201"/>
+
+      <!-- LEFT ARM: gesturing toward center figure (arm extended) -->
+      <path d="M580 392 Q598 405 612 418 Q620 428 618 440 Q608 432 596 422 Q586 412 578 402 Z" fill="#0A0503"/>
+      <!-- Hand -->
+      <ellipse cx="618" cy="438" rx="6" ry="5" fill="#0A0503"/>
+
+      <!-- RIGHT ARM: at side -->
+      <path d="M520 388 Q510 415 506 438 Q504 460 510 478 Q514 458 516 438 Q520 412 522 398 Z" fill="#0A0503"/>
+    </g>
+    <!-- Subtle rim light on left figure -->
+    <path d="M570 372 Q578 410 575 470" stroke="rgba(232,140,55,0.4)" stroke-width="2" fill="none" filter="url(#oilFine)"/>
+    <path d="M563 332 Q570 335 572 342" stroke="rgba(232,140,55,0.45)" stroke-width="1.4" fill="none"/>
+    <ellipse cx="545" cy="688" rx="32" ry="5" fill="rgba(0,0,0,0.6)" filter="url(#softGlow)"/>
+
+    <!-- RIGHT FIGURE: walking, hands clasped behind -->
+    <g filter="url(#oilFine)">
+      <!-- Cloak -->
+      <path d="M888 528 Q905 600 910 670 Q898 650 886 628 Q876 605 872 580 Z" fill="#080402"/>
+      <!-- Legs -->
+      <path d="M832 670 Q834 620 838 585 L849 585 Q850 622 850 670 Q850 682 845 685 Q834 685 832 682 Z" fill="#070302"/>
+      <path d="M850 670 Q852 620 856 585 L866 585 Q870 622 870 670 Q870 682 862 685 Q852 685 850 682 Z" fill="#080402"/>
+      <!-- Feet -->
+      <ellipse cx="842" cy="685" rx="10" ry="4" fill="#040201"/>
+      <ellipse cx="860" cy="685" rx="10" ry="4" fill="#040201"/>
+
+      <!-- Torso (slight turn to center) -->
+      <path d="M825 475 Q817 440 820 405 Q826 378 842 370 L862 370 Q878 378 882 405 Q884 440 875 475 Q862 482 850 482 Q836 482 825 475 Z" fill="#0A0503"/>
+
+      <!-- Shoulders -->
+      <path d="M820 378 Q838 364 850 362 Q862 364 880 378 Q868 368 850 366 Q835 368 820 378 Z" fill="#050201"/>
+
+      <!-- Neck -->
+      <path d="M845 354 L845 368 L858 368 L858 354 Z" fill="#0A0503"/>
+
+      <!-- Head turned left toward center -->
+      <ellipse cx="848" cy="340" rx="16" ry="18" fill="#0A0503"/>
+      <!-- Hair -->
+      <path d="M833 330 Q840 320 850 318 Q862 320 863 334 Q855 326 847 327 Q838 328 835 335 Z" fill="#050201"/>
+
+      <!-- ARMS clasped behind back -->
+      <path d="M822 395 Q812 420 810 445 Q812 470 820 482 Q820 460 822 440 Q824 415 826 400 Z" fill="#0A0503"/>
+      <path d="M878 395 Q890 420 894 445 Q892 470 884 482 Q884 460 882 440 Q880 415 876 400 Z" fill="#0A0503"/>
+    </g>
+    <path d="M832 372 Q826 410 828 470" stroke="rgba(232,140,55,0.4)" stroke-width="2" fill="none" filter="url(#oilFine)"/>
+    <path d="M845 332 Q838 335 836 342" stroke="rgba(232,140,55,0.45)" stroke-width="1.4" fill="none"/>
+    <ellipse cx="855" cy="688" rx="32" ry="5" fill="rgba(0,0,0,0.6)" filter="url(#softGlow)"/>
+
+    <!-- ── Final atmospheric vignette ── -->
+    <path d="M0 0 L260 0 L0 360 Z" fill="rgba(2,1,0,0.7)"/>
+    <path d="M1400 0 L1140 0 L1400 360 Z" fill="rgba(2,1,0,0.7)"/>
+    <path d="M0 700 L0 480 L280 700 Z" fill="rgba(2,1,0,0.5)"/>
+    <path d="M1400 700 L1400 480 L1120 700 Z" fill="rgba(2,1,0,0.5)"/>
   </svg>
   <div class="pb-overlay"></div>
   <div class="pb-content reveal">
@@ -1826,70 +2370,240 @@ footer {
     <div class="myth-portrait reveal">
       <svg viewBox="0 0 460 580" style="width:100%;height:100%" fill="none" xmlns="http://www.w3.org/2000/svg">
         <defs>
-          <radialGradient id="torchGlow" cx="58%" cy="22%" r="50%">
-            <stop offset="0%" stop-color="#FF9A40" stop-opacity="0.7"/>
-            <stop offset="35%" stop-color="#C4622D" stop-opacity="0.35"/>
+          <radialGradient id="torchGlow" cx="64%" cy="20%" r="55%">
+            <stop offset="0%" stop-color="#FFC070" stop-opacity="0.85"/>
+            <stop offset="22%" stop-color="#FF8030" stop-opacity="0.5"/>
+            <stop offset="55%" stop-color="#A03808" stop-opacity="0.22"/>
             <stop offset="100%" stop-color="#1A0D05" stop-opacity="0"/>
           </radialGradient>
-          <filter id="oilFig" x="-5%" y="-5%" width="110%" height="110%">
-            <feTurbulence type="fractalNoise" baseFrequency="0.035 0.05" numOctaves="4" seed="5"/>
-            <feDisplacementMap in="SourceGraphic" scale="8" xChannelSelector="R" yChannelSelector="G"/>
-          </filter>
+          <radialGradient id="flameCore" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#FFFCEC" stop-opacity="1"/>
+            <stop offset="40%" stop-color="#FFD080" stop-opacity="0.95"/>
+            <stop offset="100%" stop-color="#FF6020" stop-opacity="0"/>
+          </radialGradient>
           <linearGradient id="bgFig" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#1A0E06"/>
-            <stop offset="100%" stop-color="#0A0603"/>
+            <stop offset="0%" stop-color="#241408"/>
+            <stop offset="60%" stop-color="#100804"/>
+            <stop offset="100%" stop-color="#070302"/>
           </linearGradient>
+          <linearGradient id="robeGrad" x1="0" y1="0" x2="1" y2="0.3">
+            <stop offset="0%" stop-color="#1A0E07"/>
+            <stop offset="55%" stop-color="#0A0502"/>
+            <stop offset="100%" stop-color="#050201"/>
+          </linearGradient>
+          <linearGradient id="robeLit" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="rgba(232,130,55,0)"/>
+            <stop offset="70%" stop-color="rgba(232,130,55,0.5)"/>
+            <stop offset="100%" stop-color="rgba(255,170,80,0.65)"/>
+          </linearGradient>
+          <linearGradient id="skinTone" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#3A1E0E"/>
+            <stop offset="100%" stop-color="#180A04"/>
+          </linearGradient>
+          <linearGradient id="skinLit" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="rgba(180,90,40,0)"/>
+            <stop offset="100%" stop-color="rgba(232,140,70,0.7)"/>
+          </linearGradient>
+          <linearGradient id="torchWood" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#2A140A"/>
+            <stop offset="100%" stop-color="#100802"/>
+          </linearGradient>
+          <filter id="oilFig" x="-5%" y="-5%" width="110%" height="110%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.03 0.045" numOctaves="5" seed="5"/>
+            <feDisplacementMap in="SourceGraphic" scale="7" xChannelSelector="R" yChannelSelector="G"/>
+          </filter>
+          <filter id="oilBG" x="-15%" y="-15%" width="130%" height="130%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.015 0.03" numOctaves="5" seed="14"/>
+            <feDisplacementMap in="SourceGraphic" scale="14" xChannelSelector="R" yChannelSelector="G"/>
+          </filter>
+          <filter id="softGlow"><feGaussianBlur stdDeviation="6"/></filter>
+          <filter id="bigGlow"><feGaussianBlur stdDeviation="16"/></filter>
         </defs>
 
         <rect width="460" height="580" fill="url(#bgFig)" rx="2"/>
 
-        <!-- Torch glow atmosphere -->
-        <ellipse cx="268" cy="130" rx="220" ry="200" fill="url(#torchGlow)"/>
+        <!-- ── Background sky / dark atmosphere ── -->
+        <path d="M0 0 Q200 80 460 40 L460 300 Q300 260 100 280 Q50 285 0 300 Z" fill="rgba(40,22,10,0.5)" filter="url(#oilBG)"/>
+        <path d="M0 320 Q150 340 300 305 Q400 285 460 315 L460 580 L0 580 Z" fill="rgba(10,6,3,0.7)" filter="url(#oilBG)"/>
 
-        <!-- Background painterly strokes -->
-        <path d="M0 0 Q200 80 460 40 L460 300 Q300 260 100 280 Q50 285 0 300 Z" fill="rgba(30,16,6,0.4)" filter="url(#oilFig)"/>
-        <path d="M0 300 Q150 320 300 290 Q400 270 460 300 L460 580 L0 580 Z" fill="rgba(12,8,3,0.6)"/>
+        <!-- Distant mountain silhouette -->
+        <path d="M0 380 Q80 350 160 360 Q230 370 290 340 Q360 310 460 335 L460 410 L0 410 Z"
+              fill="rgba(20,12,6,0.7)" filter="url(#oilBG)"/>
 
-        <!-- Figure: standing, arm raised holding torch/light -->
-        <g filter="url(#oilFig)">
-          <!-- Robes / clothing mass -->
-          <path d="M180 570 Q185 500 190 450 Q198 390 210 350 Q220 320 228 300 L232 298 L235 298 Q242 320 252 350 Q264 390 272 450 Q278 500 282 570 Z" fill="rgba(30,18,8,0.95)"/>
-          <!-- Upper body -->
-          <path d="M195 340 Q205 290 215 268 Q222 250 230 244 Q238 250 245 268 Q255 290 265 340 Z" fill="rgba(25,14,6,0.97)"/>
-          <!-- Head -->
-          <ellipse cx="230" cy="232" rx="26" ry="30" fill="rgba(22,12,5,0.95)"/>
-          <!-- Raised arm holding something aloft -->
-          <path d="M245 275 Q268 245 285 218 Q295 198 296 178" stroke="rgba(22,12,5,0.97)" stroke-width="20" fill="none" stroke-linecap="round"/>
-          <!-- Other arm, slightly out -->
-          <path d="M215 285 Q195 268 175 258 Q162 250 155 252" stroke="rgba(22,12,5,0.95)" stroke-width="16" fill="none" stroke-linecap="round"/>
+        <!-- Stone column behind figure (suggests architecture) -->
+        <g opacity="0.55" filter="url(#oilBG)">
+          <rect x="60" y="40" width="55" height="500" fill="rgba(25,14,8,0.7)"/>
+          <rect x="55" y="35" width="65" height="14" fill="rgba(30,18,10,0.8)"/>
+          <rect x="58" y="535" width="60" height="16" fill="rgba(15,8,4,0.8)"/>
         </g>
 
-        <!-- The torch / fire held aloft -->
-        <ellipse cx="296" cy="162" rx="18" ry="28" fill="rgba(255,160,50,0.2)"/>
-        <ellipse cx="296" cy="155" rx="12" ry="20" fill="rgba(255,130,30,0.35)"/>
-        <ellipse cx="296" cy="150" rx="7" ry="14" fill="rgba(255,200,80,0.6)"/>
-        <circle cx="296" cy="148" r="5" fill="rgba(255,230,130,0.9)"/>
-        <circle cx="296" cy="146" r="2.5" fill="rgba(255,248,200,1)"/>
+        <!-- ── TORCH GLOW HALO ── -->
+        <ellipse cx="305" cy="115" rx="240" ry="220" fill="url(#torchGlow)"/>
+        <ellipse cx="305" cy="115" rx="100" ry="90" fill="rgba(255,180,80,0.2)" filter="url(#bigGlow)"/>
 
-        <!-- Sparks from torch -->
-        <circle cx="306" cy="138" r="1.5" fill="rgba(255,220,80,0.8)"/>
-        <circle cx="288" cy="135" r="1.2" fill="rgba(255,180,50,0.7)"/>
-        <circle cx="310" cy="145" r="1" fill="rgba(255,240,100,0.6)"/>
-        <circle cx="283" cy="143" r="1.5" fill="rgba(255,160,40,0.7)"/>
-        <circle cx="302" cy="128" r="1" fill="rgba(255,200,80,0.5)"/>
+        <!-- ══════════════════════════════════════════════════════════════════
+             THE PROMETHEAN FIGURE: standing, torch raised, classical pose
+             ══════════════════════════════════════════════════════════════════ -->
+        <g filter="url(#oilFig)">
+          <!-- Flowing robe billowing left (lower) -->
+          <path d="M165 565 Q150 510 152 460 Q156 410 170 380 Q180 410 184 450 Q186 500 188 565 Z"
+                fill="url(#robeGrad)"/>
+          <!-- Main lower robe mass -->
+          <path d="M180 568 Q186 500 192 445 Q200 390 215 350 Q225 322 234 305 L242 305 Q252 322 263 350 Q278 390 286 445 Q292 500 298 568 Z"
+                fill="url(#robeGrad)"/>
+          <!-- Robe folds (deeper shadow lines) -->
+          <path d="M210 360 Q214 410 220 460 Q224 510 226 560" stroke="rgba(0,0,0,0.6)" stroke-width="1.2" fill="none"/>
+          <path d="M250 360 Q252 410 254 460 Q256 510 258 560" stroke="rgba(0,0,0,0.6)" stroke-width="1.2" fill="none"/>
+          <path d="M232 320 Q234 380 236 450 Q237 510 238 565" stroke="rgba(0,0,0,0.4)" stroke-width="0.8" fill="none"/>
 
-        <!-- Fire rim light on figure's right side -->
-        <path d="M265 275 Q268 258 264 245 Q258 232 248 226 Q258 234 262 248 Q266 260 266 278 Z" fill="rgba(220,100,30,0.3)"/>
-        <path d="M296 178 Q294 195 295 210" stroke="rgba(100,50,15,0.6)" stroke-width="6" fill="none" stroke-linecap="round"/>
+          <!-- Flowing robe billowing right (wind-caught) -->
+          <path d="M298 568 Q310 510 308 460 Q304 410 290 380 Q300 410 304 450 Q306 500 312 568 Z"
+                fill="url(#robeGrad)"/>
 
-        <!-- Dark vignette edges -->
-        <rect width="460" height="580" fill="url(#bgFig)" opacity="0.2" rx="2" style="mix-blend-mode:multiply"/>
+          <!-- Torso / tunic shape — toned, classical anatomy -->
+          <path d="M198 340 Q190 295 195 258 Q204 235 220 225 L246 225 Q262 235 271 258 Q276 295 268 340 Q252 348 234 348 Q216 348 198 340 Z"
+                fill="url(#robeGrad)"/>
+          <!-- Sash across torso (Greek style) -->
+          <path d="M198 280 Q230 270 268 285" stroke="rgba(80,40,18,0.55)" stroke-width="2.5" fill="none"/>
+          <path d="M268 285 Q272 295 270 305" stroke="rgba(80,40,18,0.45)" stroke-width="2" fill="none"/>
 
-        <!-- Atmospheric depth on edges -->
-        <path d="M0 0 L80 0 L0 200 Z" fill="rgba(8,4,1,0.5)"/>
-        <path d="M460 0 L380 0 L460 180 Z" fill="rgba(8,4,1,0.4)"/>
-        <path d="M0 580 L0 400 L120 580 Z" fill="rgba(5,3,1,0.6)"/>
-        <path d="M460 580 L460 420 L340 580 Z" fill="rgba(5,3,1,0.6)"/>
+          <!-- Pectoral suggestion -->
+          <path d="M210 248 Q220 256 230 258 Q240 256 252 248" stroke="rgba(0,0,0,0.5)" stroke-width="1" fill="none"/>
+
+          <!-- Neck (muscular) -->
+          <path d="M226 210 L224 232 L240 232 L242 210 Z" fill="url(#skinTone)"/>
+          <!-- Collarbone -->
+          <path d="M218 232 Q230 236 244 232" stroke="rgba(0,0,0,0.55)" stroke-width="1" fill="none"/>
+
+          <!-- Head — turned three-quarter, looking up toward torch -->
+          <ellipse cx="232" cy="190" rx="22" ry="26" fill="url(#skinTone)"/>
+          <!-- Hair — flowing, classical curls -->
+          <path d="M210 175 Q212 158 224 152 Q238 148 250 156 Q256 168 254 184 Q252 200 252 212 Q244 198 240 192 Q234 188 224 192 Q216 200 212 212 Q208 198 210 175 Z" fill="#050201"/>
+          <!-- Beard suggestion -->
+          <path d="M222 208 Q230 218 242 210" stroke="rgba(8,4,2,0.85)" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <!-- Jaw line -->
+          <path d="M214 198 Q220 212 232 215 Q242 213 248 200" stroke="rgba(0,0,0,0.4)" stroke-width="0.8" fill="none"/>
+
+          <!-- LEFT SHOULDER (figure's left = viewer's right) — anatomical curve -->
+          <path d="M252 232 Q268 238 278 248 Q284 258 278 268 Q272 258 264 252 Q256 246 248 244 Z" fill="url(#robeGrad)"/>
+
+          <!-- RIGHT SHOULDER raised — the torch arm -->
+          <path d="M212 232 Q200 240 195 252 Q192 262 198 270 Q204 260 212 254 Q220 246 220 238 Z" fill="url(#robeGrad)"/>
+
+          <!-- RIGHT ARM RAISED — holding the torch high -->
+          <!-- Upper arm reaching up -->
+          <path d="M204 250 Q210 220 222 195 Q232 175 240 165 Q248 168 252 172 Q244 184 234 200 Q224 220 216 240 Z"
+                fill="url(#skinTone)"/>
+          <!-- Forearm -->
+          <path d="M240 165 Q252 145 264 122 Q272 105 274 92 Q280 90 286 95 Q284 110 278 130 Q270 152 258 170 Z"
+                fill="url(#skinTone)"/>
+          <!-- Hand gripping torch -->
+          <path d="M280 92 Q290 86 296 88 Q298 96 296 104 Q288 108 280 105 Q276 100 280 92 Z" fill="url(#skinTone)"/>
+          <!-- Bicep highlight -->
+          <path d="M232 200 Q236 215 232 228" stroke="rgba(0,0,0,0.4)" stroke-width="1" fill="none"/>
+
+          <!-- LEFT ARM — extended outward (giving gesture) -->
+          <path d="M275 260 Q300 252 322 245 Q342 240 354 244 Q352 252 348 256 Q330 262 312 268 Q294 274 280 280 Z"
+                fill="url(#skinTone)"/>
+          <!-- Open hand giving (palm up) -->
+          <path d="M348 244 Q360 240 366 244 Q368 250 364 254 Q358 256 350 254 Z" fill="url(#skinTone)"/>
+
+          <!-- BROKEN CHAIN on left wrist — symbol of escape from punishment -->
+          <g opacity="0.7">
+            <circle cx="350" cy="244" r="2.5" stroke="rgba(70,40,18,0.9)" stroke-width="1" fill="none"/>
+            <circle cx="356" cy="240" r="2" stroke="rgba(70,40,18,0.9)" stroke-width="1" fill="none"/>
+            <circle cx="362" cy="237" r="1.8" stroke="rgba(70,40,18,0.8)" stroke-width="0.8" fill="none"/>
+            <circle cx="368" cy="234" r="1.5" stroke="rgba(70,40,18,0.7)" stroke-width="0.7" fill="none"/>
+          </g>
+          <!-- Broken chain on raised wrist too -->
+          <g opacity="0.7">
+            <circle cx="286" cy="92" r="2" stroke="rgba(70,40,18,0.85)" stroke-width="0.9" fill="none"/>
+            <circle cx="292" cy="86" r="1.8" stroke="rgba(70,40,18,0.8)" stroke-width="0.8" fill="none"/>
+          </g>
+        </g>
+
+        <!-- ── WARM SKIN RIM LIGHT on figure (from torch) ── -->
+        <path d="M252 172 Q260 150 270 130 Q278 110 282 96" stroke="rgba(255,180,90,0.8)" stroke-width="2.5" fill="none" filter="url(#oilFig)"/>
+        <path d="M244 200 Q254 180 262 162" stroke="rgba(232,140,60,0.7)" stroke-width="2" fill="none" filter="url(#oilFig)"/>
+        <path d="M252 232 Q266 234 276 244" stroke="rgba(232,140,60,0.55)" stroke-width="1.5" fill="none"/>
+        <!-- Cheek light -->
+        <ellipse cx="246" cy="195" rx="6" ry="10" fill="rgba(255,170,80,0.4)" filter="url(#softGlow)"/>
+        <!-- Hairline light -->
+        <path d="M242 158 Q250 154 254 168" stroke="rgba(232,140,60,0.6)" stroke-width="1.2" fill="none"/>
+        <!-- Bicep highlight -->
+        <path d="M226 198 Q230 218 226 240" stroke="rgba(220,120,50,0.55)" stroke-width="1.5" fill="none"/>
+        <!-- Robe rim light along right side -->
+        <path d="M268 240 Q282 280 290 340 Q298 410 304 480 Q306 530 304 568" stroke="url(#robeLit)" stroke-width="2.5" fill="none" filter="url(#oilFig)"/>
+        <!-- Sash light -->
+        <path d="M232 282 Q252 278 268 286" stroke="rgba(232,140,60,0.5)" stroke-width="1.5" fill="none"/>
+
+        <!-- Cool reflected light on left side -->
+        <path d="M188 380 Q186 450 192 540" stroke="rgba(60,60,90,0.18)" stroke-width="2" fill="none"/>
+
+        <!-- ══════════════════════════════════════════════════════════════════
+             THE TORCH and FLAME — the heart of the painting
+             ══════════════════════════════════════════════════════════════════ -->
+        <!-- Torch handle (wood) -->
+        <path d="M278 105 L290 95 L296 102 L286 115 Z" fill="url(#torchWood)"/>
+        <!-- Torch wrap / binding -->
+        <line x1="282" y1="110" x2="292" y2="100" stroke="rgba(80,40,18,0.85)" stroke-width="1.2"/>
+        <line x1="284" y1="113" x2="294" y2="103" stroke="rgba(80,40,18,0.8)" stroke-width="1"/>
+
+        <!-- Flame: tall and licking upward -->
+        <!-- Outer flame halo -->
+        <ellipse cx="296" cy="62" rx="36" ry="56" fill="rgba(255,140,40,0.18)" filter="url(#bigGlow)"/>
+        <!-- Outer flame -->
+        <path d="M296 92 Q278 75 280 50 Q284 25 296 8 Q308 28 311 56 Q310 78 296 92 Z"
+              fill="rgba(255,120,40,0.5)" filter="url(#oilFig)"/>
+        <!-- Mid flame (orange) -->
+        <path d="M296 88 Q284 72 286 50 Q290 28 296 18 Q303 32 306 54 Q305 72 296 88 Z"
+              fill="rgba(255,180,70,0.85)" filter="url(#oilFig)"/>
+        <!-- Inner flame (yellow) -->
+        <path d="M296 85 Q290 70 292 52 Q294 36 296 28 Q300 38 302 56 Q301 72 296 85 Z"
+              fill="rgba(255,230,140,0.95)"/>
+        <!-- Hot core white -->
+        <path d="M296 80 Q293 65 295 52 Q296 42 296 38 Q298 48 299 60 Q298 72 296 80 Z"
+              fill="rgba(255,250,220,1)"/>
+        <!-- Tiny licking tongues -->
+        <path d="M296 18 Q292 8 290 0" stroke="rgba(255,200,90,0.7)" stroke-width="1.5" fill="none"/>
+        <path d="M296 18 Q298 6 302 0" stroke="rgba(255,220,120,0.6)" stroke-width="1.5" fill="none"/>
+
+        <!-- ── EMBERS / SPARKS rising from flame ── -->
+        <g>
+          <circle cx="306" cy="38" r="1.5" fill="rgba(255,220,80,0.9)"/>
+          <circle cx="288" cy="32" r="1.3" fill="rgba(255,180,60,0.85)"/>
+          <circle cx="312" cy="48" r="1" fill="rgba(255,240,120,0.7)"/>
+          <circle cx="283" cy="44" r="1.6" fill="rgba(255,160,50,0.8)"/>
+          <circle cx="316" cy="22" r="1.2" fill="rgba(255,200,90,0.65)"/>
+          <circle cx="278" cy="20" r="0.9" fill="rgba(255,220,100,0.6)"/>
+          <circle cx="320" cy="60" r="1.1" fill="rgba(255,170,60,0.7)"/>
+          <circle cx="272" cy="58" r="0.9" fill="rgba(255,200,90,0.6)"/>
+          <circle cx="328" cy="80" r="1.4" fill="rgba(255,180,70,0.75)"/>
+          <circle cx="265" cy="75" r="1.1" fill="rgba(255,200,80,0.65)"/>
+          <!-- Distant embers floating up -->
+          <circle cx="335" cy="115" r="1" fill="rgba(255,160,60,0.55)"/>
+          <circle cx="258" cy="105" r="0.8" fill="rgba(255,180,70,0.5)"/>
+          <circle cx="345" cy="140" r="0.7" fill="rgba(255,160,60,0.45)"/>
+          <circle cx="250" cy="140" r="0.6" fill="rgba(255,200,80,0.4)"/>
+          <circle cx="355" cy="170" r="0.5" fill="rgba(255,160,60,0.35)"/>
+          <circle cx="240" cy="175" r="0.5" fill="rgba(255,180,70,0.35)"/>
+        </g>
+        <!-- Soft ember trails -->
+        <g opacity="0.3" stroke-linecap="round">
+          <path d="M306 38 Q308 25 310 12" stroke="rgba(255,180,60,0.5)" stroke-width="0.5" fill="none"/>
+          <path d="M288 32 Q286 18 285 6" stroke="rgba(255,180,60,0.5)" stroke-width="0.5" fill="none"/>
+          <path d="M335 115 Q340 95 345 80" stroke="rgba(255,160,60,0.4)" stroke-width="0.4" fill="none"/>
+        </g>
+
+        <!-- Ground shadow / pool of light at figure's feet -->
+        <ellipse cx="240" cy="568" rx="70" ry="8" fill="rgba(0,0,0,0.8)" filter="url(#softGlow)"/>
+        <ellipse cx="244" cy="558" rx="100" ry="14" fill="rgba(180,80,30,0.12)" filter="url(#bigGlow)"/>
+
+        <!-- ── Dark vignette edges ── -->
+        <path d="M0 0 L100 0 L0 220 Z" fill="rgba(4,2,1,0.7)"/>
+        <path d="M460 0 L370 0 L460 200 Z" fill="rgba(4,2,1,0.5)"/>
+        <path d="M0 580 L0 380 L140 580 Z" fill="rgba(2,1,0,0.75)"/>
+        <path d="M460 580 L460 400 L320 580 Z" fill="rgba(2,1,0,0.65)"/>
       </svg>
     </div>
   </div>
@@ -2006,45 +2720,242 @@ footer {
 <div class="process-visual">
   <svg class="pv-canvas" viewBox="0 0 1400 560" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
     <defs>
-      <radialGradient id="pvLight" cx="30%" cy="50%" r="55%">
-        <stop offset="0%" stop-color="#A04020" stop-opacity="0.45"/>
+      <radialGradient id="pvLight" cx="30%" cy="48%" r="50%">
+        <stop offset="0%" stop-color="#FFB060" stop-opacity="0.55"/>
+        <stop offset="35%" stop-color="#C84818" stop-opacity="0.32"/>
+        <stop offset="70%" stop-color="#5A2008" stop-opacity="0.15"/>
         <stop offset="100%" stop-color="#0D0B08" stop-opacity="0"/>
       </radialGradient>
-      <filter id="oilScene">
-        <feTurbulence type="fractalNoise" baseFrequency="0.02 0.04" numOctaves="4" seed="3"/>
-        <feDisplacementMap in="SourceGraphic" scale="14" xChannelSelector="R" yChannelSelector="G"/>
+      <radialGradient id="pvCore" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#FFFCEC" stop-opacity="1"/>
+        <stop offset="50%" stop-color="#FFB060" stop-opacity="0.6"/>
+        <stop offset="100%" stop-color="#FF6020" stop-opacity="0"/>
+      </radialGradient>
+      <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#0D0805"/>
+        <stop offset="40%" stop-color="#1A0E07"/>
+        <stop offset="75%" stop-color="#2A1208"/>
+        <stop offset="100%" stop-color="#3A1C0A"/>
+      </linearGradient>
+      <linearGradient id="moorGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#180C06"/>
+        <stop offset="100%" stop-color="#080402"/>
+      </linearGradient>
+      <linearGradient id="figRim" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stop-color="rgba(232,130,55,0.6)"/>
+        <stop offset="100%" stop-color="rgba(232,130,55,0)"/>
+      </linearGradient>
+      <filter id="oilScene" x="-5%" y="-5%" width="110%" height="110%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.015 0.035" numOctaves="5" seed="3"/>
+        <feDisplacementMap in="SourceGraphic" scale="16" xChannelSelector="R" yChannelSelector="G"/>
       </filter>
+      <filter id="oilFig" x="-5%" y="-5%" width="110%" height="110%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.05 0.08" numOctaves="3" seed="11"/>
+        <feDisplacementMap in="SourceGraphic" scale="5" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+      <filter id="softGlow"><feGaussianBlur stdDeviation="10"/></filter>
+      <filter id="bigBlur"><feGaussianBlur stdDeviation="22"/></filter>
     </defs>
 
-    <rect width="1400" height="560" fill="#100C08"/>
-    <ellipse cx="420" cy="280" rx="500" ry="300" fill="url(#pvLight)"/>
-    <ellipse cx="420" cy="300" rx="200" ry="150" fill="rgba(180,80,20,0.12)"/>
+    <!-- ── DEEP SKY ── -->
+    <rect width="1400" height="560" fill="url(#skyGrad)"/>
 
-    <!-- Ground reflection -->
-    <path d="M0 480 L1400 480 L1400 560 L0 560 Z" fill="rgba(12,8,3,0.7)"/>
-    <path d="M0 440 Q400 430 700 448 Q1000 460 1400 445 L1400 480 L0 480 Z" fill="rgba(16,10,4,0.5)"/>
+    <!-- Cloud bands -->
+    <ellipse cx="700" cy="80" rx="600" ry="60" fill="rgba(40,22,10,0.5)" filter="url(#oilScene)"/>
+    <ellipse cx="400" cy="40" rx="350" ry="35" fill="rgba(30,16,8,0.6)" filter="url(#oilScene)"/>
+    <ellipse cx="1000" cy="120" rx="400" ry="40" fill="rgba(35,18,10,0.45)" filter="url(#oilScene)"/>
 
-    <!-- Sky atmosphere -->
-    <path d="M0 0 L1400 0 L1400 200 Q900 150 700 170 Q400 190 0 160 Z" fill="rgba(8,5,2,0.5)"/>
+    <!-- Distant warm glow toward which figures walk -->
+    <ellipse cx="420" cy="320" rx="560" ry="280" fill="url(#pvLight)"/>
+    <ellipse cx="420" cy="330" rx="220" ry="120" fill="rgba(220,100,40,0.2)" filter="url(#bigBlur)"/>
 
-    <!-- Abstract landscape elements — painterly dark shapes -->
-    <path d="M0 350 Q200 300 350 320 Q450 330 500 300 Q550 270 600 310 Q700 360 800 330 Q900 300 1000 340 Q1100 370 1200 320 Q1300 280 1400 310 L1400 480 L0 480 Z" fill="rgba(10,6,3,0.6)" filter="url(#oilScene)"/>
+    <!-- ── DISTANT MOUNTAINS (atmospheric perspective) ── -->
+    <path d="M0 280 Q150 250 280 265 Q400 280 500 250 Q600 220 720 245 Q840 268 960 240 Q1080 215 1200 235 Q1320 250 1400 230 L1400 360 L0 360 Z"
+          fill="rgba(35,20,10,0.55)" filter="url(#oilScene)"/>
+    <!-- Middle mountains -->
+    <path d="M0 330 Q120 305 250 320 Q380 335 500 310 Q620 285 740 305 Q860 325 980 305 Q1100 285 1220 305 Q1320 320 1400 305 L1400 400 L0 400 Z"
+          fill="rgba(20,12,6,0.75)" filter="url(#oilScene)"/>
 
-    <!-- Three heroic figures in silhouette — walking forward -->
-    <g filter="url(#oilScene)">
-      <!-- Figure 1 -->
-      <path d="M360 470 Q363 420 367 388 Q372 360 378 340 Q386 322 392 316 Q398 322 403 340 Q409 360 414 388 Q418 418 420 470 Z" fill="rgba(8,5,2,0.97)"/>
-      <ellipse cx="392" cy="305" rx="20" ry="24" fill="rgba(8,5,2,0.97)"/>
-      <!-- Figure 2 (closer, larger) -->
-      <path d="M610 475 Q614 418 620 378 Q628 342 636 318 Q646 298 656 292 Q666 298 674 318 Q682 342 688 378 Q694 418 698 475 Z" fill="rgba(8,5,2,0.97)"/>
-      <ellipse cx="656" cy="280" rx="24" ry="28" fill="rgba(8,5,2,0.97)"/>
-      <!-- Figure 3 -->
-      <path d="M840 472 Q843 425 848 390 Q854 360 861 340 Q868 322 875 318 Q882 322 888 340 Q895 360 901 390 Q906 422 908 472 Z" fill="rgba(8,5,2,0.97)"/>
-      <ellipse cx="875" cy="308" rx="20" ry="24" fill="rgba(8,5,2,0.97)"/>
+    <!-- ── DISTANT BEACON FIRE on horizon ── -->
+    <g>
+      <ellipse cx="420" cy="328" rx="22" ry="14" fill="rgba(255,160,60,0.4)" filter="url(#softGlow)"/>
+      <ellipse cx="420" cy="326" rx="10" ry="7" fill="rgba(255,200,90,0.75)"/>
+      <circle cx="420" cy="324" r="4" fill="url(#pvCore)"/>
+      <circle cx="420" cy="323" r="1.8" fill="#FFFCEC"/>
     </g>
 
-    <!-- Rim light — toward the distant glow ahead -->
-    <path d="M636 325 Q633 310 638 298 Q646 290 656 290 Q650 302 648 316 Q646 330 647 348 Z" fill="rgba(200,100,30,0.25)"/>
+    <!-- Second smaller beacon further away -->
+    <g opacity="0.85">
+      <ellipse cx="980" cy="312" rx="10" ry="6" fill="rgba(255,160,60,0.35)" filter="url(#softGlow)"/>
+      <circle cx="980" cy="310" r="2.5" fill="rgba(255,210,100,0.85)"/>
+    </g>
+
+    <!-- God-rays from distant fire -->
+    <g opacity="0.14" style="mix-blend-mode:screen">
+      <path d="M420 326 L160 540 L220 540 L420 332 Z" fill="rgba(255,180,80,0.6)"/>
+      <path d="M420 326 L320 540 L360 540 L420 330 Z" fill="rgba(255,200,100,0.7)"/>
+      <path d="M420 326 L500 540 L540 540 L420 332 Z" fill="rgba(255,180,80,0.6)"/>
+      <path d="M420 326 L680 540 L720 540 L420 332 Z" fill="rgba(255,180,80,0.45)"/>
+    </g>
+
+    <!-- ── MOOR / GROUND PLANE ── -->
+    <path d="M0 360 L1400 360 L1400 560 L0 560 Z" fill="url(#moorGrad)"/>
+    <!-- Reflected warmth on wet ground -->
+    <path d="M0 360 Q300 355 600 365 Q900 375 1400 360" stroke="rgba(180,80,30,0.3)" stroke-width="2" fill="none" filter="url(#softGlow)"/>
+    <ellipse cx="420" cy="400" rx="350" ry="22" fill="rgba(180,80,30,0.18)" filter="url(#softGlow)"/>
+
+    <!-- Foreground rolling rises / mounds -->
+    <path d="M0 460 Q200 440 400 455 Q600 470 800 450 Q1000 432 1200 448 Q1300 458 1400 450 L1400 560 L0 560 Z"
+          fill="rgba(8,4,2,0.85)" filter="url(#oilScene)"/>
+
+    <!-- Reeds / grass in foreground -->
+    <g opacity="0.5" stroke-linecap="round">
+      <line x1="80" y1="540" x2="78" y2="510" stroke="rgba(30,16,8,0.8)" stroke-width="1"/>
+      <line x1="90" y1="540" x2="93" y2="508" stroke="rgba(30,16,8,0.8)" stroke-width="1"/>
+      <line x1="105" y1="540" x2="102" y2="515" stroke="rgba(30,16,8,0.7)" stroke-width="0.8"/>
+      <line x1="200" y1="538" x2="198" y2="510" stroke="rgba(30,16,8,0.7)" stroke-width="1"/>
+      <line x1="220" y1="540" x2="225" y2="508" stroke="rgba(30,16,8,0.8)" stroke-width="1"/>
+      <line x1="1100" y1="540" x2="1097" y2="512" stroke="rgba(30,16,8,0.7)" stroke-width="1"/>
+      <line x1="1120" y1="540" x2="1124" y2="510" stroke="rgba(30,16,8,0.8)" stroke-width="0.9"/>
+      <line x1="1280" y1="540" x2="1278" y2="514" stroke="rgba(30,16,8,0.7)" stroke-width="1"/>
+    </g>
+
+    <!-- ══════════════════════════════════════════════════════════════════
+         THREE FIGURES walking toward distant fire — increasing scale
+         ══════════════════════════════════════════════════════════════════ -->
+
+    <!-- BACK FIGURE (smallest, furthest right) -->
+    <g filter="url(#oilFig)">
+      <!-- Cloak flowing -->
+      <path d="M870 470 Q880 440 882 410 Q884 385 894 370 Q890 395 890 420 Q888 445 884 470 Z" fill="#070302"/>
+      <path d="M918 470 Q908 440 906 410 Q904 385 894 370 Q898 395 898 420 Q900 445 904 470 Z" fill="#070302"/>
+      <!-- Legs -->
+      <path d="M880 470 Q882 430 885 405 L893 405 Q894 432 894 470 Z" fill="#070302"/>
+      <path d="M894 470 Q896 432 899 405 L907 405 Q910 432 908 470 Z" fill="#080402"/>
+      <!-- Torso -->
+      <path d="M872 405 Q866 370 870 340 Q878 320 892 314 L898 314 Q912 320 916 340 Q920 370 914 405 Q904 412 894 412 Q884 412 872 405 Z" fill="#0A0503"/>
+      <!-- Shoulders -->
+      <path d="M868 318 Q882 308 894 306 Q906 308 920 318 Q908 312 894 311 Q880 312 868 318 Z" fill="#050201"/>
+      <!-- Neck -->
+      <path d="M890 300 L890 314 L900 314 L900 300 Z" fill="#0A0503"/>
+      <!-- Head -->
+      <ellipse cx="894" cy="288" rx="13" ry="16" fill="#0A0503"/>
+      <!-- Hair -->
+      <path d="M883 280 Q887 270 894 268 Q903 270 905 282 Q900 274 894 275 Q888 276 883 282 Z" fill="#050201"/>
+    </g>
+    <!-- Faint rim light -->
+    <path d="M875 320 Q872 360 870 405" stroke="rgba(232,130,55,0.35)" stroke-width="1.5" fill="none" filter="url(#oilFig)"/>
+    <ellipse cx="894" cy="475" rx="22" ry="3.5" fill="rgba(0,0,0,0.65)" filter="url(#softGlow)"/>
+    <!-- Long shadow cast away from fire -->
+    <path d="M894 475 L1100 540 L1080 540 L894 478 Z" fill="rgba(0,0,0,0.45)" filter="url(#softGlow)"/>
+
+    <!-- MIDDLE FIGURE (right side) -->
+    <g filter="url(#oilFig)">
+      <!-- Cloak -->
+      <path d="M820 475 Q834 440 836 405 Q840 378 854 358 Q848 388 848 418 Q846 448 840 478 Z" fill="#070302"/>
+      <path d="M896 475 Q882 440 880 405 Q876 378 862 358 Q868 388 868 418 Q870 448 876 478 Z" fill="#070302"/>
+      <!-- Legs (mid-stride) -->
+      <path d="M834 478 Q836 430 840 395 L850 395 Q852 432 852 478 Q852 488 848 490 Q836 490 834 488 Z" fill="#070302"/>
+      <path d="M858 478 Q860 430 864 395 L874 395 Q878 432 876 478 Q876 488 868 490 Q858 490 858 488 Z" fill="#080402"/>
+      <!-- Feet -->
+      <ellipse cx="842" cy="490" rx="10" ry="3.5" fill="#040201"/>
+      <ellipse cx="867" cy="490" rx="10" ry="3.5" fill="#040201"/>
+
+      <!-- Torso -->
+      <path d="M828 398 Q820 355 825 318 Q834 290 852 282 L862 282 Q880 290 886 318 Q890 355 882 398 Q868 408 856 408 Q842 408 828 398 Z" fill="#0A0503"/>
+      <!-- Coat seam -->
+      <line x1="857" y1="290" x2="857" y2="402" stroke="rgba(30,16,8,0.6)" stroke-width="1"/>
+      <!-- Shoulders -->
+      <path d="M822 290 Q840 276 856 274 Q872 276 888 290 Q874 282 856 280 Q840 282 822 290 Z" fill="#050201"/>
+      <!-- Neck -->
+      <path d="M850 262 L850 280 L866 280 L866 262 Z" fill="#0A0503"/>
+      <!-- Head -->
+      <ellipse cx="858" cy="247" rx="17" ry="20" fill="#0A0503"/>
+      <!-- Hair -->
+      <path d="M843 237 Q850 224 862 222 Q874 224 876 240 Q866 230 858 232 Q848 234 843 242 Z" fill="#050201"/>
+
+      <!-- Arms swinging in walk -->
+      <path d="M824 320 Q814 350 810 380 Q808 405 815 420 Q818 400 820 380 Q822 350 826 332 Z" fill="#0A0503"/>
+      <path d="M886 320 Q896 350 900 380 Q902 405 895 420 Q892 400 890 380 Q888 350 884 332 Z" fill="#0A0503"/>
+    </g>
+    <!-- Rim light -->
+    <path d="M828 290 Q822 340 822 405" stroke="rgba(255,160,70,0.55)" stroke-width="2" fill="none" filter="url(#oilFig)"/>
+    <path d="M845 240 Q852 248 854 258" stroke="rgba(232,140,60,0.55)" stroke-width="1.5" fill="none"/>
+    <ellipse cx="855" cy="492" rx="30" ry="4.5" fill="rgba(0,0,0,0.7)" filter="url(#softGlow)"/>
+    <!-- Long shadow cast away from fire -->
+    <path d="M858 492 L1130 540 L1090 540 L858 495 Z" fill="rgba(0,0,0,0.55)" filter="url(#softGlow)"/>
+
+    <!-- FRONT FIGURE (largest, closest, center) -->
+    <g filter="url(#oilFig)">
+      <!-- Cloak billowing back -->
+      <path d="M598 488 Q580 450 580 410 Q582 375 600 348 Q600 380 604 415 Q608 450 612 490 Z" fill="#070302"/>
+      <path d="M704 488 Q722 450 722 410 Q720 375 702 348 Q702 380 698 415 Q694 450 690 490 Z" fill="#070302"/>
+      <!-- Front leg planted, back leg stepping -->
+      <path d="M624 488 Q626 432 632 392 L644 392 Q646 432 644 488 Q644 500 638 502 Q626 502 624 500 Z" fill="#070302"/>
+      <path d="M656 488 Q658 432 664 392 L676 392 Q680 432 678 488 Q678 500 670 502 Q658 502 656 500 Z" fill="#080402"/>
+      <!-- Feet -->
+      <ellipse cx="634" cy="502" rx="12" ry="4" fill="#040201"/>
+      <ellipse cx="668" cy="502" rx="12" ry="4" fill="#040201"/>
+
+      <!-- Long coat / cloak body -->
+      <path d="M616 395 Q606 348 612 305 Q624 272 645 262 L660 262 Q681 272 692 305 Q697 348 686 395 Q668 408 651 408 Q635 408 616 395 Z" fill="#0A0503"/>
+      <!-- Coat front opening -->
+      <line x1="651" y1="270" x2="651" y2="400" stroke="rgba(30,16,8,0.7)" stroke-width="1.2"/>
+      <!-- Belt -->
+      <path d="M620 360 Q650 365 685 360" stroke="rgba(80,42,18,0.5)" stroke-width="2.5" fill="none"/>
+
+      <!-- Shoulders -->
+      <path d="M610 268 Q633 254 651 252 Q668 254 690 268 Q674 258 651 256 Q628 258 610 268 Z" fill="#050201"/>
+
+      <!-- Neck -->
+      <path d="M645 235 L645 256 L660 256 L660 235 Z" fill="#0A0503"/>
+
+      <!-- Head — looking ahead toward fire -->
+      <ellipse cx="652" cy="218" rx="20" ry="24" fill="#0A0503"/>
+      <!-- Hair -->
+      <path d="M634 207 Q642 192 654 190 Q668 192 672 208 Q668 218 668 232 Q660 220 652 222 Q644 224 638 232 Q634 220 634 207 Z" fill="#050201"/>
+      <!-- Jaw line -->
+      <path d="M638 224 Q644 236 656 238 Q666 236 670 226" stroke="rgba(0,0,0,0.4)" stroke-width="0.8" fill="none"/>
+
+      <!-- LEFT ARM extended, gesturing forward -->
+      <path d="M612 280 Q598 305 588 332 Q582 358 588 380 Q594 358 600 335 Q608 308 616 292 Z" fill="#0A0503"/>
+      <!-- RIGHT ARM at side -->
+      <path d="M690 280 Q702 305 708 332 Q710 358 702 378 Q700 358 696 335 Q692 308 688 292 Z" fill="#0A0503"/>
+    </g>
+    <!-- WARM RIM LIGHT on front figure (from fire) -->
+    <g filter="url(#oilFig)">
+      <path d="M608 268 Q600 320 600 405" stroke="url(#figRim)" stroke-width="3" fill="none"/>
+      <path d="M612 280 Q598 308 590 335" stroke="rgba(255,180,80,0.65)" stroke-width="2" fill="none"/>
+      <path d="M634 200 Q638 215 642 230" stroke="rgba(232,140,60,0.6)" stroke-width="1.8" fill="none"/>
+      <!-- Cheek light -->
+      <ellipse cx="640" cy="222" rx="6" ry="9" fill="rgba(255,170,80,0.35)" filter="url(#softGlow)"/>
+      <!-- Belt highlight -->
+      <path d="M620 360 Q638 363 656 362" stroke="rgba(255,170,80,0.55)" stroke-width="1.8" fill="none"/>
+    </g>
+    <ellipse cx="654" cy="505" rx="38" ry="5" fill="rgba(0,0,0,0.75)" filter="url(#softGlow)"/>
+    <!-- Long shadow cast away from fire (toward viewer's right/back) -->
+    <path d="M654 505 L1000 555 L940 555 L654 510 Z" fill="rgba(0,0,0,0.6)" filter="url(#softGlow)"/>
+
+    <!-- ── Floating embers carried by wind across scene ── -->
+    <g opacity="0.7">
+      <circle cx="380" cy="280" r="1.2" fill="#FFD080"/>
+      <circle cx="460" cy="240" r="0.9" fill="#FFB060"/>
+      <circle cx="520" cy="200" r="0.8" fill="#FFE0A0"/>
+      <circle cx="580" cy="180" r="0.7" fill="#FFC070"/>
+      <circle cx="660" cy="160" r="0.6" fill="#FFB060"/>
+      <circle cx="340" cy="220" r="1" fill="#FFC070"/>
+      <circle cx="500" cy="140" r="0.5" fill="#FFE0A0"/>
+    </g>
+
+    <!-- ── Atmospheric haze layers ── -->
+    <ellipse cx="420" cy="370" rx="500" ry="20" fill="rgba(120,55,20,0.2)" filter="url(#bigBlur)"/>
+    <ellipse cx="700" cy="420" rx="700" ry="20" fill="rgba(40,22,10,0.4)" filter="url(#bigBlur)"/>
+
+    <!-- ── Vignette ── -->
+    <path d="M0 0 L160 0 L0 280 Z" fill="rgba(2,1,0,0.45)"/>
+    <path d="M1400 0 L1240 0 L1400 240 Z" fill="rgba(2,1,0,0.5)"/>
+    <path d="M0 560 L0 460 L160 560 Z" fill="rgba(2,1,0,0.5)"/>
+    <path d="M1400 560 L1400 440 L1220 560 Z" fill="rgba(2,1,0,0.55)"/>
   </svg>
   <div class="pv-overlay"></div>
   <div class="pv-content">
@@ -2185,39 +3096,320 @@ footer {
 <div class="cta-section" id="contact">
   <svg class="cta-canvas" viewBox="0 0 1400 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
     <defs>
-      <radialGradient id="ctaGlow" cx="50%" cy="50%" r="55%">
-        <stop offset="0%" stop-color="#C4622D" stop-opacity="0.5"/>
-        <stop offset="50%" stop-color="#6A2808" stop-opacity="0.25"/>
+      <radialGradient id="ctaGlow" cx="50%" cy="68%" r="40%">
+        <stop offset="0%" stop-color="#FFC070" stop-opacity="0.7"/>
+        <stop offset="25%" stop-color="#FF7820" stop-opacity="0.45"/>
+        <stop offset="60%" stop-color="#8A3008" stop-opacity="0.2"/>
         <stop offset="100%" stop-color="#0D0B08" stop-opacity="0"/>
       </radialGradient>
-      <filter id="oilCta">
-        <feTurbulence type="fractalNoise" baseFrequency="0.025 0.04" numOctaves="4" seed="7"/>
+      <radialGradient id="ctaFireCore" cx="50%" cy="60%" r="50%">
+        <stop offset="0%" stop-color="#FFFCEC" stop-opacity="1"/>
+        <stop offset="40%" stop-color="#FFC070" stop-opacity="0.95"/>
+        <stop offset="100%" stop-color="#FF6020" stop-opacity="0"/>
+      </radialGradient>
+      <linearGradient id="ctaSky" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#080503"/>
+        <stop offset="50%" stop-color="#100805"/>
+        <stop offset="100%" stop-color="#2A140A"/>
+      </linearGradient>
+      <linearGradient id="ctaGround" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#1A0E07"/>
+        <stop offset="100%" stop-color="#050201"/>
+      </linearGradient>
+      <linearGradient id="ctaRim" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stop-color="rgba(255,170,80,0)"/>
+        <stop offset="50%" stop-color="rgba(255,170,80,0.65)"/>
+        <stop offset="100%" stop-color="rgba(255,170,80,0)"/>
+      </linearGradient>
+      <filter id="oilCta" x="-5%" y="-5%" width="110%" height="110%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.018 0.035" numOctaves="5" seed="7"/>
         <feDisplacementMap in="SourceGraphic" scale="16" xChannelSelector="R" yChannelSelector="G"/>
       </filter>
+      <filter id="oilCtaFig" x="-5%" y="-5%" width="110%" height="110%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.05 0.08" numOctaves="3" seed="15"/>
+        <feDisplacementMap in="SourceGraphic" scale="5" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+      <filter id="ctaSoftGlow"><feGaussianBlur stdDeviation="10"/></filter>
+      <filter id="ctaBigBlur"><feGaussianBlur stdDeviation="22"/></filter>
     </defs>
-    <rect width="1400" height="600" fill="#0D0B08"/>
-    <ellipse cx="700" cy="300" rx="600" ry="350" fill="url(#ctaGlow)"/>
-    <ellipse cx="700" cy="300" rx="250" ry="150" fill="rgba(200,100,30,0.12)"/>
-    <!-- Horizon landscape -->
-    <path d="M0 500 Q200 440 400 460 Q600 480 700 430 Q800 380 1000 440 Q1200 490 1400 445 L1400 600 L0 600 Z" fill="rgba(10,6,3,0.7)" filter="url(#oilCta)"/>
-    <!-- Group of figures silhouette on horizon -->
-    <g filter="url(#oilCta)" opacity="0.9">
-      <ellipse cx="580" cy="428" rx="18" ry="22" fill="rgba(8,4,2,0.9)"/>
-      <rect x="570" y="430" width="20" height="60" rx="3" fill="rgba(8,4,2,0.9)"/>
-      <ellipse cx="640" cy="420" rx="20" ry="24" fill="rgba(8,4,2,0.9)"/>
-      <rect x="628" y="422" width="22" height="65" rx="3" fill="rgba(8,4,2,0.9)"/>
-      <ellipse cx="700" cy="415" rx="22" ry="26" fill="rgba(8,4,2,0.9)"/>
-      <rect x="686" y="418" width="26" height="70" rx="3" fill="rgba(8,4,2,0.9)"/>
-      <ellipse cx="762" cy="420" rx="20" ry="24" fill="rgba(8,4,2,0.9)"/>
-      <rect x="750" y="422" width="22" height="65" rx="3" fill="rgba(8,4,2,0.9)"/>
-      <ellipse cx="820" cy="428" rx="18" ry="22" fill="rgba(8,4,2,0.9)"/>
-      <rect x="810" y="430" width="20" height="60" rx="3" fill="rgba(8,4,2,0.9)"/>
+
+    <!-- ── DUSK SKY ── -->
+    <rect width="1400" height="600" fill="url(#ctaSky)"/>
+
+    <!-- Stars scattered across the sky -->
+    <g opacity="0.85">
+      <circle cx="180" cy="80" r="0.8" fill="#FFF8E8"/>
+      <circle cx="280" cy="120" r="0.6" fill="#FFE8C8"/>
+      <circle cx="420" cy="60" r="1" fill="#FFF8E8"/>
+      <circle cx="560" cy="100" r="0.6" fill="#FFE8C8"/>
+      <circle cx="650" cy="50" r="0.8" fill="#FFF8E8"/>
+      <circle cx="780" cy="80" r="0.7" fill="#FFE8C8"/>
+      <circle cx="920" cy="110" r="0.9" fill="#FFF8E8"/>
+      <circle cx="1080" cy="60" r="0.6" fill="#FFE8C8"/>
+      <circle cx="1220" cy="100" r="0.8" fill="#FFF8E8"/>
+      <circle cx="350" cy="170" r="0.5" fill="#FFE8C8"/>
+      <circle cx="850" cy="180" r="0.5" fill="#FFE8C8"/>
+      <circle cx="1300" cy="160" r="0.6" fill="#FFF8E8"/>
+      <circle cx="100" cy="160" r="0.5" fill="#FFE8C8"/>
     </g>
-    <!-- Central fire -->
-    <ellipse cx="700" cy="408" rx="28" ry="16" fill="rgba(255,180,60,0.15)"/>
-    <ellipse cx="700" cy="402" rx="16" ry="10" fill="rgba(255,140,40,0.3)"/>
-    <circle cx="700" cy="398" r="6" fill="rgba(255,210,80,0.7)"/>
-    <circle cx="700" cy="396" r="3" fill="rgba(255,240,160,0.95)"/>
+
+    <!-- Sky haze on horizon -->
+    <ellipse cx="700" cy="380" rx="900" ry="120" fill="rgba(80,40,15,0.45)" filter="url(#ctaBigBlur)"/>
+    <ellipse cx="700" cy="410" rx="600" ry="80" fill="rgba(160,70,25,0.3)" filter="url(#ctaBigBlur)"/>
+
+    <!-- ── FIRE GLOW HALO ── -->
+    <ellipse cx="700" cy="440" rx="600" ry="350" fill="url(#ctaGlow)"/>
+    <ellipse cx="700" cy="430" rx="280" ry="160" fill="rgba(255,140,50,0.22)" filter="url(#ctaSoftGlow)"/>
+
+    <!-- ── DISTANT MOUNTAINS ── -->
+    <path d="M0 380 Q150 360 280 370 Q400 380 500 360 Q600 340 720 360 Q840 380 960 360 Q1080 340 1200 360 Q1320 375 1400 365 L1400 440 L0 440 Z"
+          fill="rgba(20,12,6,0.7)" filter="url(#oilCta)"/>
+
+    <!-- ── NEAR HORIZON / FIELD ── -->
+    <path d="M0 460 Q200 430 400 445 Q600 460 700 430 Q800 400 1000 435 Q1200 465 1400 445 L1400 600 L0 600 Z"
+          fill="url(#ctaGround)" filter="url(#oilCta)"/>
+
+    <!-- Ground reflection of fire light -->
+    <ellipse cx="700" cy="525" rx="420" ry="40" fill="rgba(220,120,40,0.32)" filter="url(#ctaSoftGlow)"/>
+    <ellipse cx="700" cy="510" rx="240" ry="22" fill="rgba(255,160,70,0.28)" filter="url(#ctaSoftGlow)"/>
+
+    <!-- ── STONE CIRCLE around the fire ── -->
+    <g filter="url(#oilCta)" opacity="0.92">
+      <path d="M580 510 Q572 505 568 512 Q566 520 574 524 Q584 524 588 518 Q588 510 580 510 Z" fill="#0A0503"/>
+      <path d="M615 514 Q608 510 605 516 Q604 524 612 526 Q620 526 622 520 Q622 514 615 514 Z" fill="#080402"/>
+      <path d="M650 516 Q642 514 640 520 Q640 526 648 528 Q656 526 658 522 Q658 516 650 516 Z" fill="#0A0503"/>
+      <path d="M700 518 Q692 516 690 522 Q690 528 700 530 Q710 528 712 522 Q712 516 700 518 Z" fill="#080402"/>
+      <path d="M755 516 Q748 514 744 520 Q744 526 752 528 Q760 526 762 520 Q762 516 755 516 Z" fill="#0A0503"/>
+      <path d="M790 514 Q782 512 780 518 Q780 524 788 526 Q796 524 798 518 Q798 514 790 514 Z" fill="#080402"/>
+      <path d="M822 510 Q815 506 812 512 Q810 520 820 524 Q828 522 830 516 Q830 510 822 510 Z" fill="#0A0503"/>
+    </g>
+
+    <!-- ── THE CENTRAL BONFIRE — large layered flame ── -->
+    <!-- Outer glow -->
+    <ellipse cx="700" cy="465" rx="100" ry="80" fill="rgba(255,140,50,0.3)" filter="url(#ctaBigBlur)"/>
+    <!-- Logs at base -->
+    <g filter="url(#oilCta)">
+      <path d="M660 510 L745 504 L745 516 L660 522 Z" fill="#1A0E07"/>
+      <path d="M672 498 L740 492 L740 504 L672 510 Z" fill="#0A0503"/>
+      <ellipse cx="660" cy="516" rx="8" ry="5" fill="#1A0E07"/>
+      <ellipse cx="745" cy="510" rx="8" ry="5" fill="#1A0E07"/>
+      <!-- Glowing coals between logs -->
+      <ellipse cx="690" cy="510" rx="20" ry="6" fill="rgba(255,160,60,0.85)" filter="url(#ctaSoftGlow)"/>
+      <ellipse cx="715" cy="510" rx="14" ry="5" fill="rgba(255,200,90,0.85)" filter="url(#ctaSoftGlow)"/>
+    </g>
+    <!-- Hot coal embers -->
+    <g>
+      <circle cx="682" cy="508" r="2" fill="rgba(255,140,50,0.9)"/>
+      <circle cx="695" cy="512" r="2.5" fill="rgba(255,200,80,0.95)"/>
+      <circle cx="708" cy="510" r="2" fill="rgba(255,180,60,0.9)"/>
+      <circle cx="720" cy="513" r="2.2" fill="rgba(255,220,100,0.95)"/>
+      <circle cx="732" cy="509" r="1.8" fill="rgba(255,160,50,0.9)"/>
+    </g>
+    <!-- Flames -->
+    <path d="M700 506 Q674 470 680 432 Q688 400 700 380 Q712 400 720 432 Q726 470 700 506 Z"
+          fill="rgba(255,120,40,0.55)" filter="url(#oilCta)"/>
+    <path d="M700 502 Q682 470 686 438 Q692 410 700 392 Q708 410 714 438 Q718 470 700 502 Z"
+          fill="rgba(255,170,60,0.8)" filter="url(#oilCta)"/>
+    <path d="M700 498 Q688 470 690 442 Q694 418 700 402 Q706 418 710 442 Q712 470 700 498 Z"
+          fill="rgba(255,210,90,0.95)"/>
+    <path d="M700 494 Q694 470 696 446 Q698 428 700 418 Q702 428 704 446 Q706 470 700 494 Z"
+          fill="url(#ctaFireCore)"/>
+    <!-- Tongue tips -->
+    <path d="M700 392 Q696 378 696 365" stroke="rgba(255,200,80,0.7)" stroke-width="1.5" fill="none"/>
+    <path d="M700 392 Q704 378 706 365" stroke="rgba(255,220,100,0.7)" stroke-width="1.5" fill="none"/>
+
+    <!-- Smoke plume above fire -->
+    <g filter="url(#ctaBigBlur)" opacity="0.5">
+      <ellipse cx="700" cy="320" rx="60" ry="40" fill="rgba(50,28,14,0.7)"/>
+      <ellipse cx="685" cy="260" rx="80" ry="35" fill="rgba(40,22,10,0.6)"/>
+      <ellipse cx="720" cy="200" rx="100" ry="35" fill="rgba(30,16,8,0.5)"/>
+      <ellipse cx="700" cy="140" rx="120" ry="30" fill="rgba(20,12,6,0.5)"/>
+    </g>
+
+    <!-- ══════════════════════════════════════════════════════════════════
+         FIGURES gathered in a semi-circle around the bonfire
+         Front row in foreground, smaller ones in mid-distance
+         ══════════════════════════════════════════════════════════════════ -->
+
+    <!-- LEFT-MOST figure (smaller, mid-distance) -->
+    <g filter="url(#oilCtaFig)">
+      <path d="M514 545 Q524 510 524 478 Q526 450 538 432 Q534 458 532 482 Q530 508 524 545 Z" fill="#070302"/>
+      <path d="M566 545 Q558 510 558 478 Q558 450 546 432 Q548 458 550 482 Q552 508 558 545 Z" fill="#070302"/>
+      <path d="M526 548 Q528 510 532 482 L540 482 Q542 510 540 548 Z" fill="#070302"/>
+      <path d="M542 548 Q544 510 548 482 L556 482 Q558 510 556 548 Z" fill="#080402"/>
+      <ellipse cx="535" cy="552" rx="8" ry="3" fill="#040201"/>
+      <ellipse cx="551" cy="552" rx="8" ry="3" fill="#040201"/>
+      <path d="M520 484 Q514 450 518 422 Q526 400 538 392 L548 392 Q560 400 566 422 Q570 450 564 484 Q554 492 542 492 Q530 492 520 484 Z" fill="#0A0503"/>
+      <path d="M515 400 Q530 388 542 386 Q554 388 568 400 Q558 392 542 391 Q526 392 515 400 Z" fill="#050201"/>
+      <path d="M538 376 L538 388 L548 388 L548 376 Z" fill="#0A0503"/>
+      <ellipse cx="543" cy="365" rx="13" ry="15" fill="#0A0503"/>
+      <path d="M531 357 Q536 348 543 347 Q552 348 554 360 Q549 352 543 353 Q536 354 533 360 Z" fill="#050201"/>
+      <!-- Arms reaching toward fire -->
+      <path d="M566 410 Q580 425 590 442 Q594 452 588 460 Q578 450 568 438 Q562 425 562 415 Z" fill="#0A0503"/>
+    </g>
+    <!-- Rim light from fire -->
+    <path d="M568 410 Q582 425 592 442" stroke="rgba(255,170,70,0.6)" stroke-width="2" fill="none" filter="url(#oilCtaFig)"/>
+    <path d="M566 392 Q572 430 568 484" stroke="rgba(232,130,55,0.55)" stroke-width="2" fill="none" filter="url(#oilCtaFig)"/>
+    <path d="M553 360 Q558 366 558 376" stroke="rgba(232,130,55,0.5)" stroke-width="1.2" fill="none"/>
+    <ellipse cx="543" cy="554" rx="22" ry="3.5" fill="rgba(0,0,0,0.65)" filter="url(#ctaSoftGlow)"/>
+
+    <!-- LEFT figure -->
+    <g filter="url(#oilCtaFig)">
+      <path d="M580 550 Q592 510 593 472 Q595 442 608 422 Q604 452 602 480 Q600 510 594 550 Z" fill="#070302"/>
+      <path d="M642 550 Q632 510 632 472 Q630 442 618 422 Q620 452 622 480 Q624 510 630 550 Z" fill="#070302"/>
+      <path d="M594 552 Q596 508 600 480 L610 480 Q611 508 610 552 Z" fill="#070302"/>
+      <path d="M612 552 Q614 508 618 480 L628 480 Q630 508 628 552 Z" fill="#080402"/>
+      <ellipse cx="604" cy="556" rx="9" ry="3.5" fill="#040201"/>
+      <ellipse cx="622" cy="556" rx="9" ry="3.5" fill="#040201"/>
+      <path d="M586 482 Q579 444 583 412 Q592 388 606 380 L618 380 Q632 388 638 412 Q642 444 636 482 Q624 491 612 491 Q598 491 586 482 Z" fill="#0A0503"/>
+      <path d="M580 388 Q598 374 612 372 Q626 374 642 388 Q628 380 612 378 Q596 380 580 388 Z" fill="#050201"/>
+      <path d="M608 362 L608 376 L620 376 L620 362 Z" fill="#0A0503"/>
+      <ellipse cx="614" cy="350" rx="15" ry="17" fill="#0A0503"/>
+      <path d="M601 340 Q608 330 614 329 Q624 330 626 343 Q620 335 614 336 Q606 337 603 343 Z" fill="#050201"/>
+      <!-- Arms holding hands open toward fire -->
+      <path d="M584 398 Q572 415 564 432 Q560 442 566 450 Q574 442 580 432 Q586 420 590 408 Z" fill="#0A0503"/>
+      <path d="M640 398 Q650 415 656 432 Q658 442 652 450 Q646 442 642 430 Q638 418 634 408 Z" fill="#0A0503"/>
+    </g>
+    <path d="M640 398 Q650 415 656 432" stroke="rgba(255,170,70,0.6)" stroke-width="2" fill="none" filter="url(#oilCtaFig)"/>
+    <path d="M642 380 Q650 425 644 484" stroke="url(#ctaRim)" stroke-width="2.5" fill="none" filter="url(#oilCtaFig)"/>
+    <path d="M625 343 Q630 350 628 360" stroke="rgba(232,130,55,0.55)" stroke-width="1.4" fill="none"/>
+    <ellipse cx="610" cy="220" rx="0" ry="0"/>
+    <ellipse cx="615" cy="558" rx="25" ry="4" fill="rgba(0,0,0,0.7)" filter="url(#ctaSoftGlow)"/>
+
+    <!-- CENTER-LEFT figure (closer, larger) -->
+    <g filter="url(#oilCtaFig)">
+      <path d="M645 555 Q658 510 660 470 Q662 438 676 414 Q672 446 670 478 Q668 512 660 555 Z" fill="#070302"/>
+      <!-- Legs -->
+      <path d="M660 560 Q662 510 666 478 L678 478 Q680 510 678 560 Q678 572 672 575 Q660 575 660 572 Z" fill="#070302"/>
+      <path d="M680 560 Q682 510 686 478 L698 478 Q702 510 700 560 Q700 572 692 575 Q680 575 680 572 Z" fill="#080402"/>
+      <ellipse cx="669" cy="575" rx="11" ry="4" fill="#040201"/>
+      <ellipse cx="690" cy="575" rx="11" ry="4" fill="#040201"/>
+      <!-- Torso -->
+      <path d="M650 480 Q642 438 647 402 Q656 376 672 368 L686 368 Q702 376 710 402 Q714 438 706 480 Q692 490 678 490 Q664 490 650 480 Z" fill="#0A0503"/>
+      <path d="M644 376 Q664 360 678 358 Q692 360 712 376 Q696 366 678 365 Q660 366 644 376 Z" fill="#050201"/>
+      <path d="M672 345 L672 362 L686 362 L686 345 Z" fill="#0A0503"/>
+      <!-- Head -->
+      <ellipse cx="679" cy="330" rx="18" ry="22" fill="#0A0503"/>
+      <path d="M664 318 Q672 305 682 304 Q694 305 696 320 Q690 310 680 311 Q670 312 666 320 Z" fill="#050201"/>
+      <!-- Arms held open warming hands -->
+      <path d="M648 388 Q632 405 624 425 Q618 440 624 452 Q636 442 644 428 Q650 412 654 400 Z" fill="#0A0503"/>
+      <path d="M710 388 Q726 405 734 425 Q740 440 734 452 Q722 442 714 428 Q708 412 704 400 Z" fill="#0A0503"/>
+      <!-- Hands rendered as small ovals -->
+      <ellipse cx="628" cy="448" rx="6" ry="5" fill="#0A0503"/>
+      <ellipse cx="730" cy="448" rx="6" ry="5" fill="#0A0503"/>
+    </g>
+    <!-- Strong rim light on this central figure -->
+    <g filter="url(#oilCtaFig)">
+      <path d="M644 376 Q636 420 638 480" stroke="rgba(255,170,80,0.75)" stroke-width="2.8" fill="none"/>
+      <path d="M712 376 Q720 420 718 480" stroke="rgba(255,170,80,0.75)" stroke-width="2.8" fill="none"/>
+      <path d="M648 388 Q632 412 624 432" stroke="rgba(255,180,90,0.7)" stroke-width="2" fill="none"/>
+      <path d="M710 388 Q726 412 734 432" stroke="rgba(255,180,90,0.7)" stroke-width="2" fill="none"/>
+      <ellipse cx="668" cy="335" rx="6" ry="9" fill="rgba(255,170,80,0.45)" filter="url(#ctaSoftGlow)"/>
+      <ellipse cx="690" cy="335" rx="6" ry="9" fill="rgba(255,170,80,0.45)" filter="url(#ctaSoftGlow)"/>
+      <path d="M664 315 Q672 312 678 318" stroke="rgba(232,140,60,0.6)" stroke-width="1.5" fill="none"/>
+    </g>
+    <ellipse cx="680" cy="578" rx="35" ry="5" fill="rgba(0,0,0,0.78)" filter="url(#ctaSoftGlow)"/>
+
+    <!-- CENTER-RIGHT figure (mirror) -->
+    <g filter="url(#oilCtaFig)">
+      <path d="M755 555 Q742 510 740 470 Q738 438 724 414 Q728 446 730 478 Q732 512 740 555 Z" fill="#070302"/>
+      <path d="M722 560 Q724 510 728 478 L740 478 Q742 510 740 560 Q740 572 734 575 Q722 575 722 572 Z" fill="#070302"/>
+      <path d="M742 560 Q744 510 748 478 L760 478 Q764 510 762 560 Q762 572 754 575 Q742 575 742 572 Z" fill="#080402"/>
+      <ellipse cx="731" cy="575" rx="11" ry="4" fill="#040201"/>
+      <ellipse cx="752" cy="575" rx="11" ry="4" fill="#040201"/>
+      <path d="M712 480 Q704 438 710 402 Q718 376 734 368 L748 368 Q764 376 772 402 Q776 438 768 480 Q754 490 740 490 Q726 490 712 480 Z" fill="#0A0503"/>
+      <path d="M706 376 Q726 360 740 358 Q754 360 774 376 Q758 366 740 365 Q722 366 706 376 Z" fill="#050201"/>
+      <path d="M734 345 L734 362 L748 362 L748 345 Z" fill="#0A0503"/>
+      <ellipse cx="741" cy="330" rx="18" ry="22" fill="#0A0503"/>
+      <path d="M726 318 Q734 305 744 304 Q756 305 758 320 Q752 310 742 311 Q732 312 728 320 Z" fill="#050201"/>
+      <path d="M710 388 Q694 405 686 425 Q680 440 686 452 Q698 442 706 428 Q712 412 716 400 Z" fill="#0A0503"/>
+      <path d="M772 388 Q788 405 796 425 Q802 440 796 452 Q784 442 776 428 Q770 412 766 400 Z" fill="#0A0503"/>
+      <ellipse cx="690" cy="448" rx="6" ry="5" fill="#0A0503"/>
+      <ellipse cx="792" cy="448" rx="6" ry="5" fill="#0A0503"/>
+    </g>
+    <g filter="url(#oilCtaFig)">
+      <path d="M706 376 Q698 420 700 480" stroke="rgba(255,170,80,0.75)" stroke-width="2.8" fill="none"/>
+      <path d="M774 376 Q782 420 780 480" stroke="rgba(255,170,80,0.75)" stroke-width="2.8" fill="none"/>
+      <path d="M710 388 Q694 412 686 432" stroke="rgba(255,180,90,0.7)" stroke-width="2" fill="none"/>
+      <path d="M772 388 Q788 412 796 432" stroke="rgba(255,180,90,0.7)" stroke-width="2" fill="none"/>
+      <ellipse cx="730" cy="335" rx="6" ry="9" fill="rgba(255,170,80,0.45)" filter="url(#ctaSoftGlow)"/>
+      <ellipse cx="752" cy="335" rx="6" ry="9" fill="rgba(255,170,80,0.45)" filter="url(#ctaSoftGlow)"/>
+      <path d="M756 315 Q748 312 742 318" stroke="rgba(232,140,60,0.6)" stroke-width="1.5" fill="none"/>
+    </g>
+    <ellipse cx="740" cy="578" rx="35" ry="5" fill="rgba(0,0,0,0.78)" filter="url(#ctaSoftGlow)"/>
+
+    <!-- RIGHT figure -->
+    <g filter="url(#oilCtaFig)">
+      <path d="M820 550 Q808 510 807 472 Q805 442 792 422 Q796 452 798 480 Q800 510 806 550 Z" fill="#070302"/>
+      <path d="M758 550 Q768 510 768 472 Q770 442 782 422 Q780 452 778 480 Q776 510 770 550 Z" fill="#070302"/>
+      <path d="M806 552 Q804 508 800 480 L790 480 Q789 508 790 552 Z" fill="#070302"/>
+      <path d="M788 552 Q786 508 782 480 L772 480 Q770 508 772 552 Z" fill="#080402"/>
+      <ellipse cx="796" cy="556" rx="9" ry="3.5" fill="#040201"/>
+      <ellipse cx="778" cy="556" rx="9" ry="3.5" fill="#040201"/>
+      <path d="M814 482 Q821 444 817 412 Q808 388 794 380 L782 380 Q768 388 762 412 Q758 444 764 482 Q776 491 788 491 Q802 491 814 482 Z" fill="#0A0503"/>
+      <path d="M820 388 Q802 374 788 372 Q774 374 758 388 Q772 380 788 378 Q804 380 820 388 Z" fill="#050201"/>
+      <path d="M780 362 L780 376 L792 376 L792 362 Z" fill="#0A0503"/>
+      <ellipse cx="786" cy="350" rx="15" ry="17" fill="#0A0503"/>
+      <path d="M773 340 Q780 330 786 329 Q796 330 798 343 Q792 335 786 336 Q778 337 776 343 Z" fill="#050201"/>
+      <path d="M816 398 Q828 415 836 432 Q840 442 834 450 Q826 442 820 432 Q814 420 810 408 Z" fill="#0A0503"/>
+      <path d="M760 398 Q750 415 744 432 Q742 442 748 450 Q754 442 758 430 Q762 418 766 408 Z" fill="#0A0503"/>
+    </g>
+    <path d="M760 398 Q750 415 744 432" stroke="rgba(255,170,70,0.6)" stroke-width="2" fill="none" filter="url(#oilCtaFig)"/>
+    <path d="M758 380 Q750 425 756 484" stroke="url(#ctaRim)" stroke-width="2.5" fill="none" filter="url(#oilCtaFig)"/>
+    <path d="M775 343 Q770 350 772 360" stroke="rgba(232,130,55,0.55)" stroke-width="1.4" fill="none"/>
+    <ellipse cx="785" cy="558" rx="25" ry="4" fill="rgba(0,0,0,0.7)" filter="url(#ctaSoftGlow)"/>
+
+    <!-- RIGHT-MOST figure (smaller, mid-distance) -->
+    <g filter="url(#oilCtaFig)">
+      <path d="M886 545 Q876 510 876 478 Q874 450 862 432 Q866 458 868 482 Q870 508 876 545 Z" fill="#070302"/>
+      <path d="M834 545 Q842 510 842 478 Q842 450 854 432 Q852 458 850 482 Q848 508 842 545 Z" fill="#070302"/>
+      <path d="M874 548 Q872 510 868 482 L860 482 Q858 510 860 548 Z" fill="#070302"/>
+      <path d="M858 548 Q856 510 852 482 L844 482 Q842 510 844 548 Z" fill="#080402"/>
+      <ellipse cx="865" cy="552" rx="8" ry="3" fill="#040201"/>
+      <ellipse cx="849" cy="552" rx="8" ry="3" fill="#040201"/>
+      <path d="M880 484 Q886 450 882 422 Q874 400 862 392 L852 392 Q840 400 834 422 Q830 450 836 484 Q846 492 858 492 Q870 492 880 484 Z" fill="#0A0503"/>
+      <path d="M885 400 Q870 388 858 386 Q846 388 832 400 Q842 392 858 391 Q874 392 885 400 Z" fill="#050201"/>
+      <path d="M852 376 L852 388 L862 388 L862 376 Z" fill="#0A0503"/>
+      <ellipse cx="857" cy="365" rx="13" ry="15" fill="#0A0503"/>
+      <path d="M846 357 Q852 348 858 347 Q866 348 868 360 Q862 352 856 353 Q850 354 848 360 Z" fill="#050201"/>
+      <path d="M834 410 Q820 425 810 442 Q806 452 812 460 Q822 450 832 438 Q838 425 838 415 Z" fill="#0A0503"/>
+    </g>
+    <path d="M834 410 Q820 425 810 442" stroke="rgba(255,170,70,0.6)" stroke-width="2" fill="none" filter="url(#oilCtaFig)"/>
+    <path d="M834 392 Q828 430 832 484" stroke="rgba(232,130,55,0.55)" stroke-width="2" fill="none" filter="url(#oilCtaFig)"/>
+    <path d="M845 360 Q842 366 842 376" stroke="rgba(232,130,55,0.5)" stroke-width="1.2" fill="none"/>
+    <ellipse cx="857" cy="554" rx="22" ry="3.5" fill="rgba(0,0,0,0.65)" filter="url(#ctaSoftGlow)"/>
+
+    <!-- ── EMBERS rising from fire ── -->
+    <g>
+      <circle cx="700" cy="370" r="1.8" fill="#FFD080"/>
+      <circle cx="685" cy="350" r="1.4" fill="#FFB060"/>
+      <circle cx="715" cy="330" r="1.5" fill="#FFE0A0"/>
+      <circle cx="690" cy="310" r="1" fill="#FFC070"/>
+      <circle cx="720" cy="290" r="1.2" fill="#FFB060"/>
+      <circle cx="680" cy="270" r="0.9" fill="#FFE0A0"/>
+      <circle cx="730" cy="240" r="1" fill="#FFD080"/>
+      <circle cx="690" cy="220" r="0.8" fill="#FFC070"/>
+      <circle cx="710" cy="190" r="0.7" fill="#FFB060"/>
+      <circle cx="725" cy="160" r="0.6" fill="#FFE0A0"/>
+      <circle cx="695" cy="140" r="0.5" fill="#FFD080"/>
+      <!-- Side spread embers -->
+      <circle cx="660" cy="340" r="1" fill="#FFC070"/>
+      <circle cx="745" cy="320" r="1.1" fill="#FFB060"/>
+      <circle cx="650" cy="290" r="0.8" fill="#FFD080"/>
+      <circle cx="755" cy="280" r="0.9" fill="#FFE0A0"/>
+    </g>
+    <!-- Ember trails -->
+    <g opacity="0.3" stroke-linecap="round">
+      <path d="M700 370 Q702 340 700 310" stroke="rgba(255,160,60,0.5)" stroke-width="0.6" fill="none"/>
+      <path d="M715 330 Q720 290 725 250" stroke="rgba(255,160,60,0.4)" stroke-width="0.5" fill="none"/>
+      <path d="M685 350 Q683 320 680 290" stroke="rgba(255,160,60,0.4)" stroke-width="0.5" fill="none"/>
+    </g>
+
+    <!-- ── Vignette ── -->
+    <path d="M0 0 L200 0 L0 280 Z" fill="rgba(2,1,0,0.6)"/>
+    <path d="M1400 0 L1200 0 L1400 280 Z" fill="rgba(2,1,0,0.6)"/>
+    <path d="M0 600 L0 460 L200 600 Z" fill="rgba(2,1,0,0.55)"/>
+    <path d="M1400 600 L1400 460 L1200 600 Z" fill="rgba(2,1,0,0.55)"/>
   </svg>
   <div class="cta-overlay"></div>
   <div class="cta-content reveal">
