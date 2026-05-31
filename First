@@ -2114,6 +2114,16 @@ footer {
       <span class="industry-tag">Startups · Scale-ups · Enterprise</span>
       <span class="industry-arrow">→</span>
     </div>
+    <div class="industry-item">
+      <span class="industry-name">Event Planning</span>
+      <span class="industry-tag">Conferences · Weddings · Corporate Events</span>
+      <span class="industry-arrow">→</span>
+    </div>
+    <div class="industry-item">
+      <span class="industry-name">Nonprofits</span>
+      <span class="industry-tag">Fundraising · Programs · Donor Management</span>
+      <span class="industry-arrow">→</span>
+    </div>
   </div>
 </section>
 
