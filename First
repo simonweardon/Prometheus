@@ -1200,6 +1200,16 @@ footer {
 .nav-hamburger.active span:nth-child(2) { opacity: 0; }
 .nav-hamburger.active span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
 
+/* ─── BLUE DOT ─── */
+.blue-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #3B82F6;
+  box-shadow: 0 0 8px rgba(59,130,246,0.7);
+  flex-shrink: 0;
+}
+
 /* ─── MOBILE NAV OVERLAY ─── */
 .nav-mobile-overlay {
   display: none;
@@ -1380,6 +1390,7 @@ footer {
 
 <!-- NAV -->
 <nav>
+  <span class="blue-dot"></span>
   <a href="#" class="logo">Prome<span>theus</span> Solutions</a>
   <ul class="nav-links">
     <li><a href="#how">Our Method</a></li>
