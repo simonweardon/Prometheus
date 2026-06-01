@@ -3,26 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Renaissance Dynamics — Architects of Your Renaissance</title>
+<title>Prometheus Solutions — We Bring the Fire</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=Cinzel:wght@400;500&family=Lato:wght@300;400&display=swap" rel="stylesheet">
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-  /* Renaissance Dynamics — gilt, marble & fresco-azure, lit for the future */
-  --ember:    #C49A3E;   /* gilded gold — primary accent */
-  --ember-lt: #E4C56B;   /* bright gilt */
-  --gold:     #B0843C;   /* old bronze gold */
-  --gold-lt:  #E8D9A8;   /* candlelit pale gilt */
-  --azure:    #5A9BD4;   /* fresco azure — the future-facing light */
-  --azure-lt: #8FD0E8;   /* luminous sky */
-  --ash:      #15171F;   /* dark stone-blue */
-  --soot:     #0B0C12;   /* deepest stone-night */
-  --smoke:    #20222E;   /* hover stone */
-  --ivory:    #F2ECDE;   /* marble white */
-  --parchment:#CFC4AC;   /* travertine */
-  --warm-gray:#8A8472;   /* stone grey */
+  --ember:    #C4622D;
+  --ember-lt: #E8854A;
+  --gold:     #C9A44A;
+  --gold-lt:  #E8C97A;
+  --ash:      #1A1410;
+  --soot:     #0D0B08;
+  --smoke:    #2E2520;
+  --ivory:    #F0EAE0;
+  --parchment:#D4C9B0;
+  --warm-gray:#8A7D6E;
   --serif:    'Cormorant Garamond', Georgia, serif;
   --display:  'Cinzel', serif;
   --sans:     'Lato', sans-serif;
@@ -58,7 +55,7 @@ nav {
   align-items: center;
   justify-content: space-between;
   padding: 2rem 4rem;
-  background: linear-gradient(to bottom, rgba(11,12,18,0.92) 0%, transparent 100%);
+  background: linear-gradient(to bottom, rgba(13,11,8,0.92) 0%, transparent 100%);
 }
 
 .logo {
@@ -141,10 +138,10 @@ nav {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse 80% 60% at 60% 32%, rgba(196,154,62,0.40) 0%, transparent 62%),
-    radial-gradient(ellipse 46% 44% at 58% 36%, rgba(143,208,232,0.28) 0%, transparent 55%),
-    radial-gradient(ellipse 100% 80% at 50% 0%, rgba(20,30,52,0.9) 0%, transparent 70%),
-    linear-gradient(to bottom, #0B0C12 0%, #11131c 38%, #1a2236 60%, #0d1018 100%);
+    radial-gradient(ellipse 80% 60% at 68% 30%, rgba(160,70,20,0.55) 0%, transparent 65%),
+    radial-gradient(ellipse 40% 40% at 65% 38%, rgba(220,120,40,0.4) 0%, transparent 50%),
+    radial-gradient(ellipse 100% 80% at 50% 0%, rgba(60,30,10,0.9) 0%, transparent 70%),
+    linear-gradient(to bottom, #0D0B08 0%, #1a0e06 35%, #2a1508 55%, #1a0d05 100%);
 }
 
 /* Divine glow — warm gilt light source center-right */
@@ -154,9 +151,9 @@ nav {
   width: 600px; height: 600px;
   border-radius: 50%;
   background: radial-gradient(circle,
-    rgba(244,227,168,0.30) 0%,
-    rgba(196,154,62,0.20) 32%,
-    rgba(143,208,232,0.10) 56%,
+    rgba(255,180,60,0.28) 0%,
+    rgba(220,100,30,0.20) 30%,
+    rgba(160,50,10,0.10) 55%,
     transparent 70%
   );
   mix-blend-mode: screen;
@@ -467,9 +464,9 @@ h2 em {
   position: absolute;
   inset: 0;
   background: linear-gradient(to right,
-    rgba(11,12,18,0.85) 0%,
-    rgba(11,12,18,0.3) 50%,
-    rgba(11,12,18,0.7) 100%
+    rgba(13,11,8,0.85) 0%,
+    rgba(13,11,8,0.3) 50%,
+    rgba(13,11,8,0.7) 100%
   );
 }
 
@@ -607,7 +604,7 @@ h2 em {
   font-size: clamp(8rem, 18vw, 14rem);
   font-weight: 400;
   letter-spacing: 0.05em;
-  color: rgba(196,154,62,0.04);
+  color: rgba(196,98,45,0.04);
   pointer-events: none;
   white-space: nowrap;
   text-transform: uppercase;
@@ -775,9 +772,9 @@ h2 em {
   position: absolute;
   inset: 0;
   background: linear-gradient(to top,
-    rgba(11,12,18,0.92) 0%,
-    rgba(11,12,18,0.2) 60%,
-    rgba(11,12,18,0.6) 100%
+    rgba(13,11,8,0.92) 0%,
+    rgba(13,11,8,0.2) 60%,
+    rgba(13,11,8,0.6) 100%
   );
 }
 
@@ -1026,7 +1023,7 @@ h2 em {
 .cta-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(11,12,18,0.72);
+  background: rgba(13,11,8,0.72);
 }
 
 .cta-content {
@@ -1109,7 +1106,7 @@ footer {
   font-family: var(--serif);
   font-style: italic;
   font-size: 1rem;
-  color: rgba(196,154,62,0.35);
+  color: rgba(196,98,45,0.35);
 }
 
 /* ─── SCROLL REVEALS ─── */
@@ -1344,7 +1341,7 @@ footer {
 
 <!-- NAV -->
 <nav>
-  <a href="#" class="logo">Renais<span>sance</span> Dynamics</a>
+  <a href="#" class="logo">Prome<span>theus</span> Solutions</a>
   <ul class="nav-links">
     <li><a href="#how">Our Method</a></li>
     <li><a href="#agents">AI Agents</a></li>
@@ -1353,7 +1350,7 @@ footer {
     <li><a href="#custom-software">Custom Software</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
-  <a href="#contact" class="nav-cta">Commission a Renaissance</a>
+  <a href="#contact" class="nav-cta">Ignite Your Business</a>
   <button class="nav-hamburger" id="navToggle" aria-label="Open navigation">
     <span></span><span></span><span></span>
   </button>
@@ -1367,7 +1364,7 @@ footer {
   <a href="#industries" onclick="closeNav()">Industries</a>
   <a href="#custom-software" onclick="closeNav()">Custom Software</a>
   <a href="#contact" onclick="closeNav()">Contact</a>
-  <a href="#contact" class="nav-mobile-cta-link" onclick="closeNav()">Commission a Renaissance</a>
+  <a href="#contact" class="nav-mobile-cta-link" onclick="closeNav()">Ignite Your Business</a>
 </div>
 
 <!-- HERO -->
@@ -1380,16 +1377,16 @@ footer {
   </div>
 
   <div class="hero-content">
-    <div class="hero-eyebrow">AI Operations · Reimagined</div>
+    <div class="hero-eyebrow">AI Operations Consulting</div>
     <h1>
-      A renaissance,<br>
-      <em>engineered.</em>
+      We bring the <em>fire</em><br>
+      to your business.
     </h1>
     <p class="hero-sub">
-      Renaissance Dynamics embeds with your team, maps every bottleneck, then builds and deploys AI agents — uniting the craft of the masters with the intelligence of tomorrow.
+      Prometheus embeds with your team, maps every bottleneck, then builds and deploys AI agents that eliminate the friction holding your people back.
     </p>
     <div class="cta-group">
-      <a href="#contact" class="btn-fire">Begin the Commission</a>
+      <a href="#contact" class="btn-fire">Begin the Engagement</a>
       <a href="#how" class="btn-outline">How We Work</a>
     </div>
   </div>
@@ -1410,7 +1407,7 @@ footer {
       <h2 class="reveal">We embed. We diagnose.<br><em>We transform.</em></h2>
     </div>
     <p class="reveal">
-      Most consultants hand you a slide deck and leave. Renaissance Dynamics stays until the work is done. Our team of AI engineers and operational strategists becomes part of your company — learning your workflows, your people, and your pain points from the inside. Then we build and deploy the solutions ourselves.
+      Most consultants hand you a slide deck and leave. Prometheus stays until the work is done. Our team of AI engineers and operational strategists becomes part of your company — learning your workflows, your people, and your pain points from the inside. Then we build and deploy the solutions ourselves.
     </p>
   </div>
 
@@ -1418,11 +1415,11 @@ footer {
     <div class="step reveal d1">
       <div class="step-num">Phase I</div>
       <svg class="step-icon" viewBox="0 0 48 48" fill="none">
-        <circle cx="24" cy="24" r="20" stroke="rgba(196,154,62,0.5)" stroke-width="1"/>
-        <path d="M14 24 Q19 16 24 20 Q29 24 34 16" stroke="rgba(228,197,107,0.8)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-        <circle cx="14" cy="24" r="2.5" fill="rgba(196,154,62,0.7)"/>
-        <circle cx="24" cy="20" r="2.5" fill="rgba(196,154,62,0.7)"/>
-        <circle cx="34" cy="16" r="2.5" fill="rgba(232,217,168,0.9)"/>
+        <circle cx="24" cy="24" r="20" stroke="rgba(196,98,45,0.5)" stroke-width="1"/>
+        <path d="M14 24 Q19 16 24 20 Q29 24 34 16" stroke="rgba(232,133,74,0.8)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <circle cx="14" cy="24" r="2.5" fill="rgba(196,98,45,0.7)"/>
+        <circle cx="24" cy="20" r="2.5" fill="rgba(196,98,45,0.7)"/>
+        <circle cx="34" cy="16" r="2.5" fill="rgba(201,164,74,0.9)"/>
       </svg>
       <div class="step-title">Deep Diagnostic</div>
       <p class="step-body">We spend two to four weeks inside your operation — shadowing teams, mapping workflows, and conducting structured interviews to surface every hidden bottleneck, repetitive task, and process gap.</p>
@@ -1431,8 +1428,8 @@ footer {
     <div class="step reveal d2">
       <div class="step-num">Phase II</div>
       <svg class="step-icon" viewBox="0 0 48 48" fill="none">
-        <rect x="8" y="12" width="32" height="24" rx="2" stroke="rgba(196,154,62,0.5)" stroke-width="1"/>
-        <path d="M16 24 L22 30 L32 18" stroke="rgba(228,197,107,0.8)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect x="8" y="12" width="32" height="24" rx="2" stroke="rgba(196,98,45,0.5)" stroke-width="1"/>
+        <path d="M16 24 L22 30 L32 18" stroke="rgba(232,133,74,0.8)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
       <div class="step-title">Solution Architecture</div>
       <p class="step-body">Our engineers design a custom AI stack targeting your highest-impact problems — prioritized by hours saved, error rate reduction, and revenue impact. No generic software. Purpose-built for you.</p>
@@ -1441,10 +1438,10 @@ footer {
     <div class="step reveal d3">
       <div class="step-num">Phase III</div>
       <svg class="step-icon" viewBox="0 0 48 48" fill="none">
-        <circle cx="24" cy="24" r="8" stroke="rgba(196,154,62,0.5)" stroke-width="1"/>
-        <circle cx="24" cy="24" r="3" fill="rgba(228,197,107,0.7)"/>
-        <path d="M24 8 L24 14 M24 34 L24 40 M8 24 L14 24 M34 24 L40 24" stroke="rgba(196,154,62,0.4)" stroke-width="1.5" stroke-linecap="round"/>
-        <path d="M13 13 L17 17 M31 31 L35 35 M13 35 L17 31 M31 17 L35 13" stroke="rgba(196,154,62,0.3)" stroke-width="1.5" stroke-linecap="round"/>
+        <circle cx="24" cy="24" r="8" stroke="rgba(196,98,45,0.5)" stroke-width="1"/>
+        <circle cx="24" cy="24" r="3" fill="rgba(232,133,74,0.7)"/>
+        <path d="M24 8 L24 14 M24 34 L24 40 M8 24 L14 24 M34 24 L40 24" stroke="rgba(196,98,45,0.4)" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M13 13 L17 17 M31 31 L35 35 M13 35 L17 31 M31 17 L35 13" stroke="rgba(196,98,45,0.3)" stroke-width="1.5" stroke-linecap="round"/>
       </svg>
       <div class="step-title">Build & Deploy</div>
       <p class="step-body">We build, test, and deploy your AI agents — integrating them directly into your existing tools and systems. We train your team, hand off documentation, and stay on until adoption is complete.</p>
@@ -1458,7 +1455,7 @@ footer {
   <div class="pb-overlay"></div>
   <div class="pb-content reveal">
     <h2>The bottleneck is never<br><em>where you think it is.</em></h2>
-    <p>The waste is never where leadership thinks it is. It hides in handoffs, in inboxes, in the small repetitive tasks nobody ever counted. We find it, we quantify it, and we eliminate it. The marble is already there — we simply reveal the form within.</p>
+    <p>The waste is never where leadership thinks it is. It hides in handoffs, in inboxes, in the small repetitive tasks nobody ever counted. We find it, we quantify it, and we eliminate it. The fire is already there — we just show you where to hold it.</p>
   </div>
 </div>
 
@@ -1524,13 +1521,13 @@ footer {
 
 <!-- MYTH / ABOUT -->
 <section class="myth">
-  <div class="myth-bg-text">Renaissance</div>
+  <div class="myth-bg-text">Prometheus</div>
   <div class="myth-grid">
     <div class="myth-text">
       <div class="tag reveal">Who We Are</div>
-      <h2 class="reveal">The masters built<br>the future <em>by hand.</em><br>So do we.</h2>
+      <h2 class="reveal">We stole the fire<br><em>from the gods.</em><br>Now we give it to you.</h2>
       <div class="myth-pull reveal">
-        "For a century they said the dome could not be built. Brunelleschi built it anyway."
+        "Prometheus didn't invent fire. He brought it to those who needed it most."
       </div>
       <p class="reveal">AI is the most transformative force in the history of business. But for most companies, it's still locked behind a wall of complexity, cost, and confusion. We tear that wall down.</p>
       <p class="reveal" style="transition-delay:0.1s">Our team is made up of AI engineers, operations veterans, and industry specialists who have spent careers understanding how businesses actually work — and where they break. We don't theorize. We execute.</p>
@@ -1669,7 +1666,7 @@ footer {
     <div class="pv-step reveal d3">
       <div class="pv-num">Week 7–8</div>
       <div class="pv-title">Deploy &amp; Train</div>
-      <p class="pv-body">We go live, train your team, and monitor performance until everything is running in full flourish.</p>
+      <p class="pv-body">We go live, train your team, and monitor performance until everything is running at full fire.</p>
     </div>
   </div>
 </div>
@@ -1788,7 +1785,7 @@ footer {
 <div class="cta-section" id="contact">
   <div class="cta-overlay"></div>
   <div class="cta-content reveal">
-    <div class="tag" style="justify-content:center;">Begin the Commission</div>
+    <div class="tag" style="justify-content:center;">Begin the Engagement</div>
     <h2>Ready to find your<br><em>hidden hours?</em></h2>
     <p>Start with a free 90-minute diagnostic call. We'll identify your three biggest AI opportunities before we ever send a proposal.</p>
     <div class="cta-group" style="justify-content:center;">
@@ -1802,7 +1799,7 @@ footer {
 <footer>
   <div class="footer-top">
     <div class="footer-brand">
-      <a href="#" class="logo">Renais<span>sance</span> Dynamics</a>
+      <a href="#" class="logo">Prome<span>theus</span> Solutions</a>
       <p>AI operations consulting. We embed, we diagnose, we build, we automate. Your business, transformed.</p>
     </div>
     <div>
@@ -1833,8 +1830,8 @@ footer {
     </div>
   </div>
   <div class="footer-bottom">
-    <div class="footer-copy">© 2026 Renaissance Dynamics — All rights reserved.</div>
-    <div class="footer-myth">Crafted by hand. Built for tomorrow.</div>
+    <div class="footer-copy">© 2026 Prometheus Solutions — All rights reserved.</div>
+    <div class="footer-myth">Fire. Given freely.</div>
   </div>
 </footer>
 

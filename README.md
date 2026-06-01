@@ -2,21 +2,23 @@
 
 A single-page marketing site served by nginx (`First` → `index.html`).
 
-## Current theme: Renaissance Dynamics
+## Current state: Prometheus Solutions (fire theme), trimmed
 
-The live site (`First`) is styled as **Renaissance Dynamics** — a Renaissance
-visual language (Brunelleschi's Florence Cathedral dome, marble sculpture in the
-atelier, the Creation-of-Adam "divine spark", a perspective loggia) paired with a
-luminous, future-facing palette of gilt gold, fresco azure and marble.
+The live site (`First`) uses the original **Prometheus Solutions** fire-themed
+styling and copy, with two content sections removed:
 
-### Reverting to the original "Prometheus Solutions" theme
+- the large decorative illustrations, and
+- the "Companies we've transformed" client logos section.
 
-The original fire-themed site is preserved verbatim at
-[`prometheus-original.html`](./prometheus-original.html). To switch back:
+The manifesto section uses a single-column layout (its portrait illustration was
+removed).
 
-```sh
-cp prometheus-original.html First
-```
+### Backups / history
 
-Then commit. Nothing else changes — the Dockerfile and nginx config always serve
-the `First` file.
+- [`prometheus-original.html`](./prometheus-original.html) is the untouched
+  original Prometheus Solutions page, illustrations included. Restore it with
+  `cp prometheus-original.html First`.
+- The short-lived "Renaissance Dynamics" restyle lives in git history if it is
+  ever wanted again.
+
+The Dockerfile and nginx config always serve the `First` file.
