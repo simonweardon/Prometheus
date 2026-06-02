@@ -646,90 +646,6 @@ h2 em {
   overflow: hidden;
 }
 
-/* Decorative fluted Greek columns flanking the myth section */
-.greek-column {
-  position: absolute;
-  top: 6%;
-  bottom: 6%;
-  width: 88px;
-  z-index: 0;
-  opacity: 0.38;
-  pointer-events: none;
-}
-.greek-column--left  { left: 1.5%; }
-.greek-column--right { right: 1.5%; }
-
-/* Fluted marble shaft */
-.gc-shaft {
-  position: absolute;
-  top: 48px;
-  bottom: 36px;
-  left: 11px;
-  right: 11px;
-  background: linear-gradient(to right,
-    rgba(13,11,8,0.55)    0%,
-    rgba(212,201,176,0.55) 12%,
-    rgba(240,234,224,0.65) 26%,
-    rgba(212,201,176,0.40) 50%,
-    rgba(240,234,224,0.62) 74%,
-    rgba(212,201,176,0.55) 88%,
-    rgba(13,11,8,0.55)    100%);
-  border-radius: 2px 2px 0 0;
-}
-.gc-shaft::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(to right,
-    transparent 0 9px,
-    rgba(13,11,8,0.30) 9px 11px);
-}
-
-/* Capital: echinus flare beneath a flat abacus slab */
-.gc-capital {
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 48px;
-}
-.gc-capital::before {
-  content: "";
-  position: absolute;
-  bottom: 0; left: 1px; right: 1px;
-  height: 20px;
-  background: linear-gradient(to bottom, rgba(201,164,74,0.50), rgba(212,201,176,0.62));
-  clip-path: polygon(13% 100%, 0 0, 100% 0, 87% 100%);
-}
-.gc-capital::after {
-  content: "";
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 14px;
-  background: linear-gradient(to bottom, rgba(240,234,224,0.72), rgba(201,164,74,0.50));
-  border-radius: 2px;
-}
-
-/* Base: torus moulding atop a plinth slab */
-.gc-base {
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  height: 36px;
-}
-.gc-base::before {
-  content: "";
-  position: absolute;
-  top: 0; left: 1px; right: 1px; bottom: 13px;
-  background: linear-gradient(to top, rgba(201,164,74,0.50), rgba(212,201,176,0.58));
-  clip-path: polygon(0 100%, 13% 0, 87% 0, 100% 100%);
-}
-.gc-base::after {
-  content: "";
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  height: 13px;
-  background: linear-gradient(to top, rgba(240,234,224,0.68), rgba(201,164,74,0.46));
-  border-radius: 2px;
-}
-
 /* ─── TOOLS ─── */
 .tools {
   background: var(--soot);
@@ -1354,7 +1270,6 @@ footer {
   /* Myth section */
   .myth-grid { grid-template-columns: 1fr; gap: 3rem; }
   .myth-portrait { aspect-ratio: 3 / 2; }
-  .greek-column { display: none; }
 
   /* Tools section */
   .tools { padding: 5rem 1.5rem; }
@@ -1607,12 +1522,6 @@ footer {
 <!-- MYTH / ABOUT -->
 <section class="myth">
   <div class="myth-bg-text">Prometheus</div>
-  <div class="greek-column greek-column--left" aria-hidden="true">
-    <span class="gc-capital"></span><span class="gc-shaft"></span><span class="gc-base"></span>
-  </div>
-  <div class="greek-column greek-column--right" aria-hidden="true">
-    <span class="gc-capital"></span><span class="gc-shaft"></span><span class="gc-base"></span>
-  </div>
   <div class="myth-grid">
     <div class="myth-text">
       <div class="tag reveal">Who We Are</div>
