@@ -1,38 +1,23 @@
-# Runs the whole Prometheus product together:
-#   - web:     nginx serving the marketing site + reverse-proxying the portal/API
-#   - backend: the Node client-tracking & billing API (+ portal static pages)
+# Runs the all-in-one Prometheus image (marketing site + client portal +
+# billing API in one container) with a persistent volume for the database.
 #
-# Usage:
 #   JWT_SECRET=$(openssl rand -hex 32) docker compose up --build
 # then open http://localhost:8080  (Client Login is in the top-right nav).
 services:
-  backend:
-    build: ./backend
+  app:
+    build: .
     environment:
-      PORT: "3001"
+      PORT: "8080"
       JWT_SECRET: "${JWT_SECRET:-please-change-this-in-production}"
-      DB_PATH: /data/prometheus.db
       NODE_ENV: "${NODE_ENV:-development}"
       # Optional: real online payments. Leave blank to track billing manually.
       STRIPE_SECRET_KEY: "${STRIPE_SECRET_KEY:-}"
       STRIPE_WEBHOOK_SECRET: "${STRIPE_WEBHOOK_SECRET:-}"
     volumes:
-      - backend-data:/data
-    expose:
-      - "3001"
-    restart: unless-stopped
-
-  web:
-    build: .
-    environment:
-      PORT: "8080"
-      BACKEND_ORIGIN: http://backend:3001
-      NGINX_RESOLVER: 127.0.0.11   # Docker's embedded DNS
+      - prometheus-data:/data
     ports:
       - "8080:8080"
-    depends_on:
-      - backend
     restart: unless-stopped
 
 volumes:
-  backend-data:
+  prometheus-data:
