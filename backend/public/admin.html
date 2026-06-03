@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prometheus — Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Lato:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="topbar">
+    <div class="row">
+      <span class="brand">Prome<span>theus</span></span>
+      <span class="muted">Admin</span>
+    </div>
+    <div class="row">
+      <span class="who" id="who"></span>
+      <button class="ghost sm" onclick="logout()">Sign out</button>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div id="msg"></div>
+
+    <!-- LIST VIEW -->
+    <div id="listView">
+      <div class="grid cols-3" id="stats"></div>
+
+      <div class="spread mt">
+        <h2 style="border:none;">Clients</h2>
+        <button onclick="toggleNewClient()">+ New Client</button>
+      </div>
+
+      <div class="card hidden" id="newClientCard">
+        <h3>New client</h3>
+        <div class="grid cols-2">
+          <div><label>Name *</label><input id="nc_name" /></div>
+          <div><label>Email *</label><input id="nc_email" type="email" /></div>
+          <div><label>Company</label><input id="nc_company" /></div>
+          <div><label>Phone</label><input id="nc_phone" /></div>
+          <div>
+            <label>Stage</label>
+            <select id="nc_stage">
+              <option>lead</option><option>discovery</option><option>proposal</option>
+              <option>building</option><option>launched</option><option>maintenance</option><option>churned</option>
+            </select>
+          </div>
+        </div>
+        <label>Notes</label><textarea id="nc_notes"></textarea>
+        <div class="row mt"><button onclick="createClient()">Create</button><button class="ghost" onclick="toggleNewClient()">Cancel</button></div>
+      </div>
+
+      <div class="card mt" style="padding:0;">
+        <table>
+          <thead><tr><th>Client</th><th>Stage</th><th>Services</th><th>Open Projects</th><th class="right">Outstanding</th></tr></thead>
+          <tbody id="clientRows"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- DETAIL VIEW -->
+    <div id="detailView" class="hidden"></div>
+  </div>
+
+  <script src="common.js"></script>
+  <script>
+    if (!requireRole('admin')) { /* redirected */ }
+    const who = getUser();
+    document.getElementById('who').textContent = who ? who.email : '';
+
+    const msg = document.getElementById('msg');
+    function flash(text, kind = 'ok') {
+      msg.innerHTML = '<div class="msg ' + kind + '">' + esc(text) + '</div>';
+      setTimeout(() => { if (msg.firstChild) msg.innerHTML = ''; }, 4000);
+    }
+    function fail(err) { flash(err.message || String(err), 'error'); }
+
+    let clients = [];
+
+    async function loadList() {
+      document.getElementById('listView').classList.remove('hidden');
+      document.getElementById('detailView').classList.add('hidden');
+      try {
+        clients = await api('/clients');
+      } catch (e) { return fail(e); }
+
+      document.getElementById('stats').innerHTML = `
+        <div class="card pad-sm"><div class="stat">${clients.length}</div><div class="stat-label">Clients</div></div>
+        <div class="card pad-sm"><div class="stat">${clients.filter((c) => ['building','launched','maintenance'].includes(c.stage)).length}</div><div class="stat-label">Active engagements</div></div>
+        <div class="card pad-sm"><div class="stat">${clients.reduce((s, c) => s + (c.open_projects || 0), 0)}</div><div class="stat-label">Open projects</div></div>`;
+
+      document.getElementById('clientRows').innerHTML = clients.map((c) => `
+        <tr class="clickable" onclick="openClient(${c.id})">
+          <td><strong>${esc(c.name)}</strong><div class="muted" style="font-size:0.8rem;">${esc(c.company || c.email)}</div></td>
+          <td>${badge(c.stage)}</td>
+          <td>${c.active_services || 0}</td>
+          <td>${c.open_projects || 0}</td>
+          <td class="right">${c.portal_enabled ? '<span class="badge active" title="Portal enabled">portal</span>' : ''}</td>
+        </tr>`).join('') || '<tr><td colspan="5" class="muted">No clients yet.</td></tr>';
+    }
+
+    function toggleNewClient() { document.getElementById('newClientCard').classList.toggle('hidden'); }
+
+    async function createClient() {
+      const body = {
+        name: document.getElementById('nc_name').value.trim(),
+        email: document.getElementById('nc_email').value.trim(),
+        company: document.getElementById('nc_company').value.trim(),
+        phone: document.getElementById('nc_phone').value.trim(),
+        stage: document.getElementById('nc_stage').value,
+        notes: document.getElementById('nc_notes').value.trim(),
+      };
+      if (!body.name || !body.email) return fail(new Error('Name and email are required'));
+      try {
+        await api('/clients', { method: 'POST', body });
+        flash('Client created');
+        toggleNewClient();
+        ['nc_name','nc_email','nc_company','nc_phone','nc_notes'].forEach((id) => document.getElementById(id).value = '');
+        loadList();
+      } catch (e) { fail(e); }
+    }
+
+    const STAGES = ['lead','discovery','proposal','building','launched','maintenance','churned'];
+
+    async function openClient(id) {
+      let c;
+      try { c = await api('/clients/' + id); } catch (e) { return fail(e); }
+      document.getElementById('listView').classList.add('hidden');
+      const v = document.getElementById('detailView');
+      v.classList.remove('hidden');
+
+      const invoiceRows = (c.invoices || []).map((i) => `
+        <tr><td>${esc(i.description || '—')}</td><td>${money(i.amount_cents)}</td>
+            <td>${badge(i.status)}</td><td>${fmtDate(i.due_date)}</td></tr>`).join('')
+        || '<tr><td colspan="4" class="muted">No invoices.</td></tr>';
+
+      const quoteRows = (c.quotes || []).map((q) => `
+        <tr><td>${esc(q.number || '')} ${esc(q.title)}</td><td>${money(q.amount_cents)}</td>
+            <td>${badge(q.status)}</td>
+            <td class="right">${q.status !== 'accepted' || !q.invoice_id ? `<button class="sm ghost" onclick="convertQuote(${q.id}, ${id})">→ Invoice</button>` : '<span class="muted">invoiced</span>'}</td></tr>`).join('')
+        || '<tr><td colspan="4" class="muted">No quotes.</td></tr>';
+
+      const projectRows = (c.projects || []).map((p) => `
+        <tr><td>${esc(p.name)}</td><td>${badge(p.status)}</td><td>${fmtDate(p.due_date)}</td></tr>`).join('')
+        || '<tr><td colspan="3" class="muted">No projects.</td></tr>';
+
+      const serviceRows = (c.services || []).map((s) => `
+        <tr><td>${esc(s.service_name)}</td><td>${money(s.price_cents)}/${esc(s.billing_interval)}</td><td>${badge(s.status)}</td></tr>`).join('')
+        || '<tr><td colspan="3" class="muted">No services.</td></tr>';
+
+      v.innerHTML = `
+        <button class="ghost sm" onclick="loadList()">← All clients</button>
+        <div class="spread mt">
+          <div><h1>${esc(c.name)}</h1><div class="muted">${esc(c.company || '')} · ${esc(c.email)} ${c.phone ? '· ' + esc(c.phone) : ''}</div></div>
+          <div class="row">
+            <label style="margin:0;">Stage</label>
+            <select id="d_stage" onchange="changeStage(${id}, this.value)">
+              ${STAGES.map((s) => `<option ${s === c.stage ? 'selected' : ''}>${s}</option>`).join('')}
+            </select>
+          </div>
+        </div>
+
+        <div class="grid cols-2 mt">
+          <div class="card">
+            <h2>Quotes</h2>
+            <table><tbody>${quoteRows}</tbody></table>
+            <div class="card pad-sm mt">
+              <h3>New quote</h3>
+              <label>Title</label><input id="q_title" />
+              <div class="grid cols-2">
+                <div><label>Amount (USD)</label><input id="q_amount" type="number" min="0" step="0.01" /></div>
+                <div><label>Valid until</label><input id="q_valid" type="date" /></div>
+              </div>
+              <label>Description</label><textarea id="q_desc"></textarea>
+              <button class="mt" onclick="createQuote(${id})">Add quote</button>
+            </div>
+          </div>
+
+          <div class="card">
+            <h2>Invoices</h2>
+            <table><thead><tr><th>Description</th><th>Amount</th><th>Status</th><th>Due</th></tr></thead><tbody>${invoiceRows}</tbody></table>
+            <div class="card pad-sm mt">
+              <h3>New invoice</h3>
+              <label>Description</label><input id="i_desc" />
+              <div class="grid cols-2">
+                <div><label>Amount (USD)</label><input id="i_amount" type="number" min="0" step="0.01" /></div>
+                <div><label>Due date</label><input id="i_due" type="date" /></div>
+              </div>
+              <button class="mt" onclick="createInvoice(${id})">Create invoice</button>
+            </div>
+          </div>
+
+          <div class="card">
+            <h2>Projects</h2>
+            <table><thead><tr><th>Project</th><th>Status</th><th>Due</th></tr></thead><tbody>${projectRows}</tbody></table>
+            <div class="card pad-sm mt">
+              <h3>New project</h3>
+              <label>Name</label><input id="p_name" />
+              <div class="grid cols-2">
+                <div><label>Status</label><select id="p_status"><option>pending</option><option>in_progress</option><option>on_hold</option><option>completed</option></select></div>
+                <div><label>Due date</label><input id="p_due" type="date" /></div>
+              </div>
+              <button class="mt" onclick="createProject(${id})">Add project</button>
+            </div>
+          </div>
+
+          <div class="card">
+            <h2>Services</h2>
+            <table><thead><tr><th>Service</th><th>Price</th><th>Status</th></tr></thead><tbody>${serviceRows}</tbody></table>
+
+            <h2 class="mt">Portal access</h2>
+            <p class="muted" style="font-size:0.85rem;">
+              ${c.portal_enabled ? 'This client can log in to the portal.' : 'This client cannot log in yet.'}
+              Set a password to grant access (share it with them securely).
+            </p>
+            <div class="row">
+              <input id="pw" type="text" placeholder="New portal password (min 8 chars)" style="flex:1;" />
+              <button onclick="setPortal(${id})">Save</button>
+            </div>
+          </div>
+        </div>`;
+    }
+
+    function dollarsToCents(v) {
+      const n = parseFloat(v);
+      return isNaN(n) ? null : Math.round(n * 100);
+    }
+
+    async function changeStage(id, stage) {
+      try { await api('/clients/' + id, { method: 'PATCH', body: { stage } }); flash('Stage updated'); }
+      catch (e) { fail(e); }
+    }
+
+    async function setPortal(id) {
+      const password = document.getElementById('pw').value;
+      if (!password || password.length < 8) return fail(new Error('Password must be at least 8 characters'));
+      try { await api('/clients/' + id + '/portal-access', { method: 'POST', body: { password } });
+        flash('Portal access granted'); openClient(id); }
+      catch (e) { fail(e); }
+    }
+
+    async function createQuote(id) {
+      const body = {
+        clientId: id,
+        title: document.getElementById('q_title').value.trim(),
+        amount_cents: dollarsToCents(document.getElementById('q_amount').value),
+        valid_until: document.getElementById('q_valid').value || null,
+        description: document.getElementById('q_desc').value.trim(),
+        status: 'sent',
+      };
+      if (!body.title || body.amount_cents == null) return fail(new Error('Title and amount are required'));
+      try { await api('/quotes', { method: 'POST', body }); flash('Quote added'); openClient(id); }
+      catch (e) { fail(e); }
+    }
+
+    async function convertQuote(quoteId, clientId) {
+      try { await api('/quotes/' + quoteId + '/convert-to-invoice', { method: 'POST' });
+        flash('Quote converted to invoice'); openClient(clientId); }
+      catch (e) { fail(e); }
+    }
+
+    async function createInvoice(id) {
+      const body = {
+        clientId: id,
+        description: document.getElementById('i_desc').value.trim(),
+        amount_cents: dollarsToCents(document.getElementById('i_amount').value),
+        due_date: document.getElementById('i_due').value || null,
+      };
+      if (body.amount_cents == null) return fail(new Error('Amount is required'));
+      try { await api('/billing/invoices', { method: 'POST', body }); flash('Invoice created'); openClient(id); }
+      catch (e) { fail(e); }
+    }
+
+    async function createProject(id) {
+      const body = {
+        clientId: id,
+        name: document.getElementById('p_name').value.trim(),
+        status: document.getElementById('p_status').value,
+        due_date: document.getElementById('p_due').value || null,
+      };
+      if (!body.name) return fail(new Error('Project name is required'));
+      try { await api('/projects', { method: 'POST', body }); flash('Project added'); openClient(id); }
+      catch (e) { fail(e); }
+    }
+
+    loadList();
+  </script>
+</body>
+</html>

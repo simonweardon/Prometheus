@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prometheus — Your Account</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Lato:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="topbar">
+    <div class="row">
+      <span class="brand">Prome<span>theus</span></span>
+      <span class="muted">Client Portal</span>
+    </div>
+    <div class="row">
+      <span class="who" id="who"></span>
+      <button class="ghost sm" onclick="logout()">Sign out</button>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div id="msg"></div>
+
+    <div class="spread">
+      <div><h1 id="clientName"></h1><div class="muted" id="clientMeta"></div></div>
+      <div>Engagement stage: <span id="clientStage"></span></div>
+    </div>
+
+    <div class="grid cols-3 mt">
+      <div class="card pad-sm"><div class="stat" id="statOutstanding">—</div><div class="stat-label">Outstanding</div></div>
+      <div class="card pad-sm"><div class="stat" id="statPaid">—</div><div class="stat-label">Paid to date</div></div>
+      <div class="card pad-sm"><div class="stat" id="statOpen">—</div><div class="stat-label">Open invoices</div></div>
+    </div>
+
+    <div class="grid cols-2 mt">
+      <div class="card">
+        <h2>Invoices</h2>
+        <table><thead><tr><th>Description</th><th>Amount</th><th>Status</th><th></th></tr></thead>
+          <tbody id="invoiceRows"></tbody></table>
+      </div>
+
+      <div class="card">
+        <h2>Quotes</h2>
+        <table><thead><tr><th>Quote</th><th>Amount</th><th>Status</th><th></th></tr></thead>
+          <tbody id="quoteRows"></tbody></table>
+      </div>
+
+      <div class="card">
+        <h2>Projects</h2>
+        <table><thead><tr><th>Project</th><th>Status</th><th>Due</th></tr></thead>
+          <tbody id="projectRows"></tbody></table>
+      </div>
+
+      <div class="card">
+        <h2>Your Services</h2>
+        <table><thead><tr><th>Service</th><th>Price</th><th>Status</th></tr></thead>
+          <tbody id="serviceRows"></tbody></table>
+      </div>
+    </div>
+  </div>
+
+  <script src="common.js"></script>
+  <script>
+    if (!requireRole('client')) { /* redirected */ }
+    const u = getUser();
+    document.getElementById('who').textContent = u ? u.email : '';
+
+    const msg = document.getElementById('msg');
+    function flash(text, kind = 'ok') {
+      msg.innerHTML = '<div class="msg ' + kind + '">' + esc(text) + '</div>';
+      setTimeout(() => { if (msg.firstChild) msg.innerHTML = ''; }, 5000);
+    }
+    function fail(err) { flash(err.message || String(err), 'error'); }
+
+    async function load() {
+      let me, invoices, quotes;
+      try {
+        [me, invoices, quotes] = await Promise.all([
+          api('/portal/me'), api('/portal/invoices'), api('/portal/quotes'),
+        ]);
+      } catch (e) { return fail(e); }
+
+      document.getElementById('clientName').textContent = me.name;
+      document.getElementById('clientMeta').textContent = [me.company, me.email].filter(Boolean).join(' · ');
+      document.getElementById('clientStage').innerHTML = badge(me.stage);
+      document.getElementById('statOutstanding').textContent = money(me.total_outstanding_cents);
+      document.getElementById('statPaid').textContent = money(me.total_paid_cents);
+      document.getElementById('statOpen').textContent = me.open_invoice_count || 0;
+
+      document.getElementById('invoiceRows').innerHTML = invoices.map((i) => {
+        const payable = i.status === 'open' || i.status === 'draft';
+        return `<tr>
+          <td>${esc(i.description || '—')}<div class="muted" style="font-size:0.78rem;">Due ${fmtDate(i.due_date)}</div></td>
+          <td>${money(i.amount_cents)}</td>
+          <td>${badge(i.status)}</td>
+          <td class="right">${payable ? `<button class="sm" onclick="payInvoice(${i.id})">Pay</button>` : (i.status === 'paid' ? '<span class="muted">paid ' + fmtDate(i.paid_at) + '</span>' : '')}</td>
+        </tr>`;
+      }).join('') || '<tr><td colspan="4" class="muted">No invoices yet.</td></tr>';
+
+      document.getElementById('quoteRows').innerHTML = quotes.map((q) => {
+        const actionable = q.status === 'sent' || q.status === 'draft';
+        return `<tr>
+          <td>${esc(q.number || '')} ${esc(q.title)}<div class="muted" style="font-size:0.78rem;">Valid to ${fmtDate(q.valid_until)}</div></td>
+          <td>${money(q.amount_cents)}</td>
+          <td>${badge(q.status)}</td>
+          <td class="right">${actionable ? `<button class="sm" onclick="acceptQuote(${q.id})">Accept</button> <button class="sm ghost" onclick="declineQuote(${q.id})">Decline</button>` : ''}</td>
+        </tr>`;
+      }).join('') || '<tr><td colspan="4" class="muted">No quotes.</td></tr>';
+
+      document.getElementById('projectRows').innerHTML = (me.projects || []).map((p) => `
+        <tr><td>${esc(p.name)}<div class="muted" style="font-size:0.78rem;">${esc(p.description || '')}</div></td>
+            <td>${badge(p.status)}</td><td>${fmtDate(p.due_date)}</td></tr>`).join('')
+        || '<tr><td colspan="3" class="muted">No active projects.</td></tr>';
+
+      document.getElementById('serviceRows').innerHTML = (me.services || []).map((s) => `
+        <tr><td>${esc(s.service_name)}</td><td>${money(s.price_cents)}/${esc(s.billing_interval)}</td><td>${badge(s.status)}</td></tr>`).join('')
+        || '<tr><td colspan="3" class="muted">No services.</td></tr>';
+    }
+
+    async function payInvoice(id) {
+      // Prefer Stripe's hosted payment page; fall back to a clear message.
+      try {
+        const { url } = await api('/portal/invoices/' + id + '/pay-link');
+        window.open(url, '_blank');
+      } catch (e) { fail(e); }
+    }
+
+    async function acceptQuote(id) {
+      try { await api('/portal/quotes/' + id + '/accept', { method: 'POST' });
+        flash('Quote accepted — we\'ll be in touch shortly.'); load(); }
+      catch (e) { fail(e); }
+    }
+    async function declineQuote(id) {
+      try { await api('/portal/quotes/' + id + '/decline', { method: 'POST' }); flash('Quote declined.'); load(); }
+      catch (e) { fail(e); }
+    }
+
+    load();
+  </script>
+</body>
+</html>

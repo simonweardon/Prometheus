@@ -13,7 +13,12 @@ CREATE TABLE IF NOT EXISTS clients (
   phone TEXT,
   company TEXT,
   notes TEXT,
+  -- Where the client sits in our delivery pipeline (shown on the admin dashboard)
+  stage TEXT CHECK(stage IN ('lead', 'discovery', 'proposal', 'building', 'launched', 'maintenance', 'churned')) NOT NULL DEFAULT 'lead',
   stripe_customer_id TEXT UNIQUE,
+  -- Client portal login. Set by an admin; NULL password_hash means the client cannot log in yet.
+  password_hash TEXT,
+  portal_enabled INTEGER NOT NULL DEFAULT 0,
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
   updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
@@ -74,4 +79,20 @@ CREATE TABLE IF NOT EXISTS payment_methods (
   brand TEXT,
   is_default INTEGER NOT NULL DEFAULT 0,
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS quotes (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  client_id INTEGER NOT NULL REFERENCES clients(id) ON DELETE CASCADE,
+  number TEXT,
+  title TEXT NOT NULL,
+  description TEXT,
+  amount_cents INTEGER NOT NULL,
+  status TEXT CHECK(status IN ('draft', 'sent', 'accepted', 'declined', 'expired')) NOT NULL DEFAULT 'draft',
+  valid_until DATE,
+  accepted_at DATETIME,
+  -- If accepting the quote generated an invoice, link it here
+  invoice_id INTEGER REFERENCES invoices(id) ON DELETE SET NULL,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
