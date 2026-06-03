@@ -60,13 +60,29 @@ Or with compose (adds a persistent volume for you):
 JWT_SECRET=$(openssl rand -hex 32) docker compose up --build
 ```
 
-Default dev credentials (seeded on first run):
+Default dev credentials (seeded on first run, non-production only):
 
 - Admin: `admin@example.com` / `changeme`
 - Demo client: `client@example.com` / `changeme`
 
 Mount a volume at `/data` (as above) to persist the SQLite database across
 restarts; without it, data is reset when the container is recreated.
+
+#### Admin accounts
+
+Set `ADMIN_EMAIL` and `ADMIN_PASSWORD` (optionally `ADMIN_NAME`) and that admin
+is created on startup (create-only — it won't overwrite a password you later
+change in the app). The image ships with a default admin
+(`simon@getprometheussolutions.com`); **override it at deploy time** and change
+the password after first login for proper secret hygiene.
+
+To create or reset an admin against a running/existing database:
+
+```bash
+# in the backend dir, or: docker exec <container> sh -c 'cd /usr/src/app/backend && ...'
+npm run create-admin -- you@example.com 'a-strong-password' 'Your Name'
+# omit the password to have a strong one generated and printed once
+```
 
 ### Run just the backend (local dev)
 

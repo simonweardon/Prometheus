@@ -4,10 +4,28 @@ const { getDb, migrate } = require('./database');
 
 migrate();
 
-// Seed a default admin user if none exists
 const db = getDb();
-const existing = db.prepare('SELECT id FROM users WHERE email = ?').get('admin@example.com');
-if (!existing) {
+
+// Provision an admin from the environment. Set ADMIN_EMAIL and ADMIN_PASSWORD
+// in your deploy env to create your own login on first start. This is
+// create-only, so restarts won't overwrite a password you later change in-app;
+// use `npm run create-admin -- <email> <password>` to reset one explicitly.
+const adminEmail = process.env.ADMIN_EMAIL;
+const adminPassword = process.env.ADMIN_PASSWORD;
+if (adminEmail && adminPassword) {
+  const found = db.prepare('SELECT id FROM users WHERE email = ?').get(adminEmail);
+  if (!found) {
+    const hash = bcrypt.hashSync(adminPassword, 10);
+    db.prepare('INSERT INTO users (email, password_hash, name) VALUES (?, ?, ?)').run(
+      adminEmail, hash, process.env.ADMIN_NAME || 'Admin'
+    );
+    console.log(`Admin created from env: ${adminEmail}`);
+  }
+}
+
+// Seed a default dev admin if no admin exists at all (skipped in production).
+const anyAdmin = db.prepare('SELECT id FROM users LIMIT 1').get();
+if (!anyAdmin && process.env.NODE_ENV !== 'production') {
   const hash = bcrypt.hashSync('changeme', 10);
   db.prepare('INSERT INTO users (email, password_hash, name) VALUES (?, ?, ?)').run(
     'admin@example.com', hash, 'Admin'
