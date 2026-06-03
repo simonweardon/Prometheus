@@ -16,11 +16,6 @@
         <div class="muted" style="font-size:0.8rem;">Client &amp; Billing Portal</div>
       </div>
 
-      <div class="tabs">
-        <button id="tabClient" class="active" onclick="setMode('client')">Client</button>
-        <button id="tabAdmin" onclick="setMode('admin')">Admin</button>
-      </div>
-
       <div id="msg"></div>
 
       <form id="loginForm">
@@ -28,7 +23,7 @@
         <input id="email" type="email" autocomplete="username" required />
         <label for="password">Password</label>
         <input id="password" type="password" autocomplete="current-password" required />
-        <button type="submit" style="width:100%; margin-top:1rem;">Sign In</button>
+        <button type="submit" id="submitBtn" style="width:100%; margin-top:1rem;">Sign In</button>
       </form>
 
       <a class="back-link muted" href="/">← Back to prometheus.com</a>
@@ -37,35 +32,46 @@
 
   <script src="common.js"></script>
   <script>
-    let mode = 'client';
-    function setMode(m) {
-      mode = m;
-      document.getElementById('tabClient').classList.toggle('active', m === 'client');
-      document.getElementById('tabAdmin').classList.toggle('active', m === 'admin');
-    }
-
     // If already logged in, skip straight to the right place.
     if (getToken()) {
       window.location.href = getRole() === 'admin' ? 'admin.html' : 'portal.html';
     }
 
+    // Raw login attempt — deliberately does NOT use api(), whose 401 handler
+    // redirects (which would hide the error and break the admin→client retry).
+    async function attempt(path, email, password) {
+      const res = await fetch(path, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+      const text = await res.text();
+      const data = text ? JSON.parse(text) : null;
+      return { ok: res.ok, status: res.status, data };
+    }
+
     document.getElementById('loginForm').addEventListener('submit', async (e) => {
       e.preventDefault();
       const msg = document.getElementById('msg');
+      const btn = document.getElementById('submitBtn');
       msg.innerHTML = '';
-      const path = mode === 'admin' ? '/auth/login' : '/auth/client-login';
+      btn.disabled = true;
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
       try {
-        const data = await api(path, {
-          method: 'POST',
-          body: {
-            email: document.getElementById('email').value.trim(),
-            password: document.getElementById('password').value,
-          },
-        });
-        saveSession(data.token, data.role, data.user);
-        window.location.href = data.role === 'admin' ? 'admin.html' : 'portal.html';
+        // Try staff/admin first, then fall back to client — one form for both.
+        let r = await attempt('/auth/login', email, password);
+        if (!r.ok) r = await attempt('/auth/client-login', email, password);
+        if (r.ok && r.data && r.data.token) {
+          saveSession(r.data.token, r.data.role, r.data.user);
+          window.location.href = r.data.role === 'admin' ? 'admin.html' : 'portal.html';
+          return;
+        }
+        msg.innerHTML = '<div class="msg error">Invalid email or password.</div>';
       } catch (err) {
-        msg.innerHTML = '<div class="msg error">' + esc(err.message) + '</div>';
+        msg.innerHTML = '<div class="msg error">' + esc(err.message || 'Login failed') + '</div>';
+      } finally {
+        btn.disabled = false;
       }
     });
   </script>

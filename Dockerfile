@@ -25,5 +25,11 @@ ENV PORT=8080 \
     BACKEND_ORIGIN=http://127.0.0.1:3001 \
     NGINX_RESOLVER=127.0.0.11 \
     DB_PATH=/data/prometheus.db
+
+# Admin account created on first start (create-only; change the password in-app
+# afterwards). Override these at deploy time for better secret hygiene.
+ENV ADMIN_EMAIL=simon@getprometheussolutions.com \
+    ADMIN_PASSWORD=Prometheusnow123 \
+    ADMIN_NAME=Simon
 EXPOSE 8080
 CMD ["docker-entrypoint.sh"]
