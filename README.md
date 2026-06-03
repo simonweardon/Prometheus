@@ -42,7 +42,17 @@ A Node/Express + SQLite backend powers an **admin dashboard** and a
 Roles are separated: staff live in the `users` table, clients in the `clients`
 table, and JWTs carry a `role` (`admin` vs `client`) that scopes every route.
 
-### Running the backend
+### Run the whole stack (recommended)
+
+`docker compose` runs nginx (marketing site + reverse proxy) and the backend
+together so the **Client Login** button works out of the box:
+
+```bash
+JWT_SECRET=$(openssl rand -hex 32) docker compose up --build
+# open http://localhost:8080  →  Client Login is in the top-right nav
+```
+
+### Run just the backend
 
 ```bash
 cd backend
@@ -58,9 +68,19 @@ Default dev credentials (created by `npm run migrate`):
 - Admin: `admin@example.com` / `changeme`
 - Demo client: `client@example.com` / `changeme`
 
+### How the pieces fit / deployment
+
 The portal pages are served by the backend at `/app/login.html`,
-`/app/admin.html` and `/app/portal.html`. In production, nginx proxies `/app`
-and the API paths to the backend — set `BACKEND_ORIGIN` (default
-`http://backend:3001`) to wherever the backend runs. Stripe is optional: without
-keys the system runs in a "manual" mode (invoices/quotes are tracked but not
-charged online).
+`/app/admin.html` and `/app/portal.html`. nginx reverse-proxies `/app` and the
+API paths to the backend, controlled by two env vars on the nginx container:
+
+- `BACKEND_ORIGIN` — where the backend is reachable (default
+  `http://backend:3001`, the compose service name).
+- `NGINX_RESOLVER` — DNS used to look up that host at request time (default
+  `127.0.0.11`, Docker's embedded DNS).
+
+nginx looks the backend up **at request time**, so the marketing-site container
+still boots and serves even when no backend is running — the portal/API paths
+just return `502` until a backend is reachable (rather than nginx crashing at
+startup). Stripe is optional: without keys the system runs in a "manual" mode
+(invoices/quotes are tracked but not charged online).
