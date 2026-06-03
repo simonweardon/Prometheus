@@ -21,9 +21,9 @@ removed).
 - The short-lived "Renaissance Dynamics" restyle lives in git history if it is
   ever wanted again.
 
-The Dockerfile and nginx config serve the `First` file as the marketing site,
-and reverse-proxy the client portal + billing API (see below) behind the same
-origin.
+The root `Dockerfile` builds a single all-in-one image: nginx serves the `First`
+file as the marketing site and reverse-proxies the client portal + billing API
+(see below) to a Node backend running inside the same container.
 
 ## Client tracking & billing system (`backend/`)
 
@@ -42,45 +42,58 @@ A Node/Express + SQLite backend powers an **admin dashboard** and a
 Roles are separated: staff live in the `users` table, clients in the `clients`
 table, and JWTs carry a `role` (`admin` vs `client`) that scopes every route.
 
-### Run the whole stack (recommended)
+### Run it (one container)
 
-`docker compose` runs nginx (marketing site + reverse proxy) and the backend
-together so the **Client Login** button works out of the box:
+Build and run the root `Dockerfile` — it starts the backend and nginx together,
+so the **Client Login** button works out of the box:
 
 ```bash
-JWT_SECRET=$(openssl rand -hex 32) docker compose up --build
+docker build -t prometheus .
+docker run -p 8080:8080 -e JWT_SECRET=$(openssl rand -hex 32) \
+  -v prometheus-data:/data prometheus
 # open http://localhost:8080  →  Client Login is in the top-right nav
 ```
 
-### Run just the backend
+Or with compose (adds a persistent volume for you):
+
+```bash
+JWT_SECRET=$(openssl rand -hex 32) docker compose up --build
+```
+
+Default dev credentials (seeded on first run):
+
+- Admin: `admin@example.com` / `changeme`
+- Demo client: `client@example.com` / `changeme`
+
+Mount a volume at `/data` (as above) to persist the SQLite database across
+restarts; without it, data is reset when the container is recreated.
+
+### Run just the backend (local dev)
 
 ```bash
 cd backend
 cp .env.example .env        # set JWT_SECRET, and Stripe keys for live billing
 npm install
-npm run migrate             # creates the SQLite DB + a default admin
-                            # (dev) also seeds a demo client you can log in as
+npm run migrate             # creates the SQLite DB + seeds admin (+ demo client)
 npm start                   # serves the API + portal on PORT (default 3001)
 ```
-
-Default dev credentials (created by `npm run migrate`):
-
-- Admin: `admin@example.com` / `changeme`
-- Demo client: `client@example.com` / `changeme`
 
 ### How the pieces fit / deployment
 
 The portal pages are served by the backend at `/app/login.html`,
 `/app/admin.html` and `/app/portal.html`. nginx reverse-proxies `/app` and the
-API paths to the backend, controlled by two env vars on the nginx container:
+API paths to the backend. In the all-in-one image the backend runs on
+`127.0.0.1:3001`; two env vars control the wiring if you split them apart:
 
 - `BACKEND_ORIGIN` — where the backend is reachable (default
-  `http://backend:3001`, the compose service name).
-- `NGINX_RESOLVER` — DNS used to look up that host at request time (default
-  `127.0.0.11`, Docker's embedded DNS).
+  `http://127.0.0.1:3001`; set e.g. `http://backend:3001` to target another
+  container).
+- `NGINX_RESOLVER` — DNS used to resolve that host at request time (default
+  `127.0.0.11`, Docker's embedded DNS; only used when `BACKEND_ORIGIN` is a
+  hostname rather than an IP).
 
-nginx looks the backend up **at request time**, so the marketing-site container
-still boots and serves even when no backend is running — the portal/API paths
-just return `502` until a backend is reachable (rather than nginx crashing at
-startup). Stripe is optional: without keys the system runs in a "manual" mode
-(invoices/quotes are tracked but not charged online).
+nginx resolves the backend **at request time**, so it still boots and serves the
+marketing site even if the backend is unavailable (those paths return `502`
+rather than nginx crashing at startup). Stripe is optional: without keys the
+system runs in a "manual" mode (invoices/quotes are tracked but not charged
+online).
