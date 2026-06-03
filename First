@@ -59,6 +59,11 @@ nav {
 }
 
 .logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: none;
+  white-space: nowrap;
   font-family: var(--display);
   font-size: 1.4rem;
   font-weight: 400;
@@ -72,10 +77,21 @@ nav {
   color: var(--ember);
 }
 
+.logo-mark {
+  flex: none;
+  width: 1.25em;
+  height: 1.5em;
+  color: var(--ivory);
+  filter: drop-shadow(0 2px 10px rgba(196, 98, 45, 0.35));
+}
+
 .nav-links {
   display: flex;
-  gap: 3rem;
+  gap: 2.2rem;
   list-style: none;
+  flex: 1;
+  justify-content: center;
+  padding: 0 2rem;
 }
 
 .nav-links a {
@@ -87,6 +103,7 @@ nav {
   color: var(--parchment);
   text-decoration: none;
   opacity: 0.8;
+  white-space: nowrap;
   transition: opacity 0.3s, color 0.3s;
 }
 
@@ -1074,7 +1091,7 @@ footer {
   border-bottom: 1px solid rgba(255,255,255,0.05);
 }
 
-.footer-brand .logo { display: block; margin-bottom: 1.2rem; }
+.footer-brand .logo { display: inline-flex; margin-bottom: 1.2rem; }
 
 .footer-brand p {
   font-size: 0.88rem;
@@ -1354,9 +1371,34 @@ footer {
 </head>
 <body>
 
+<!-- ─── BRAND MARK (reusable inline SVG: geometric "P" torch + flame) ─── -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="prom-mark" viewBox="0 0 100 120">
+    <defs>
+      <linearGradient id="promFlame" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#FFC24B"/>
+        <stop offset="0.5" stop-color="#F5852B"/>
+        <stop offset="1" stop-color="#D8431A"/>
+      </linearGradient>
+    </defs>
+    <!-- Geometric "P" / torch — inherits text colour via currentColor -->
+    <g fill="currentColor">
+      <!-- bowl of the P -->
+      <path d="M66 42 C84 42 93 52 93 63 C93 74 84 84 66 84 L66 73 C78 73 82 69 82 63 C82 57 78 53 66 53 Z"/>
+      <!-- torch funnel + stem -->
+      <path d="M30 82 H72 L55 103 L52 118 L50 119 L48 118 L45 103 Z"/>
+      <!-- accent block -->
+      <rect x="25" y="95" width="15" height="15"/>
+    </g>
+    <!-- flame -->
+    <path fill="url(#promFlame)" d="M50 8 C56 25 69 33 66 52 C64 67 54 74 50 80 C46 74 33 66 35 50 C36 39 45 37 47 26 C49 33 51 35 53 40 C56 32 52 19 50 8 Z"/>
+    <path fill="#FFD777" opacity="0.85" d="M50 30 C53 40 60 45 58 55 C57 63 52 68 50 72 C48 68 42 63 43 54 C44 47 48 46 49 38 C50 43 51 44 52 47 C54 41 51 35 50 30 Z"/>
+  </symbol>
+</svg>
+
 <!-- NAV -->
 <nav>
-  <a href="#" class="logo">Prome<span>theus</span> Solutions</a>
+  <a href="#" class="logo"><svg class="logo-mark" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true"><use href="#prom-mark" xlink:href="#prom-mark"/></svg>Prome<span>theus</span> Solutions</a>
   <ul class="nav-links">
     <li><a href="#how">Our Method</a></li>
     <li><a href="#agents">AI Agents</a></li>
@@ -1816,7 +1858,7 @@ footer {
 <footer>
   <div class="footer-top">
     <div class="footer-brand">
-      <a href="#" class="logo">Prome<span>theus</span> Solutions</a>
+      <a href="#" class="logo"><svg class="logo-mark" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true"><use href="#prom-mark" xlink:href="#prom-mark"/></svg>Prome<span>theus</span> Solutions</a>
       <p>AI operations consulting. We embed, we diagnose, we build, we automate. Your business, transformed.</p>
     </div>
     <div>
