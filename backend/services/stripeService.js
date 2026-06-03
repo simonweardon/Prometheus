@@ -67,6 +67,13 @@ async function createSetupIntent(stripeCustomerId) {
   });
 }
 
+// Charge an open Stripe invoice. With no payment method Stripe uses the
+// customer's default; pass one to charge a specific saved method.
+async function payInvoice(stripeInvoiceId, paymentMethodId) {
+  const opts = paymentMethodId ? { payment_method: paymentMethodId } : undefined;
+  return getStripe().invoices.pay(stripeInvoiceId, opts);
+}
+
 module.exports = {
   createCustomer,
   attachPaymentMethod,
@@ -76,4 +83,5 @@ module.exports = {
   createInvoice,
   retrieveInvoice,
   createSetupIntent,
+  payInvoice,
 };

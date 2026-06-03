@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prometheus — Sign In</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Lato:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="login-page">
+    <div class="card login-card">
+      <div style="text-align:center; margin-bottom:1rem;">
+        <div class="brand">Prome<span>theus</span></div>
+        <div class="muted" style="font-size:0.8rem;">Client &amp; Billing Portal</div>
+      </div>
+
+      <div class="tabs">
+        <button id="tabClient" class="active" onclick="setMode('client')">Client</button>
+        <button id="tabAdmin" onclick="setMode('admin')">Admin</button>
+      </div>
+
+      <div id="msg"></div>
+
+      <form id="loginForm">
+        <label for="email">Email</label>
+        <input id="email" type="email" autocomplete="username" required />
+        <label for="password">Password</label>
+        <input id="password" type="password" autocomplete="current-password" required />
+        <button type="submit" style="width:100%; margin-top:1rem;">Sign In</button>
+      </form>
+
+      <a class="back-link muted" href="/">← Back to prometheus.com</a>
+    </div>
+  </div>
+
+  <script src="common.js"></script>
+  <script>
+    let mode = 'client';
+    function setMode(m) {
+      mode = m;
+      document.getElementById('tabClient').classList.toggle('active', m === 'client');
+      document.getElementById('tabAdmin').classList.toggle('active', m === 'admin');
+    }
+
+    // If already logged in, skip straight to the right place.
+    if (getToken()) {
+      window.location.href = getRole() === 'admin' ? 'admin.html' : 'portal.html';
+    }
+
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const msg = document.getElementById('msg');
+      msg.innerHTML = '';
+      const path = mode === 'admin' ? '/auth/login' : '/auth/client-login';
+      try {
+        const data = await api(path, {
+          method: 'POST',
+          body: {
+            email: document.getElementById('email').value.trim(),
+            password: document.getElementById('password').value,
+          },
+        });
+        saveSession(data.token, data.role, data.user);
+        window.location.href = data.role === 'admin' ? 'admin.html' : 'portal.html';
+      } catch (err) {
+        msg.innerHTML = '<div class="msg error">' + esc(err.message) + '</div>';
+      }
+    });
+  </script>
+</body>
+</html>

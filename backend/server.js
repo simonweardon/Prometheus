@@ -1,8 +1,9 @@
 require('dotenv').config();
+const path = require('path');
 const express = require('express');
 const cors = require('cors');
 const { migrate } = require('./db/database');
-const { requireAuth } = require('./middleware/auth');
+const { requireAdmin, requireClient } = require('./middleware/auth');
 const { errorHandler } = require('./middleware/errorHandler');
 
 const app = express();
@@ -19,11 +20,19 @@ app.get('/health', (req, res) => res.json({ status: 'ok' }));
 // Auth (no auth guard on login)
 app.use('/auth', require('./routes/auth'));
 
-// Protected routes
-app.use('/clients', requireAuth, require('./routes/clients'));
-app.use('/services', requireAuth, require('./routes/services'));
-app.use('/projects', requireAuth, require('./routes/projects'));
-app.use('/billing', requireAuth, require('./routes/billing'));
+// Admin-only management routes
+app.use('/clients', requireAdmin, require('./routes/clients'));
+app.use('/services', requireAdmin, require('./routes/services'));
+app.use('/projects', requireAdmin, require('./routes/projects'));
+app.use('/billing', requireAdmin, require('./routes/billing'));
+app.use('/quotes', requireAdmin, require('./routes/quotes'));
+
+// Client-portal routes (scoped to the logged-in client)
+app.use('/portal', requireClient, require('./routes/portal'));
+
+// Frontend: login page, admin dashboard and client portal are static files
+// served from the same origin as the API (so no CORS dance for the SPA).
+app.use('/app', express.static(path.join(__dirname, 'public')));
 
 app.use(errorHandler);
 

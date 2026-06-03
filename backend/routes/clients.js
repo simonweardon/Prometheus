@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const bcrypt = require('bcryptjs');
 const { getDb } = require('../db/database');
 const stripe = require('../services/stripeService');
 
@@ -14,6 +15,7 @@ router.get('/', (req, res) => {
     GROUP BY c.id
     ORDER BY c.created_at DESC
   `).all();
+  clients.forEach((c) => delete c.password_hash);
   res.json(clients);
 });
 
@@ -39,23 +41,28 @@ router.get('/:id', (req, res) => {
     SELECT * FROM invoices WHERE client_id = ? ORDER BY created_at DESC LIMIT 20
   `).all(req.params.id);
 
+  client.quotes = db.prepare(`
+    SELECT * FROM quotes WHERE client_id = ? ORDER BY created_at DESC LIMIT 20
+  `).all(req.params.id);
+
   client.payment_methods = db.prepare(`
     SELECT * FROM payment_methods WHERE client_id = ? ORDER BY is_default DESC, created_at DESC
   `).all(req.params.id);
 
+  delete client.password_hash;
   res.json(client);
 });
 
 // Create client
 router.post('/', async (req, res, next) => {
-  const { name, email, phone, company, notes } = req.body;
+  const { name, email, phone, company, notes, stage } = req.body;
   if (!name || !email) return res.status(400).json({ error: 'Name and email required' });
 
   try {
     const db = getDb();
     const result = db.prepare(
-      'INSERT INTO clients (name, email, phone, company, notes) VALUES (?, ?, ?, ?, ?)'
-    ).run(name, email, phone || null, company || null, notes || null);
+      'INSERT INTO clients (name, email, phone, company, notes, stage) VALUES (?, ?, ?, ?, ?, ?)'
+    ).run(name, email, phone || null, company || null, notes || null, stage || 'lead');
 
     const client = db.prepare('SELECT * FROM clients WHERE id = ?').get(result.lastInsertRowid);
 
@@ -70,6 +77,7 @@ router.post('/', async (req, res, next) => {
       }
     }
 
+    delete client.password_hash;
     res.status(201).json(client);
   } catch (err) {
     if (err.message.includes('UNIQUE constraint')) {
@@ -85,7 +93,7 @@ router.patch('/:id', (req, res, next) => {
   const client = db.prepare('SELECT * FROM clients WHERE id = ?').get(req.params.id);
   if (!client) return res.status(404).json({ error: 'Client not found' });
 
-  const fields = ['name', 'email', 'phone', 'company', 'notes'];
+  const fields = ['name', 'email', 'phone', 'company', 'notes', 'stage'];
   const updates = {};
   for (const f of fields) {
     if (req.body[f] !== undefined) updates[f] = req.body[f];
@@ -98,7 +106,9 @@ router.patch('/:id', (req, res, next) => {
   const setClauses = Object.keys(updates).map(k => `${k} = ?`).join(', ');
   try {
     db.prepare(`UPDATE clients SET ${setClauses} WHERE id = ?`).run(...Object.values(updates), req.params.id);
-    res.json(db.prepare('SELECT * FROM clients WHERE id = ?').get(req.params.id));
+    const updated = db.prepare('SELECT * FROM clients WHERE id = ?').get(req.params.id);
+    delete updated.password_hash;
+    res.json(updated);
   } catch (err) {
     if (err.message.includes('UNIQUE constraint')) {
       return res.status(409).json({ error: 'A client with this email already exists' });
@@ -158,6 +168,30 @@ router.delete('/:id/payment-methods/:pmId', async (req, res, next) => {
   } catch (err) {
     next(err);
   }
+});
+
+// Set (or reset) a client's portal password and enable portal access.
+// This is how an admin grants a client the ability to log in and see/pay
+// their own invoices and quotes.
+router.post('/:id/portal-access', (req, res) => {
+  const { password, enabled } = req.body;
+  const db = getDb();
+  const client = db.prepare('SELECT * FROM clients WHERE id = ?').get(req.params.id);
+  if (!client) return res.status(404).json({ error: 'Client not found' });
+
+  if (password !== undefined) {
+    if (typeof password !== 'string' || password.length < 8) {
+      return res.status(400).json({ error: 'Password must be at least 8 characters' });
+    }
+    const hash = bcrypt.hashSync(password, 10);
+    db.prepare('UPDATE clients SET password_hash = ?, portal_enabled = 1 WHERE id = ?').run(hash, client.id);
+  }
+  if (enabled !== undefined) {
+    db.prepare('UPDATE clients SET portal_enabled = ? WHERE id = ?').run(enabled ? 1 : 0, client.id);
+  }
+
+  const updated = db.prepare('SELECT id, email, portal_enabled FROM clients WHERE id = ?').get(client.id);
+  res.json({ id: updated.id, email: updated.email, portal_enabled: !!updated.portal_enabled });
 });
 
 // Create setup intent (for collecting payment method on frontend)

@@ -110,6 +110,21 @@ nav {
 
 .nav-cta:hover { background: var(--ember-lt); }
 
+.nav-login {
+  font-family: var(--sans);
+  font-size: 0.68rem;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--parchment);
+  border: 1px solid rgba(212,201,176,0.35);
+  padding: 0.65rem 1.3rem;
+  margin-right: 0.9rem;
+  text-decoration: none;
+  transition: color 0.3s, border-color 0.3s;
+}
+.nav-login:hover { color: var(--gold-lt); border-color: var(--gold-lt); }
+
 /* ─── HERO ─── */
 .hero {
   position: relative;
@@ -1350,6 +1365,7 @@ footer {
     <li><a href="#custom-software">Custom Software</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
+  <a href="/app/login.html" class="nav-login">Client Login</a>
   <a href="#contact" class="nav-cta">Ignite Your Business</a>
   <button class="nav-hamburger" id="navToggle" aria-label="Open navigation">
     <span></span><span></span><span></span>
@@ -1364,6 +1380,7 @@ footer {
   <a href="#industries" onclick="closeNav()">Industries</a>
   <a href="#custom-software" onclick="closeNav()">Custom Software</a>
   <a href="#contact" onclick="closeNav()">Contact</a>
+  <a href="/app/login.html" onclick="closeNav()">Client Login</a>
   <a href="#contact" class="nav-mobile-cta-link" onclick="closeNav()">Ignite Your Business</a>
 </div>
 
