@@ -353,6 +353,44 @@ h1 em {
   line-height: 1.5;
 }
 
+/* ─── STAT STRIP ─── */
+.stat-strip {
+  background: var(--ash);
+  padding: 3.5rem 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5rem;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-number {
+  font-family: var(--display);
+  font-size: clamp(2.2rem, 4.5vw, 3.5rem);
+  color: var(--gold-lt);
+  letter-spacing: 0.06em;
+  line-height: 1;
+}
+
+.stat-label {
+  font-family: var(--sans);
+  font-size: 0.68rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--warm-gray);
+  margin-top: 0.6rem;
+}
+
+.stat-divider {
+  width: 1px;
+  height: 3rem;
+  background: var(--smoke);
+}
+
 /* ─── SECTION FOUNDATIONS ─── */
 section { padding: 8rem 4rem; }
 
@@ -1242,6 +1280,7 @@ footer {
   nav { padding: 1.5rem 2.5rem; }
   .hero { padding: 0 2.5rem 6rem; }
   .statement { padding: 1.8rem 2.5rem; }
+  .stat-strip { padding: 2.5rem 2.5rem; gap: 3rem; }
   section { padding: 6rem 2.5rem; }
   .how { padding: 6rem 2.5rem; }
   .agents { padding: 6rem 2.5rem; }
@@ -1272,6 +1311,8 @@ footer {
   .industries { padding: 5rem 1.5rem; }
   .custom-software { padding: 5rem 1.5rem; }
   .statement { padding: 1.5rem 1.5rem; }
+  .stat-strip { padding: 2rem 1.5rem; gap: 2rem; flex-wrap: wrap; }
+  .stat-divider { display: none; }
   footer { padding: 4rem 1.5rem 2rem; }
 
   /* Process visual */
@@ -1455,6 +1496,19 @@ footer {
 <!-- STATEMENT BAND -->
 <div class="statement reveal">
   <p>"Every company is sitting on a gold mine of wasted hours. We find them. We fix them. We free your people to do what only humans can."</p>
+</div>
+
+<!-- STAT STRIP -->
+<div class="stat-strip reveal">
+  <div class="stat-item">
+    <div class="stat-number">1,000s</div>
+    <div class="stat-label">Man Hours Automated</div>
+  </div>
+  <div class="stat-divider"></div>
+  <div class="stat-item">
+    <div class="stat-number">Freed</div>
+    <div class="stat-label">Employees Redirected to High-Value Work</div>
+  </div>
 </div>
 
 
