@@ -1138,6 +1138,18 @@ h2 em {
   margin-bottom: 2.5rem;
 }
 
+.cta-email {
+  margin-top: 1.6rem;
+  font-size: 0.85rem;
+}
+
+.cta-email a {
+  color: var(--ember-lt);
+  text-decoration: none;
+}
+
+.cta-email a:hover { color: var(--ivory); }
+
 /* ─── FOOTER ─── */
 footer {
   background: var(--soot);
@@ -1507,7 +1519,7 @@ footer {
     <div class="hero-eyebrow">AI Implementation</div>
     <h1>
       We bring the <em>fire</em><br>
-      to your business.
+      to your workflow.
     </h1>
     <p class="hero-sub">
       Prometheus embeds with your team, maps every bottleneck, then builds and deploys AI agents that eliminate the friction holding your people back.
@@ -1902,6 +1914,7 @@ footer {
       <a href="tel:2393700604" class="btn-fire">Call 239-370-0604</a>
       <a href="#how" class="btn-outline">Learn More First</a>
     </div>
+    <p class="cta-email"><a href="mailto:simon@getprometheussolutions.com">simon@getprometheussolutions.com</a></p>
   </div>
 </div>
 
@@ -1936,6 +1949,7 @@ footer {
       <div class="footer-col-head">Connect</div>
       <ul class="footer-links">
         <li><a href="tel:2393700604">239-370-0604</a></li>
+        <li><a href="mailto:simon@getprometheussolutions.com">simon@getprometheussolutions.com</a></li>
       </ul>
     </div>
   </div>
