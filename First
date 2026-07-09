@@ -789,6 +789,10 @@ h2 em {
   line-height: 1.1;
 }
 
+.tool-name-featured {
+  font-weight: 700;
+}
+
 .tool-body {
   font-size: 0.85rem;
   line-height: 1.8;
@@ -1659,10 +1663,10 @@ footer {
 
   <div class="tools-grid reveal">
     <div class="tool-tile">
-      <div class="tool-category">AI Engineering</div>
-      <div class="tool-name">Claude Code</div>
-      <p class="tool-body">Anthropic's agentic CLI that reasons over entire codebases, writes and edits files, runs tests, and handles the scaffolding that slows engineers down. Our default environment for building and iterating on agent systems.</p>
-      <div class="tool-use">Agentic coding · Codebase reasoning · Rapid prototyping</div>
+      <div class="tool-category">Custom AI Systems</div>
+      <div class="tool-name tool-name-featured">Custom Database LLMs</div>
+      <p class="tool-body">We build bespoke LLMs wired directly into a client's own document stores — contracts, tickets, wikis, knowledge bases — so any question returns a grounded answer in seconds instead of a search-and-skim session. Purpose-built for the exact shape of your data, not a generic assistant.</p>
+      <div class="tool-use">Document search · Institutional knowledge · Task automation</div>
     </div>
     <div class="tool-tile">
       <div class="tool-category">Automation Platform</div>
@@ -1671,39 +1675,21 @@ footer {
       <div class="tool-use">Client implantation · Workflow orchestration · Agent deployment</div>
     </div>
     <div class="tool-tile">
-      <div class="tool-category">Knowledge Management</div>
-      <div class="tool-name">Obsidian</div>
-      <p class="tool-body">A local-first knowledge base that grows with the team. Every client engagement, every process map, every insight is captured and linked — so nothing learned is ever lost. Our collective brain, fully owned and searchable.</p>
-      <div class="tool-use">Institutional memory · Process documentation · Linked thinking</div>
+      <div class="tool-category">AI Engineering</div>
+      <div class="tool-name">Codex</div>
+      <p class="tool-body">OpenAI's coding agent — spins up isolated environments, writes and tests code, and ships pull requests from a single prompt. We reach for it when a task benefits from a second frontier model's take on the same problem.</p>
+      <div class="tool-use">Agentic coding · Parallel implementation · Code review</div>
     </div>
     <div class="tool-tile">
-      <div class="tool-category">AI Code Editor</div>
-      <div class="tool-name">Cursor</div>
-      <p class="tool-body">An IDE rebuilt around AI — with tab completion that predicts intent, inline chat that understands context, and multi-file edits that treat the whole project as a unit. Every engineer on the team runs it as their primary editor.</p>
-      <div class="tool-use">Pair programming · Multi-file refactors · Inline generation</div>
-    </div>
-    <div class="tool-tile">
-      <div class="tool-category">AI Search</div>
-      <div class="tool-name">Perplexity</div>
-      <p class="tool-body">Real-time answers grounded in current sources. We use it as a fast research layer before going deeper — quick competitive lookups, technology validation, and market pulse checks that don't require a full research session.</p>
-      <div class="tool-use">Quick research · Source verification · Real-time intel</div>
-    </div>
-    <div class="tool-tile">
-      <div class="tool-category">Project Tracking</div>
-      <div class="tool-name">Linear</div>
-      <p class="tool-body">Opinionated project management built for speed. Clean cycles, no bloat, and a keyboard-first workflow that keeps the team moving without drowning in tickets. Every client engagement runs through it.</p>
-      <div class="tool-use">Sprint planning · Issue tracking · Client delivery</div>
-    </div>
-    <div class="tool-tile">
-      <div class="tool-category">Communication</div>
-      <div class="tool-name">Slack + Integrations</div>
-      <p class="tool-body">The operational nervous system — wired to Linear, GitHub, and our agent pipelines so status surfaces where the team already lives. We build the same kind of connected communication layers for our clients.</p>
-      <div class="tool-use">Team coordination · Automated alerts · Client channels</div>
+      <div class="tool-category">Frontier LLM</div>
+      <div class="tool-name">Claude</div>
+      <p class="tool-body">Anthropic's frontier model — the one we trust with reasoning, writing, and judgment calls that need to be right the first time. Our default for anything that touches a client directly.</p>
+      <div class="tool-use">Reasoning · Writing · Client-facing output</div>
     </div>
     <div class="tool-tile">
       <div class="tool-category">Frontier LLM</div>
       <div class="tool-name">ChatGPT</div>
-      <p class="tool-body">OpenAI's reasoning workhorse — custom GPTs, advanced data analysis, and the deepest plugin ecosystem in the field. We run it alongside Claude so every problem meets the model best suited to crack it.</p>
+      <p class="tool-body">OpenAI's reasoning workhorse — custom GPTs, advanced data analysis, and the deepest plugin ecosystem in the field. We run it alongside our other models so every problem meets the one best suited to crack it.</p>
       <div class="tool-use">Reasoning · Custom GPTs · Data analysis</div>
     </div>
     <div class="tool-tile">
@@ -1713,46 +1699,34 @@ footer {
       <div class="tool-use">Long-context analysis · Video understanding · Document review</div>
     </div>
     <div class="tool-tile">
-      <div class="tool-category">Workflow Automation</div>
-      <div class="tool-name">n8n</div>
-      <p class="tool-body">Self-hosted, open-source workflow automation. Where Zapier ends, n8n begins — custom logic, full control, and the ability to deploy inside a client's firewall when the data can't leave the building.</p>
-      <div class="tool-use">Custom workflows · Self-hosted automation · Secure pipelines</div>
+      <div class="tool-category">Frontier LLM</div>
+      <div class="tool-name">Grok</div>
+      <p class="tool-body">xAI's model with a direct line into real-time X data and a willingness to tackle questions other models hedge on. We use it when the answer needs to reflect what's happening right now.</p>
+      <div class="tool-use">Real-time analysis · Trend tracking · Direct answers</div>
     </div>
     <div class="tool-tile">
-      <div class="tool-category">App Integration</div>
-      <div class="tool-name">Zapier</div>
-      <p class="tool-body">The fastest path from "we need these systems talking" to working pipeline. Thousands of integrations, zero infrastructure — we use it to glue the long tail of SaaS into a coherent flow.</p>
-      <div class="tool-use">SaaS integration · Rapid prototyping · Cross-app triggers</div>
+      <div class="tool-category">Frontier LLM</div>
+      <div class="tool-name">Kimi</div>
+      <p class="tool-body">Moonshot AI's long-context model — deep context windows and strong reasoning at a fraction of the cost. We bring it in for large-document work where budget and context length both matter.</p>
+      <div class="tool-use">Long-context analysis · Cost-efficient reasoning · Document review</div>
     </div>
     <div class="tool-tile">
-      <div class="tool-category">Voice AI</div>
-      <div class="tool-name">ElevenLabs</div>
-      <p class="tool-body">State-of-the-art voice synthesis and cloning. We use it to build voice agents that handle inbound calls, narrate reports, and turn written knowledge into something a human can actually listen to.</p>
-      <div class="tool-use">Voice agents · Call automation · Audio content</div>
+      <div class="tool-category">AI Writing</div>
+      <div class="tool-name">Composter</div>
+      <p class="tool-body">Our go-to for turning rough drafts and scattered notes into polished, publish-ready copy. It sits in the pipeline between a first pass and a final one, so nothing ships half-finished.</p>
+      <div class="tool-use">Drafting · Editing · Content polish</div>
     </div>
     <div class="tool-tile">
-      <div class="tool-category">UI Generation</div>
-      <div class="tool-name">v0 by Vercel</div>
-      <p class="tool-body">AI-powered interface generation. Describe the screen, get a working React component — production-grade and ready to ship. We use it to prototype client dashboards in hours, not weeks.</p>
-      <div class="tool-use">Rapid prototyping · Dashboard generation · UI iteration</div>
+      <div class="tool-category">Knowledge Management</div>
+      <div class="tool-name">Obsidian</div>
+      <p class="tool-body">A local-first knowledge base that grows with the team. Every client engagement, every process map, every insight is captured and linked — so nothing learned is ever lost. Our collective brain, fully owned and searchable.</p>
+      <div class="tool-use">Institutional memory · Process documentation · Linked thinking</div>
     </div>
     <div class="tool-tile">
-      <div class="tool-category">Agent Framework</div>
-      <div class="tool-name">LangGraph</div>
-      <p class="tool-body">The orchestration layer for serious agent systems. Stateful, controllable, and built for the kind of multi-step workflows that production demands. Every complex agent we ship runs on it.</p>
-      <div class="tool-use">Agent orchestration · Stateful workflows · Production agents</div>
-    </div>
-    <div class="tool-tile">
-      <div class="tool-category">Vector Database</div>
-      <div class="tool-name">Pinecone</div>
-      <p class="tool-body">High-performance vector search at scale. We use it as the retrieval backbone for RAG systems — turning a client's documents, tickets, and tribal knowledge into something every agent can query in milliseconds.</p>
-      <div class="tool-use">RAG systems · Semantic search · Knowledge retrieval</div>
-    </div>
-    <div class="tool-tile">
-      <div class="tool-category">Agent Observability</div>
-      <div class="tool-name">LangSmith</div>
-      <p class="tool-body">The microscope for agent systems. Every prompt, every tool call, every token logged and traceable — so when something breaks at 3am, we know exactly which step failed and why.</p>
-      <div class="tool-use">Tracing · Evaluation · Production monitoring</div>
+      <div class="tool-category">Infrastructure</div>
+      <div class="tool-name">Railway</div>
+      <p class="tool-body">Deployment infrastructure without the ceremony — push code, get a running service, scale when you need to. We use it to ship client-facing apps and agent backends without babysitting servers.</p>
+      <div class="tool-use">App deployment · Managed infrastructure · Fast iteration</div>
     </div>
   </div>
 </section>
