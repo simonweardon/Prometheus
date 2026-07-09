@@ -226,6 +226,27 @@ nav {
   max-width: 640px;
 }
 
+.hero-guarantee {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: var(--ivory);
+  background: rgba(196, 98, 45, 0.14);
+  border: 1px solid rgba(196, 98, 45, 0.4);
+  padding: 0.6rem 1.2rem;
+  border-radius: 999px;
+  margin-bottom: 1.6rem;
+}
+
+.hero-guarantee strong {
+  color: var(--ember-lt);
+  font-weight: 700;
+}
+
 .hero-eyebrow {
   font-family: var(--sans);
   font-size: 0.65rem;
@@ -1306,6 +1327,7 @@ footer {
   .hero { padding: 0 1.5rem 5rem; min-height: 580px; }
   .hero-figure { opacity: 0.2; }
   .hero-scroll-cue { right: 1.5rem; }
+  .hero-guarantee { font-size: 0.72rem; padding: 0.5rem 1rem; }
 
   /* Section foundations */
   section { padding: 5rem 1.5rem; }
@@ -1481,6 +1503,7 @@ footer {
   </div>
 
   <div class="hero-content">
+    <div class="hero-guarantee"><strong>4,000+ hours</strong> saved a year — proven within 30 days, before you pay a cent.</div>
     <div class="hero-eyebrow">AI Implementation</div>
     <h1>
       We bring the <em>fire</em><br>
@@ -1499,14 +1522,14 @@ footer {
 
 <!-- STATEMENT BAND -->
 <div class="statement reveal">
-  <p>"Every company is sitting on a gold mine of wasted hours. We find them. We fix them. We free your people to do what only humans can."</p>
+  <p>"Every company is sitting on a gold mine of hours that could be saved. We find them. We fix them. We free your people to do what only humans can."</p>
 </div>
 
 <!-- STAT STRIP -->
 <div class="stat-strip reveal">
   <div class="stat-item">
-    <div class="stat-number">1,000s</div>
-    <div class="stat-label">Man Hours Automated</div>
+    <div class="stat-number">4,000+</div>
+    <div class="stat-label">Man Hours Saved Per Year</div>
   </div>
   <div class="stat-divider"></div>
   <div class="stat-item">
