@@ -1522,14 +1522,14 @@ footer {
 
 <!-- STATEMENT BAND -->
 <div class="statement reveal">
-  <p>"Every company is sitting on a gold mine of wasted hours. We find them. We fix them. We free your people to do what only humans can."</p>
+  <p>"Every company is sitting on a gold mine of hours that could be saved. We find them. We fix them. We free your people to do what only humans can."</p>
 </div>
 
 <!-- STAT STRIP -->
 <div class="stat-strip reveal">
   <div class="stat-item">
-    <div class="stat-number">1,000s</div>
-    <div class="stat-label">Man Hours Automated</div>
+    <div class="stat-number">4,000+</div>
+    <div class="stat-label">Man Hours Saved Per Year</div>
   </div>
   <div class="stat-divider"></div>
   <div class="stat-item">
