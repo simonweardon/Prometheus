@@ -1746,6 +1746,12 @@ footer {
       <div class="tool-use">Long-context analysis · Cost-efficient reasoning · Document review</div>
     </div>
     <div class="tool-tile">
+      <div class="tool-category">Open-Weight LLM</div>
+      <div class="tool-name">Hermes</div>
+      <p class="tool-body">Nous Research's open-weight model — steerable, uncensored, and ours to run on our own infrastructure. We reach for it when a workload needs full control over the model, private deployment, or fine-tuning to a client's exact domain.</p>
+      <div class="tool-use">Private deployment · Fine-tuning · Steerable reasoning</div>
+    </div>
+    <div class="tool-tile">
       <div class="tool-category">AI Writing</div>
       <div class="tool-name">Composter</div>
       <p class="tool-body">Our go-to for turning rough drafts and scattered notes into polished, publish-ready copy. It sits in the pipeline between a first pass and a final one, so nothing ships half-finished.</p>
