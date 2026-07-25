@@ -15,6 +15,7 @@ COPY backend/ ./
 
 # Marketing site + nginx template + startup script
 COPY First /usr/share/nginx/html/index.html
+COPY assets/ /usr/share/nginx/html/assets/
 COPY nginx.conf /etc/nginx/templates/default.conf.template
 COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
