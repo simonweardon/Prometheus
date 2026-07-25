@@ -1,8 +1,8 @@
 # Prometheus design system
 
 Aesthetic: high-end aerospace/defense, luxury editorial, dark-mode technical
-HUD. Forest noir ground, one electric-lime accent, Baroque oil paintings graded
-into the palette. Implemented as plain CSS custom properties in `First` — the
+HUD. Soot ground, one flame accent, Baroque oil paintings seated into the
+palette. Implemented as plain CSS custom properties in `First` — the
 site is a single self-contained HTML file served by nginx, so there is no build
 step and no Tailwind. A Tailwind mapping is at the bottom if the stack ever
 moves.
@@ -11,25 +11,28 @@ moves.
 
 ```css
 /* Surfaces */
---noir:        #0B130E;   /* page ground — deep forest noir       */
---noir-deep:   #070C09;   /* wells, footer, overlay drawer        */
---panel:       #121D16;   /* cards, nested containers             */
---panel-hi:    #16241A;   /* panel hover                          */
+--soot:        #0D0B08;   /* page ground — deep soot              */
+--soot-deep:   #070503;   /* wells, footer, overlay drawer        */
+--ash:         #1A1410;   /* cards, nested containers             */
+--ash-hi:      #241B14;   /* card hover                           */
 
-/* Accent — used sparingly: CTAs, active states, telemetry only */
---lime:        #D0FF00;
---lime-dim:    #C4FA00;   /* CTA hover                            */
---lime-soft:   rgba(208, 255, 0, 0.14);
---lime-line:   rgba(208, 255, 0, 0.34);   /* HUD bracket resting  */
+/* Accent — fire. Used sparingly: CTAs, active states, telemetry only */
+--flame:       #F2913C;
+--flame-dim:   #E8854A;   /* CTA hover                            */
+--ember:       #C4622D;   /* deeper ember, weighted rules         */
+--gold:        #C9A44A;   /* secondary warm, watermarks           */
+--gold-lt:     #E8C97A;   /* display emphasis                     */
+--flame-soft:  rgba(242, 145, 60, 0.14);
+--flame-line:  rgba(242, 145, 60, 0.34);   /* HUD bracket resting */
 
 /* Type colour */
---bone:        #F3F4ED;   /* titles, primary body                 */
---moss:        #6E8273;   /* metadata, subtitles, telemetry       */
---moss-lt:     #93A598;   /* body copy on dark panels             */
+--ivory:       #F0EAE0;   /* titles, primary body                 */
+--warm-gray:   #8A7D6E;   /* metadata, subtitles, telemetry       */
+--parchment:   #D4C9B0;   /* body copy on dark panels             */
 
 /* Rules & grid */
---line:        rgba(243, 244, 237, 0.10);
---line-strong: rgba(243, 244, 237, 0.20);
+--line:        rgba(240, 234, 224, 0.10);
+--line-strong: rgba(240, 234, 224, 0.20);
 
 /* Rhythm */
 --gut:     clamp(1.5rem, 5vw, 6rem);   /* page gutter             */
@@ -42,7 +45,7 @@ moves.
 
 | Role | Face | Notes |
 | --- | --- | --- |
-| Display | **Fraunces** (variable) | `wght 300`, `opsz 144`, `WONK 1`. High vertical contrast, editorial. Italic + lime for emphasis words. |
+| Display | **Fraunces** (variable) | `wght 300`, `opsz 144`, `WONK 1`. High vertical contrast, editorial. Italic + flame for emphasis words. |
 | Body / UI | **Inter** | `300` for prose, `400–500` for UI. |
 | Telemetry | **IBM Plex Mono** | All-caps, `letter-spacing: 0.16–0.26em`. Section tags, step numbers, spec lines, buttons. |
 
@@ -74,7 +77,7 @@ one pseudo-element, four brackets, no extra markup.
   inset: 0;
   pointer-events: none;
   z-index: 2;
-  border: 1px solid var(--lime-line);
+  border: 1px solid var(--flame-line);
   -webkit-mask:
     linear-gradient(#000 0 0) top    left  / var(--bracket) var(--bracket) no-repeat,
     linear-gradient(#000 0 0) top    right / var(--bracket) var(--bracket) no-repeat,
@@ -83,7 +86,7 @@ one pseudo-element, four brackets, no extra markup.
   mask: /* …same four layers… */;
 }
 
-.framed:hover::before { border-color: var(--lime); }
+.framed:hover::before { border-color: var(--flame); }
 ```
 
 Where `mask` is unsupported the whole hairline border shows — a clean,
@@ -102,13 +105,14 @@ Two stacked layers behind the content, both `position: absolute`, at `z-index`
 .band-art {
   background-image: var(--art);
   background-size: cover;
-  filter: saturate(0.45) contrast(1.1) brightness(0.78);
+  filter: saturate(1.05) contrast(1.06) brightness(0.72);
 }
 ```
 
-The `saturate(0.45)` is what pulls warm Baroque oil toward the forest palette so
-the paintings sit *inside* the page rather than on top of it. `.band-scrim`
-then layers directional gradients to protect the text.
+Because the palette is the paintings' own, grading only deepens them into the
+ground — saturation is preserved rather than cut, which is what the earlier
+forest scheme had required. `.band-scrim` then layers directional gradients to
+protect the text.
 
 Every art slot renders a gradient **underneath** the image rather than relying
 on it, so a missing painting leaves a deliberate unlit plate instead of a void:
@@ -116,29 +120,29 @@ on it, so a missing painting leaves a deliberate unlit plate instead of a void:
 ```css
 background-image:
   var(--art),                                                   /* painting  */
-  radial-gradient(ellipse at 50% 30%, rgba(208,255,0,0.06), transparent 62%),
-  linear-gradient(160deg, #16241A 0%, #0C1410 100%);            /* fallback  */
+  radial-gradient(ellipse at 60% 28%, rgba(242,145,60,0.12), transparent 62%),
+  linear-gradient(160deg, #241B14 0%, #120D09 100%);            /* fallback  */
 ```
 
-Slots and filenames are in [`ART-DIRECTION.md`](./ART-DIRECTION.md).
+Five slots carry paintings; filenames are in [`ART-DIRECTION.md`](./ART-DIRECTION.md).
 
 ## 5. Component patterns
 
 - **Section head** — asymmetric `1.05fr / 0.95fr` grid, title left, standfirst
   right, `align-items: end`, hairline underneath. Collapses to one column below
   900px.
-- **Nav** — minimal chrome: logo, status pill, Login, lime CTA, Menu. All
+- **Nav** — minimal chrome: logo, status pill, Login, flame CTA, Menu. All
   navigation lives in the full-screen drawer. Gains a blurred solid background
   past 40px of scroll.
-- **Drawer** — full-viewport `--noir-deep`, menu items at
+- **Drawer** — full-viewport `--soot-deep`, menu items at
   `clamp(2rem, 5.5vw, 4.25rem)` Fraunces with mono numerals, staggered
-  transition delays, hover slides right and reveals a lime arrow. Quick links
+  transition delays, hover slides right and reveals a flame arrow. Quick links
   pinned at the bottom.
 - **Sticky rail** — the engagement timeline uses `position: sticky` on the rail
   and an IntersectionObserver with `rootMargin: -45% 0px -45% 0px` to light the
   step whose block is crossing the viewport middle.
 - **Industry rows** — hairline-divided, hover adds `padding-left` and reveals a
-  lime arrow. No cards, no boxes.
+  flame arrow. No cards, no boxes.
 
 ## 6. Motion
 
@@ -154,11 +158,13 @@ and collapses all durations.
 theme: {
   extend: {
     colors: {
-      noir:  { DEFAULT: '#0B130E', deep: '#070C09' },
-      panel: { DEFAULT: '#121D16', hi: '#16241A' },
-      lime:  { DEFAULT: '#D0FF00', dim: '#C4FA00' },
-      bone:  '#F3F4ED',
-      moss:  { DEFAULT: '#6E8273', lt: '#93A598' },
+      soot:  { DEFAULT: '#0D0B08', deep: '#070503' },
+      ash:   { DEFAULT: '#1A1410', hi: '#241B14' },
+      flame: { DEFAULT: '#F2913C', dim: '#E8854A' },
+      ember: '#C4622D',
+      gold:  { DEFAULT: '#C9A44A', lt: '#E8C97A' },
+      ivory: '#F0EAE0',
+      warm:  { gray: '#8A7D6E', parchment: '#D4C9B0' },
     },
     fontFamily: {
       display: ['Fraunces', 'serif'],
