@@ -1477,7 +1477,7 @@ footer {
 
 <!-- NAV -->
 <nav>
-  <a href="#" class="logo"><svg class="logo-mark" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true"><use href="#prom-mark" xlink:href="#prom-mark"/></svg>Prome<span>theus</span> Solutions</a>
+  <a href="#" class="logo"><svg class="logo-mark" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true"><use href="#prom-mark" xlink:href="#prom-mark"/></svg>Prometheus <span>Solutions</span></a>
   <ul class="nav-links">
     <li><a href="#how">Our Method</a></li>
     <li><a href="#agents">AI Agents</a></li>
@@ -1928,7 +1928,7 @@ footer {
 <footer>
   <div class="footer-top">
     <div class="footer-brand">
-      <a href="#" class="logo"><svg class="logo-mark" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true"><use href="#prom-mark" xlink:href="#prom-mark"/></svg>Prome<span>theus</span> Solutions</a>
+      <a href="#" class="logo"><svg class="logo-mark" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true"><use href="#prom-mark" xlink:href="#prom-mark"/></svg>Prometheus <span>Solutions</span></a>
       <p>AI operations consulting. We embed, we diagnose, we build, we automate. Your business, transformed.</p>
     </div>
     <div>
