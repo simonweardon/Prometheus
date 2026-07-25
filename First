@@ -5,42 +5,44 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Prometheus Solutions — We Bring the Fire</title>
 <meta name="description" content="Prometheus embeds with your team, maps every bottleneck, then builds and deploys AI agents that eliminate the friction holding your people back.">
-<meta name="theme-color" content="#0B130E">
+<meta name="theme-color" content="#0D0B08">
 <meta property="og:title" content="Prometheus Solutions — We Bring the Fire">
 <meta property="og:description" content="AI implementation. We embed, we diagnose, we build, we automate.">
-<meta property="og:image" content="assets/art/og-share.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Inter:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 /* ═══════════════════════════════════════════════════════════════════════
    PROMETHEUS — DESIGN SYSTEM
-   Aerospace / defense editorial. Forest noir, electric lime, Baroque oil.
+   Aerospace / defense editorial. Soot and ember, Baroque oil.
    ═══════════════════════════════════════════════════════════════════════ */
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
   /* ── Surfaces ────────────────────────────────────────────────── */
-  --noir:        #0B130E;   /* page ground — deep forest noir       */
-  --noir-deep:   #070C09;   /* wells, footer, overlay drawer        */
-  --panel:       #121D16;   /* cards, nested containers             */
-  --panel-hi:    #16241A;   /* panel hover                          */
+  --soot:        #0D0B08;   /* page ground — deep soot              */
+  --soot-deep:   #070503;   /* wells, footer, overlay drawer        */
+  --ash:         #1A1410;   /* cards, nested containers             */
+  --ash-hi:      #241B14;   /* card hover                           */
 
-  /* ── Accent ──────────────────────────────────────────────────── */
-  --lime:        #D0FF00;   /* CTAs, active states, telemetry       */
-  --lime-dim:    #C4FA00;
-  --lime-soft:   rgba(208, 255, 0, 0.14);
-  --lime-line:   rgba(208, 255, 0, 0.34);
+  /* ── Accent — fire ───────────────────────────────────────────── */
+  --flame:       #F2913C;   /* CTAs, active states, telemetry       */
+  --flame-dim:   #E8854A;   /* CTA hover                            */
+  --ember:       #C4622D;   /* deeper ember, weighted rules         */
+  --gold:        #C9A44A;   /* secondary warm, watermarks           */
+  --gold-lt:     #E8C97A;   /* display emphasis                     */
+  --flame-soft:  rgba(242, 145, 60, 0.14);
+  --flame-line:  rgba(242, 145, 60, 0.34);
 
   /* ── Type colour ─────────────────────────────────────────────── */
-  --bone:        #F3F4ED;   /* titles, body                         */
-  --moss:        #6E8273;   /* metadata, subtitles                  */
-  --moss-lt:     #93A598;   /* body copy on dark panels             */
+  --ivory:       #F0EAE0;   /* titles, primary body                 */
+  --warm-gray:   #8A7D6E;   /* metadata, subtitles, telemetry       */
+  --parchment:   #D4C9B0;   /* body copy on dark panels             */
 
   /* ── Rules & grid ────────────────────────────────────────────── */
-  --line:        rgba(243, 244, 237, 0.10);
-  --line-strong: rgba(243, 244, 237, 0.20);
+  --line:        rgba(240, 234, 224, 0.10);
+  --line-strong: rgba(240, 234, 224, 0.20);
 
   /* ── Type stacks ─────────────────────────────────────────────── */
   --display: 'Fraunces', 'Times New Roman', Georgia, serif;
@@ -58,8 +60,8 @@
 html { scroll-behavior: smooth; }
 
 body {
-  background: var(--noir);
-  color: var(--bone);
+  background: var(--soot);
+  color: var(--ivory);
   font-family: var(--sans);
   font-weight: 300;
   font-size: 16px;
@@ -76,16 +78,13 @@ body::before {
   inset: 0;
   z-index: 9999;
   pointer-events: none;
-  opacity: 0.5;
-  background-image:
-    url("assets/art/canvas-texture.jpg"),
-    url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
-  background-size: 420px, 512px;
-  background-repeat: repeat, repeat;
+  opacity: 0.45;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  background-size: 512px;
   mix-blend-mode: overlay;
 }
 
-::selection { background: var(--lime); color: var(--noir); }
+::selection { background: var(--flame); color: var(--soot); }
 
 /* ═══ TYPOGRAPHY PRIMITIVES ═══════════════════════════════════════════ */
 
@@ -95,7 +94,7 @@ h1, h2, h3 {
   font-variation-settings: 'opsz' 144, 'SOFT' 0, 'WONK' 1;
   letter-spacing: -0.02em;
   line-height: 1.02;
-  color: var(--bone);
+  color: var(--ivory);
 }
 
 h1 { font-size: clamp(3rem, 8.5vw, 7.5rem); }
@@ -105,7 +104,7 @@ h3 { font-size: clamp(1.35rem, 2vw, 1.75rem); line-height: 1.15; }
 h1 em, h2 em, h3 em {
   font-style: italic;
   font-variation-settings: 'opsz' 144, 'WONK' 1;
-  color: var(--lime);
+  color: var(--flame);
 }
 
 p { font-weight: 300; }
@@ -121,13 +120,13 @@ p { font-weight: 300; }
   font-weight: 400;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--moss);
+  color: var(--warm-gray);
 }
 
 .tele::before {
   content: '';
   width: 5px; height: 5px;
-  background: var(--lime);
+  background: var(--flame);
   flex: none;
 }
 
@@ -140,14 +139,14 @@ p { font-weight: 300; }
   font-size: 0.66rem;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--moss);
+  color: var(--warm-gray);
   margin-bottom: 1.75rem;
 }
 
 .tag i {
   font-style: normal;
-  color: var(--lime);
-  border: 1px solid var(--lime-line);
+  color: var(--flame);
+  border: 1px solid var(--flame-line);
   padding: 0.15rem 0.45rem;
   font-size: 0.6rem;
 }
@@ -165,7 +164,7 @@ p { font-weight: 300; }
   inset: 0;
   pointer-events: none;
   z-index: 2;
-  border: 1px solid var(--lime-line);
+  border: 1px solid var(--flame-line);
   -webkit-mask:
     linear-gradient(#000 0 0) top    left  / var(--bracket) var(--bracket) no-repeat,
     linear-gradient(#000 0 0) top    right / var(--bracket) var(--bracket) no-repeat,
@@ -179,7 +178,7 @@ p { font-weight: 300; }
   transition: border-color 0.45s var(--ease);
 }
 
-.framed:hover::before { border-color: var(--lime); }
+.framed:hover::before { border-color: var(--flame); }
 
 /* ═══ BUTTONS ═════════════════════════════════════════════════════════ */
 
@@ -199,22 +198,22 @@ p { font-weight: 300; }
 }
 
 .btn-fire {
-  color: var(--noir);
-  background: var(--lime);
-  border: 1px solid var(--lime);
+  color: var(--soot);
+  background: var(--flame);
+  border: 1px solid var(--flame);
 }
 
 .btn-fire::after { content: '→'; transition: transform 0.4s var(--ease); }
-.btn-fire:hover { background: var(--lime-dim); }
+.btn-fire:hover { background: var(--flame-dim); }
 .btn-fire:hover::after { transform: translateX(4px); }
 
 .btn-outline {
-  color: var(--bone);
+  color: var(--ivory);
   background: transparent;
   border: 1px solid var(--line-strong);
 }
 
-.btn-outline:hover { border-color: var(--lime); color: var(--lime); }
+.btn-outline:hover { border-color: var(--flame); color: var(--flame); }
 
 .cta-group { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 2.75rem; }
 
@@ -229,13 +228,13 @@ nav {
   justify-content: space-between;
   gap: 1.5rem;
   padding: 1.5rem var(--gut);
-  background: linear-gradient(to bottom, rgba(11,19,14,0.9) 0%, rgba(11,19,14,0) 100%);
+  background: linear-gradient(to bottom, rgba(13,11,8,0.9) 0%, rgba(13,11,8,0) 100%);
   border-bottom: 1px solid transparent;
   transition: background 0.5s var(--ease), border-color 0.5s var(--ease);
 }
 
 nav.stuck {
-  background: rgba(11,19,14,0.94);
+  background: rgba(13,11,8,0.94);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border-bottom-color: var(--line);
@@ -251,17 +250,17 @@ nav.stuck {
   font-size: 1.15rem;
   font-weight: 400;
   letter-spacing: 0.02em;
-  color: var(--bone);
+  color: var(--ivory);
   text-decoration: none;
 }
 
-.logo span { font-style: italic; color: var(--lime); }
+.logo span { font-style: italic; color: var(--flame); }
 
 .logo-mark {
   flex: none;
   width: 1.1em;
   height: 1.35em;
-  color: var(--bone);
+  color: var(--ivory);
 }
 
 .nav-right { display: flex; align-items: center; gap: 0.75rem; }
@@ -274,7 +273,7 @@ nav.stuck {
   font-size: 0.6rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--moss);
+  color: var(--warm-gray);
   margin-right: 0.75rem;
 }
 
@@ -282,14 +281,14 @@ nav.stuck {
   content: '';
   width: 6px; height: 6px;
   border-radius: 50%;
-  background: var(--lime);
+  background: var(--flame);
   animation: pulse 2.6s infinite;
 }
 
 @keyframes pulse {
-  0%   { box-shadow: 0 0 0 0 rgba(208,255,0,0.45); }
-  70%  { box-shadow: 0 0 0 7px rgba(208,255,0,0); }
-  100% { box-shadow: 0 0 0 0 rgba(208,255,0,0); }
+  0%   { box-shadow: 0 0 0 0 rgba(242,145,60,0.45); }
+  70%  { box-shadow: 0 0 0 7px rgba(242,145,60,0); }
+  100% { box-shadow: 0 0 0 0 rgba(242,145,60,0); }
 }
 
 .nav-login, .nav-cta {
@@ -304,19 +303,19 @@ nav.stuck {
 }
 
 .nav-login {
-  color: var(--bone);
+  color: var(--ivory);
   border: 1px solid var(--line-strong);
 }
 
-.nav-login:hover { border-color: var(--lime); color: var(--lime); }
+.nav-login:hover { border-color: var(--flame); color: var(--flame); }
 
 .nav-cta {
-  color: var(--noir);
-  background: var(--lime);
-  border: 1px solid var(--lime);
+  color: var(--soot);
+  background: var(--flame);
+  border: 1px solid var(--flame);
 }
 
-.nav-cta:hover { background: var(--lime-dim); }
+.nav-cta:hover { background: var(--flame-dim); }
 
 /* Menu trigger */
 .nav-menu-btn {
@@ -325,7 +324,7 @@ nav.stuck {
   gap: 0.7rem;
   background: none;
   border: 1px solid var(--line-strong);
-  color: var(--bone);
+  color: var(--ivory);
   font-family: var(--mono);
   font-size: 0.64rem;
   font-weight: 500;
@@ -336,7 +335,7 @@ nav.stuck {
   transition: all 0.35s var(--ease);
 }
 
-.nav-menu-btn:hover { border-color: var(--lime); color: var(--lime); }
+.nav-menu-btn:hover { border-color: var(--flame); color: var(--flame); }
 
 .nav-menu-btn i {
   display: flex;
@@ -362,7 +361,7 @@ body.nav-open .nav-menu-btn i b:nth-child(3) { transform: translateY(-4px) rotat
   position: fixed;
   inset: 0;
   z-index: 999;
-  background: var(--noir-deep);
+  background: var(--soot-deep);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -404,19 +403,19 @@ body.nav-open .nav-menu-btn i b:nth-child(3) { transform: translateY(-4px) rotat
   font-weight: 300;
   line-height: 1;
   letter-spacing: -0.02em;
-  color: var(--bone);
+  color: var(--ivory);
   text-decoration: none;
   transition: color 0.4s var(--ease), padding-left 0.5s var(--ease);
 }
 
-.drawer-list a:hover { color: var(--lime); padding-left: 1.25rem; }
+.drawer-list a:hover { color: var(--flame); padding-left: 1.25rem; }
 
 .drawer-list a u {
   font-family: var(--mono);
   font-size: 0.62rem;
   letter-spacing: 0.2em;
   text-decoration: none;
-  color: var(--moss);
+  color: var(--warm-gray);
   flex: none;
   width: 2.5rem;
 }
@@ -426,7 +425,7 @@ body.nav-open .nav-menu-btn i b:nth-child(3) { transform: translateY(-4px) rotat
   text-decoration: none;
   font-family: var(--sans);
   font-size: 1.5rem;
-  color: var(--lime);
+  color: var(--flame);
   opacity: 0;
   transform: translateX(-0.75rem);
   transition: all 0.4s var(--ease);
@@ -452,16 +451,16 @@ body.nav-open .nav-menu-btn i b:nth-child(3) { transform: translateY(-4px) rotat
   font-size: 0.66rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--moss);
+  color: var(--warm-gray);
   text-decoration: none;
   transition: color 0.35s var(--ease);
 }
 
-.drawer-quick a:hover { color: var(--lime); }
+.drawer-quick a:hover { color: var(--flame); }
 
 /* ═══ FULL-BLEED PAINTING BANDS ═══════════════════════════════════════
-   Art is graded toward the forest palette so the paintings live inside
-   the page rather than sitting on top of it. Every band renders a
+   The palette is the paintings' own, so grading only deepens them into
+   the ground instead of pulling their hue. Every band renders a
    deliberate gradient on its own, so a missing image degrades cleanly. */
 
 .band-art {
@@ -471,7 +470,7 @@ body.nav-open .nav-menu-btn i b:nth-child(3) { transform: translateY(-4px) rotat
   background-image: var(--art);
   background-size: cover;
   background-position: var(--art-pos, center);
-  filter: saturate(0.45) contrast(1.1) brightness(0.78);
+  filter: saturate(1.05) contrast(1.06) brightness(0.72);
 }
 
 .band-scrim {
@@ -479,15 +478,15 @@ body.nav-open .nav-menu-btn i b:nth-child(3) { transform: translateY(-4px) rotat
   inset: 0;
   z-index: -1;
   background:
-    linear-gradient(to right, rgba(11,19,14,0.94) 0%, rgba(11,19,14,0.62) 48%, rgba(11,19,14,0.34) 100%),
-    linear-gradient(to bottom, rgba(11,19,14,0.85) 0%, rgba(11,19,14,0.15) 35%, rgba(11,19,14,0.92) 100%),
-    radial-gradient(ellipse at 70% 45%, rgba(208,255,0,0.05), transparent 60%);
+    linear-gradient(to right, rgba(13,11,8,0.94) 0%, rgba(13,11,8,0.62) 48%, rgba(13,11,8,0.34) 100%),
+    linear-gradient(to bottom, rgba(13,11,8,0.85) 0%, rgba(13,11,8,0.15) 35%, rgba(13,11,8,0.92) 100%),
+    radial-gradient(ellipse at 70% 45%, rgba(242,145,60,0.05), transparent 60%);
 }
 
 .band-scrim.center {
   background:
-    linear-gradient(to bottom, rgba(11,19,14,0.92) 0%, rgba(11,19,14,0.55) 45%, rgba(11,19,14,0.95) 100%),
-    radial-gradient(ellipse at 50% 70%, rgba(208,255,0,0.06), transparent 65%);
+    linear-gradient(to bottom, rgba(13,11,8,0.92) 0%, rgba(13,11,8,0.55) 45%, rgba(13,11,8,0.95) 100%),
+    radial-gradient(ellipse at 50% 70%, rgba(242,145,60,0.06), transparent 65%);
 }
 
 /* ═══ HERO ════════════════════════════════════════════════════════════ */
@@ -529,7 +528,7 @@ body.nav-open .nav-menu-btn i b:nth-child(3) { transform: translateY(-4px) rotat
   font-size: 0.68rem;
   letter-spacing: 0.26em;
   text-transform: uppercase;
-  color: var(--lime);
+  color: var(--flame);
   margin-bottom: 2rem;
 }
 
@@ -538,7 +537,7 @@ body.nav-open .nav-menu-btn i b:nth-child(3) { transform: translateY(-4px) rotat
   height: 1px;
   flex: 1;
   max-width: 7rem;
-  background: var(--lime-line);
+  background: var(--flame-line);
 }
 
 .hero h1 { margin-bottom: 2.25rem; }
@@ -547,7 +546,7 @@ body.nav-open .nav-menu-btn i b:nth-child(3) { transform: translateY(-4px) rotat
   max-width: 40rem;
   font-size: clamp(1rem, 1.35vw, 1.2rem);
   line-height: 1.7;
-  color: var(--moss-lt);
+  color: var(--parchment);
 }
 
 /* Floating HUD guarantee badge */
@@ -558,16 +557,16 @@ body.nav-open .nav-menu-btn i b:nth-child(3) { transform: translateY(-4px) rotat
   z-index: 3;
   max-width: 19rem;
   padding: 1.25rem 1.4rem;
-  background: rgba(18,29,22,0.72);
+  background: rgba(26,20,16,0.78);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   font-family: var(--mono);
   font-size: 0.7rem;
   line-height: 1.7;
-  color: var(--moss-lt);
+  color: var(--parchment);
 }
 
-.hero-guarantee strong { color: var(--lime); font-weight: 500; }
+.hero-guarantee strong { color: var(--flame); font-weight: 500; }
 
 /* Telemetry readout strip along the hero base */
 .hero-telemetry {
@@ -583,11 +582,11 @@ body.nav-open .nav-menu-btn i b:nth-child(3) { transform: translateY(-4px) rotat
   font-size: 0.62rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--moss);
+  color: var(--warm-gray);
 }
 
 .hero-telemetry span { display: inline-flex; align-items: center; gap: 0.55rem; }
-.hero-telemetry span b { color: var(--lime); font-weight: 400; }
+.hero-telemetry span b { color: var(--flame); font-weight: 400; }
 
 .hero-scroll-cue {
   display: inline-flex;
@@ -597,12 +596,12 @@ body.nav-open .nav-menu-btn i b:nth-child(3) { transform: translateY(-4px) rotat
   font-size: 0.62rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--moss);
+  color: var(--warm-gray);
 }
 
 .hero-scroll-cue::after {
   content: '↓';
-  color: var(--lime);
+  color: var(--flame);
   animation: bob 2.4s var(--ease) infinite;
 }
 
@@ -628,7 +627,7 @@ body.nav-open .nav-menu-btn i b:nth-child(3) { transform: translateY(-4px) rotat
   font-style: italic;
   line-height: 1.28;
   letter-spacing: -0.015em;
-  color: var(--bone);
+  color: var(--ivory);
   text-indent: -0.4em;
 }
 
@@ -653,7 +652,7 @@ body.nav-open .nav-menu-btn i b:nth-child(3) { transform: translateY(-4px) rotat
   font-weight: 300;
   line-height: 0.95;
   letter-spacing: -0.03em;
-  color: var(--lime);
+  color: var(--flame);
   margin-bottom: 1rem;
 }
 
@@ -662,7 +661,7 @@ body.nav-open .nav-menu-btn i b:nth-child(3) { transform: translateY(-4px) rotat
   font-size: 0.66rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--moss);
+  color: var(--warm-gray);
   line-height: 1.8;
   max-width: 20rem;
 }
@@ -686,7 +685,7 @@ section { padding: var(--band) var(--gut); }
 .sec-head > p {
   font-size: clamp(0.95rem, 1.15vw, 1.06rem);
   line-height: 1.85;
-  color: var(--moss-lt);
+  color: var(--parchment);
 }
 
 /* ═══ HOW WE WORK ═════════════════════════════════════════════════════ */
@@ -704,48 +703,34 @@ section { padding: var(--band) var(--gut); }
 
 .step {
   position: relative;
-  background: var(--noir);
+  background: var(--soot);
   padding: clamp(2rem, 3vw, 3rem);
   transition: background 0.5s var(--ease);
 }
 
-.step:hover { background: var(--panel); }
+.step:hover { background: var(--ash); }
 
-/* Painting vignette per phase. The gradient sits UNDER the painting, so
-   an absent image leaves a deliberate unlit plate rather than a void. */
+/* Engraved emblem per phase — a compact plate, not a painting slot.
+   The five paintings are spent on the full-bleed narrative moments. */
 .step-art {
   position: relative;
-  aspect-ratio: 3 / 4;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 16 / 9;
   margin-bottom: 2rem;
-  background-color: var(--panel);
-  background-image:
-    var(--art),
-    radial-gradient(ellipse at 50% 30%, rgba(208,255,0,0.06), transparent 62%),
-    linear-gradient(160deg, #16241A 0%, #0C1410 100%);
-  background-size: cover, cover, cover;
-  background-position: center;
-  filter: saturate(0.4) contrast(1.08) brightness(0.8);
-  transition: filter 0.6s var(--ease);
+  background:
+    radial-gradient(ellipse at 50% 50%, rgba(242,145,60,0.10), transparent 68%),
+    linear-gradient(160deg, #241B14 0%, #120D09 100%);
+  transition: background 0.6s var(--ease);
 }
 
-.step:hover .step-art { filter: saturate(0.6) contrast(1.08) brightness(0.92); }
-
-.step-art::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to bottom, rgba(11,19,14,0.15), rgba(11,19,14,0.8));
+.step:hover .step-art {
+  background:
+    radial-gradient(ellipse at 50% 50%, rgba(242,145,60,0.18), transparent 68%),
+    linear-gradient(160deg, #2B2018 0%, #150F0B 100%);
 }
 
-.step-icon {
-  position: absolute;
-  inset: 0;
-  margin: auto;
-  width: 56px;
-  height: 56px;
-  z-index: 1;
-  opacity: 0.85;
-}
+.step-icon { width: 52px; height: 52px; opacity: 0.9; }
 
 .step-num {
   display: block;
@@ -753,7 +738,7 @@ section { padding: var(--band) var(--gut); }
   font-size: 0.64rem;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--lime);
+  color: var(--flame);
   margin-bottom: 1.5rem;
 }
 
@@ -766,7 +751,7 @@ section { padding: var(--band) var(--gut); }
   margin-bottom: 1rem;
 }
 
-.step-body { font-size: 0.94rem; line-height: 1.8; color: var(--moss-lt); }
+.step-body { font-size: 0.94rem; line-height: 1.8; color: var(--parchment); }
 
 .step-watermark {
   position: absolute;
@@ -777,7 +762,7 @@ section { padding: var(--band) var(--gut); }
   font-size: 3.5rem;
   font-style: italic;
   line-height: 1;
-  color: var(--bone);
+  color: var(--ivory);
   opacity: 0.14;
   pointer-events: none;
 }
@@ -800,39 +785,9 @@ section { padding: var(--band) var(--gut); }
 
 .pb-content { max-width: 46rem; }
 .pb-content h2 { margin-bottom: 2rem; }
-.pb-content p { font-size: clamp(1rem, 1.2vw, 1.12rem); line-height: 1.85; color: var(--moss-lt); }
+.pb-content p { font-size: clamp(1rem, 1.2vw, 1.12rem); line-height: 1.85; color: var(--parchment); }
 
 /* ═══ AI AGENTS ═══════════════════════════════════════════════════════ */
-
-.agents-banner {
-  position: relative;
-  aspect-ratio: 21 / 7;
-  min-height: 220px;
-  max-width: 88rem;
-  margin: 0 auto clamp(3rem, 5vw, 4.5rem);
-  overflow: hidden;
-  isolation: isolate;
-}
-
-.agents-banner { background: linear-gradient(160deg, #16241A 0%, #0C1410 100%); }
-.agents-banner .band-art { --art: url('assets/art/agents-automata.jpg'); }
-
-.agents-banner .band-scrim {
-  background:
-    linear-gradient(to bottom, rgba(11,19,14,0.55), rgba(11,19,14,0.9)),
-    radial-gradient(ellipse at 50% 80%, rgba(208,255,0,0.07), transparent 60%);
-}
-
-.agents-banner-cap {
-  position: absolute;
-  bottom: 1.5rem;
-  left: 1.75rem;
-  font-family: var(--mono);
-  font-size: 0.62rem;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--moss);
-}
 
 .agents-grid, .custom-software-grid {
   display: grid;
@@ -843,12 +798,12 @@ section { padding: var(--band) var(--gut); }
 }
 
 .agent-card, .software-card {
-  background: var(--panel);
+  background: var(--ash);
   padding: clamp(2rem, 3vw, 3rem);
   transition: background 0.5s var(--ease);
 }
 
-.agent-card:hover, .software-card:hover { background: var(--panel-hi); }
+.agent-card:hover, .software-card:hover { background: var(--ash-hi); }
 
 .agent-tag, .software-card-tag {
   display: block;
@@ -856,7 +811,7 @@ section { padding: var(--band) var(--gut); }
   font-size: 0.62rem;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--lime);
+  color: var(--flame);
   margin-bottom: 1.5rem;
 }
 
@@ -872,7 +827,7 @@ section { padding: var(--band) var(--gut); }
 .agent-body, .software-card-body {
   font-size: 0.94rem;
   line-height: 1.8;
-  color: var(--moss-lt);
+  color: var(--parchment);
   margin-bottom: 1.75rem;
 }
 
@@ -883,7 +838,7 @@ section { padding: var(--band) var(--gut); }
   font-family: var(--mono);
   font-size: 0.72rem;
   letter-spacing: 0.06em;
-  color: var(--moss);
+  color: var(--warm-gray);
   padding: 0.6rem 0 0.6rem 1.4rem;
   border-top: 1px solid var(--line);
 }
@@ -894,7 +849,7 @@ section { padding: var(--band) var(--gut); }
   left: 0;
   top: 1.05rem;
   width: 5px; height: 5px;
-  background: var(--lime);
+  background: var(--flame);
   opacity: 0.6;
 }
 
@@ -917,7 +872,7 @@ section { padding: var(--band) var(--gut); }
   font-weight: 300;
   line-height: 0.8;
   letter-spacing: -0.04em;
-  color: var(--bone);
+  color: var(--ivory);
   opacity: 0.035;
   white-space: nowrap;
   pointer-events: none;
@@ -936,14 +891,14 @@ section { padding: var(--band) var(--gut); }
 .myth-portrait {
   position: relative;
   aspect-ratio: 3 / 4;
-  background-color: var(--panel);
+  background-color: var(--ash);
   background-image:
     url('assets/art/myth.jpg'),
-    radial-gradient(ellipse at 60% 28%, rgba(208,255,0,0.07), transparent 62%),
-    linear-gradient(160deg, #16241A 0%, #0C1410 100%);
+    radial-gradient(ellipse at 60% 28%, rgba(242,145,60,0.12), transparent 62%),
+    linear-gradient(160deg, #241B14 0%, #120D09 100%);
   background-size: cover, cover, cover;
   background-position: center;
-  filter: saturate(0.5) contrast(1.08) brightness(0.9);
+  filter: saturate(1.05) contrast(1.05) brightness(0.9);
 }
 
 .myth-portrait-cap {
@@ -954,7 +909,7 @@ section { padding: var(--band) var(--gut); }
   font-size: 0.6rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--moss);
+  color: var(--warm-gray);
 }
 
 .myth-text h2 { margin-bottom: 2.5rem; }
@@ -965,8 +920,8 @@ section { padding: var(--band) var(--gut); }
   font-size: clamp(1.15rem, 1.75vw, 1.6rem);
   font-weight: 300;
   line-height: 1.45;
-  color: var(--bone);
-  border-left: 1px solid var(--lime);
+  color: var(--ivory);
+  border-left: 1px solid var(--flame);
   padding-left: 1.75rem;
   margin-bottom: 2.5rem;
 }
@@ -974,7 +929,7 @@ section { padding: var(--band) var(--gut); }
 .myth-text p {
   font-size: clamp(0.95rem, 1.1vw, 1.04rem);
   line-height: 1.85;
-  color: var(--moss-lt);
+  color: var(--parchment);
   margin-bottom: 1.25rem;
 }
 
@@ -987,7 +942,7 @@ section { padding: var(--band) var(--gut); }
   max-width: 42rem;
   font-size: clamp(0.95rem, 1.15vw, 1.06rem);
   line-height: 1.85;
-  color: var(--moss-lt);
+  color: var(--parchment);
 }
 
 .tools-grid {
@@ -1002,19 +957,19 @@ section { padding: var(--band) var(--gut); }
 .tool-tile {
   display: flex;
   flex-direction: column;
-  background: var(--noir);
+  background: var(--soot);
   padding: clamp(1.75rem, 2.4vw, 2.5rem);
   transition: background 0.5s var(--ease);
 }
 
-.tool-tile:hover { background: var(--panel); }
+.tool-tile:hover { background: var(--ash); }
 
 .tool-category {
   font-family: var(--mono);
   font-size: 0.6rem;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--moss);
+  color: var(--warm-gray);
   margin-bottom: 1.25rem;
 }
 
@@ -1027,13 +982,13 @@ section { padding: var(--band) var(--gut); }
   margin-bottom: 1rem;
 }
 
-.tool-name-featured { color: var(--lime); font-style: italic; }
+.tool-name-featured { color: var(--flame); font-style: italic; }
 
 .tool-body {
   flex: 1;
   font-size: 0.9rem;
   line-height: 1.8;
-  color: var(--moss-lt);
+  color: var(--parchment);
   margin-bottom: 1.75rem;
 }
 
@@ -1041,7 +996,7 @@ section { padding: var(--band) var(--gut); }
   font-family: var(--mono);
   font-size: 0.64rem;
   letter-spacing: 0.12em;
-  color: var(--moss);
+  color: var(--warm-gray);
   padding-top: 1.25rem;
   border-top: 1px solid var(--line);
 }
@@ -1060,8 +1015,8 @@ section { padding: var(--band) var(--gut); }
 
 .process-visual .band-scrim {
   background:
-    linear-gradient(to right, rgba(11,19,14,0.96) 0%, rgba(11,19,14,0.8) 60%, rgba(11,19,14,0.9) 100%),
-    linear-gradient(to bottom, rgba(11,19,14,0.9), rgba(11,19,14,0.6) 40%, rgba(11,19,14,0.95));
+    linear-gradient(to right, rgba(13,11,8,0.96) 0%, rgba(13,11,8,0.8) 60%, rgba(13,11,8,0.9) 100%),
+    linear-gradient(to bottom, rgba(13,11,8,0.9), rgba(13,11,8,0.6) 40%, rgba(13,11,8,0.95));
 }
 
 .pv-inner {
@@ -1088,12 +1043,12 @@ section { padding: var(--band) var(--gut); }
   font-size: 0.68rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--moss);
+  color: var(--warm-gray);
   transition: color 0.45s var(--ease);
 }
 
 .pv-rail-list li:last-child { border-bottom: 1px solid var(--line); }
-.pv-rail-list li.active { color: var(--lime); }
+.pv-rail-list li.active { color: var(--flame); }
 
 .pv-rail-list li em {
   flex: none;
@@ -1113,7 +1068,7 @@ section { padding: var(--band) var(--gut); }
   font-size: 0.64rem;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--lime);
+  color: var(--flame);
   margin-bottom: 1.25rem;
 }
 
@@ -1126,7 +1081,7 @@ section { padding: var(--band) var(--gut); }
   margin-bottom: 1rem;
 }
 
-.pv-body { font-size: clamp(0.95rem, 1.15vw, 1.06rem); line-height: 1.85; color: var(--moss-lt); }
+.pv-body { font-size: clamp(0.95rem, 1.15vw, 1.06rem); line-height: 1.85; color: var(--parchment); }
 
 /* ═══ INDUSTRIES ══════════════════════════════════════════════════════ */
 
@@ -1156,20 +1111,20 @@ section { padding: var(--band) var(--gut); }
   transition: color 0.4s var(--ease);
 }
 
-.industry-item:hover .industry-name { color: var(--lime); }
+.industry-item:hover .industry-name { color: var(--flame); }
 
 .industry-tag {
   font-family: var(--mono);
   font-size: 0.64rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--moss);
+  color: var(--warm-gray);
   text-align: right;
 }
 
 .industry-arrow {
   font-size: 1.25rem;
-  color: var(--lime);
+  color: var(--flame);
   text-align: right;
   opacity: 0;
   transform: translateX(-0.75rem);
@@ -1200,7 +1155,7 @@ section { padding: var(--band) var(--gut); }
   font-style: italic;
   font-size: clamp(1.15rem, 1.7vw, 1.5rem);
   font-weight: 300;
-  color: var(--bone);
+  color: var(--ivory);
 }
 
 /* ═══ CTA ═════════════════════════════════════════════════════════════ */
@@ -1227,7 +1182,7 @@ section { padding: var(--band) var(--gut); }
 .cta-content > p {
   font-size: clamp(1rem, 1.25vw, 1.15rem);
   line-height: 1.85;
-  color: var(--moss-lt);
+  color: var(--parchment);
 }
 
 .cta-email { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--line); }
@@ -1236,16 +1191,16 @@ section { padding: var(--band) var(--gut); }
   font-family: var(--mono);
   font-size: 0.72rem;
   letter-spacing: 0.16em;
-  color: var(--moss);
+  color: var(--warm-gray);
   text-decoration: none;
   transition: color 0.35s var(--ease);
 }
 
-.cta-email a:hover { color: var(--lime); }
+.cta-email a:hover { color: var(--flame); }
 
 /* ═══ FOOTER ══════════════════════════════════════════════════════════ */
 
-footer { background: var(--noir-deep); padding: clamp(4rem, 7vw, 6rem) var(--gut) 2.5rem; }
+footer { background: var(--soot-deep); padding: clamp(4rem, 7vw, 6rem) var(--gut) 2.5rem; }
 
 .footer-top {
   display: grid;
@@ -1262,7 +1217,7 @@ footer { background: var(--noir-deep); padding: clamp(4rem, 7vw, 6rem) var(--gut
 .footer-brand p {
   font-size: 0.9rem;
   line-height: 1.85;
-  color: var(--moss);
+  color: var(--warm-gray);
   max-width: 24rem;
 }
 
@@ -1271,7 +1226,7 @@ footer { background: var(--noir-deep); padding: clamp(4rem, 7vw, 6rem) var(--gut
   font-size: 0.62rem;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--lime);
+  color: var(--flame);
   margin-bottom: 1.5rem;
 }
 
@@ -1280,12 +1235,12 @@ footer { background: var(--noir-deep); padding: clamp(4rem, 7vw, 6rem) var(--gut
 
 .footer-links a {
   font-size: 0.88rem;
-  color: var(--moss);
+  color: var(--warm-gray);
   text-decoration: none;
   transition: color 0.35s var(--ease);
 }
 
-.footer-links a:hover { color: var(--bone); }
+.footer-links a:hover { color: var(--ivory); }
 
 .footer-bottom {
   display: flex;
@@ -1300,10 +1255,10 @@ footer { background: var(--noir-deep); padding: clamp(4rem, 7vw, 6rem) var(--gut
   font-size: 0.62rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--moss);
+  color: var(--warm-gray);
 }
 
-.footer-myth { color: var(--lime); opacity: 0.75; }
+.footer-myth { color: var(--flame); opacity: 0.75; }
 
 /* ═══ SCROLL REVEAL ═══════════════════════════════════════════════════ */
 
@@ -1347,15 +1302,11 @@ footer { background: var(--noir-deep); padding: clamp(4rem, 7vw, 6rem) var(--gut
 
 @media (max-width: 760px) {
   :root { --bracket: 12px; }
-  .hero .band-art {
-    --art: url('assets/art/hero-mobile.jpg');
-    --art-pos: center 30%;
-  }
+  .hero .band-art { --art-pos: 62% 22%; }
   .hero .band-scrim {
-    background: linear-gradient(to bottom, rgba(11,19,14,0.8) 0%, rgba(11,19,14,0.45) 35%, rgba(11,19,14,0.97) 88%);
+    background: linear-gradient(to bottom, rgba(13,11,8,0.8) 0%, rgba(13,11,8,0.45) 35%, rgba(13,11,8,0.97) 88%);
   }
   .agents-grid, .how-steps, .tools-grid, .custom-software-grid { grid-template-columns: 1fr; }
-  .agents-banner { aspect-ratio: 16 / 9; }
   .stat-strip { grid-template-columns: 1fr; gap: 2.5rem; }
   .stat-divider { height: 1px; align-self: auto; }
   .industry-item { grid-template-columns: 1fr auto; gap: 0.5rem 1rem; }
@@ -1374,9 +1325,9 @@ footer { background: var(--noir-deep); padding: clamp(4rem, 7vw, 6rem) var(--gut
   <symbol id="prom-mark" viewBox="0 0 100 120">
     <defs>
       <linearGradient id="promFlame" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0" stop-color="#EAFF7A"/>
-        <stop offset="0.5" stop-color="#D0FF00"/>
-        <stop offset="1" stop-color="#8FBF00"/>
+        <stop offset="0" stop-color="#FFC24B"/>
+        <stop offset="0.5" stop-color="#F5852B"/>
+        <stop offset="1" stop-color="#D8431A"/>
       </linearGradient>
     </defs>
     <!-- Geometric "P" / torch — inherits text colour via currentColor -->
@@ -1390,7 +1341,7 @@ footer { background: var(--noir-deep); padding: clamp(4rem, 7vw, 6rem) var(--gut
     </g>
     <!-- flame -->
     <path fill="url(#promFlame)" d="M50 8 C56 25 69 33 66 52 C64 67 54 74 50 80 C46 74 33 66 35 50 C36 39 45 37 47 26 C49 33 51 35 53 40 C56 32 52 19 50 8 Z"/>
-    <path fill="#F2FFB0" opacity="0.85" d="M50 30 C53 40 60 45 58 55 C57 63 52 68 50 72 C48 68 42 63 43 54 C44 47 48 46 49 38 C50 43 51 44 52 47 C54 41 51 35 50 30 Z"/>
+    <path fill="#FFD777" opacity="0.85" d="M50 30 C53 40 60 45 58 55 C57 63 52 68 50 72 C48 68 42 63 43 54 C44 47 48 46 49 38 C50 43 51 44 52 47 C54 41 51 35 50 30 Z"/>
   </symbol>
 </svg>
 
@@ -1492,13 +1443,13 @@ footer { background: var(--noir-deep); padding: clamp(4rem, 7vw, 6rem) var(--gut
 
   <div class="how-steps framed">
     <div class="step reveal d1">
-      <div class="step-art" style="--art:url('assets/art/phase-1.jpg')">
+      <div class="step-art">
         <svg class="step-icon" viewBox="0 0 48 48" fill="none">
-          <circle cx="24" cy="24" r="20" stroke="rgba(208,255,0,0.4)" stroke-width="1"/>
-          <path d="M14 24 Q19 16 24 20 Q29 24 34 16" stroke="rgba(208,255,0,0.85)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-          <circle cx="14" cy="24" r="2.5" fill="rgba(208,255,0,0.6)"/>
-          <circle cx="24" cy="20" r="2.5" fill="rgba(208,255,0,0.6)"/>
-          <circle cx="34" cy="16" r="2.5" fill="#D0FF00"/>
+          <circle cx="24" cy="24" r="20" stroke="rgba(242,145,60,0.4)" stroke-width="1"/>
+          <path d="M14 24 Q19 16 24 20 Q29 24 34 16" stroke="rgba(242,145,60,0.85)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          <circle cx="14" cy="24" r="2.5" fill="rgba(242,145,60,0.6)"/>
+          <circle cx="24" cy="20" r="2.5" fill="rgba(242,145,60,0.6)"/>
+          <circle cx="34" cy="16" r="2.5" fill="#F2913C"/>
         </svg>
       </div>
       <span class="step-num">Phase I</span>
@@ -1507,10 +1458,10 @@ footer { background: var(--noir-deep); padding: clamp(4rem, 7vw, 6rem) var(--gut
       <div class="step-watermark">I</div>
     </div>
     <div class="step reveal d2">
-      <div class="step-art" style="--art:url('assets/art/phase-2.jpg')">
+      <div class="step-art">
         <svg class="step-icon" viewBox="0 0 48 48" fill="none">
-          <rect x="8" y="12" width="32" height="24" rx="1" stroke="rgba(208,255,0,0.4)" stroke-width="1"/>
-          <path d="M16 24 L22 30 L32 18" stroke="rgba(208,255,0,0.85)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <rect x="8" y="12" width="32" height="24" rx="1" stroke="rgba(242,145,60,0.4)" stroke-width="1"/>
+          <path d="M16 24 L22 30 L32 18" stroke="rgba(242,145,60,0.85)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </div>
       <span class="step-num">Phase II</span>
@@ -1519,12 +1470,12 @@ footer { background: var(--noir-deep); padding: clamp(4rem, 7vw, 6rem) var(--gut
       <div class="step-watermark">II</div>
     </div>
     <div class="step reveal d3">
-      <div class="step-art" style="--art:url('assets/art/phase-3.jpg')">
+      <div class="step-art">
         <svg class="step-icon" viewBox="0 0 48 48" fill="none">
-          <circle cx="24" cy="24" r="8" stroke="rgba(208,255,0,0.4)" stroke-width="1"/>
-          <circle cx="24" cy="24" r="3" fill="rgba(208,255,0,0.75)"/>
-          <path d="M24 8 L24 14 M24 34 L24 40 M8 24 L14 24 M34 24 L40 24" stroke="rgba(208,255,0,0.35)" stroke-width="1.5" stroke-linecap="round"/>
-          <path d="M13 13 L17 17 M31 31 L35 35 M13 35 L17 31 M31 17 L35 13" stroke="rgba(208,255,0,0.25)" stroke-width="1.5" stroke-linecap="round"/>
+          <circle cx="24" cy="24" r="8" stroke="rgba(242,145,60,0.4)" stroke-width="1"/>
+          <circle cx="24" cy="24" r="3" fill="rgba(242,145,60,0.75)"/>
+          <path d="M24 8 L24 14 M24 34 L24 40 M8 24 L14 24 M34 24 L40 24" stroke="rgba(242,145,60,0.35)" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M13 13 L17 17 M31 31 L35 35 M13 35 L17 31 M31 17 L35 13" stroke="rgba(242,145,60,0.25)" stroke-width="1.5" stroke-linecap="round"/>
         </svg>
       </div>
       <span class="step-num">Phase III</span>
@@ -1555,12 +1506,6 @@ footer { background: var(--noir-deep); padding: clamp(4rem, 7vw, 6rem) var(--gut
     <p class="reveal">
       We don't hand you a chatbot. We build custom AI agents — persistent, intelligent workers that integrate into your actual systems, learn your business rules, and execute complex multi-step tasks without human handholding. Your team gets their time back. Your business gets faster.
     </p>
-  </div>
-
-  <div class="agents-banner framed reveal">
-    <div class="band-art"></div>
-    <div class="band-scrim"></div>
-    <span class="agents-banner-cap">The automatons of Hephaestus — Iliad XVIII</span>
   </div>
 
   <div class="agents-grid reveal">
