@@ -1674,7 +1674,7 @@ footer {
   </div>
 
   <div class="hero-content">
-    <div class="hero-guarantee"><strong>Fixed-scope first agent</strong> in ~30 days — free diagnostic before you pay a cent.</div>
+    <div class="hero-guarantee"><strong>4,000+ man hours / year</strong> identified before you pay a cent — or we don’t take the build.</div>
     <div class="hero-eyebrow">AI Agents for SMBs</div>
     <h1>
       We bring the <em>fire</em><br>
@@ -1699,8 +1699,8 @@ footer {
 <!-- STAT STRIP -->
 <div class="stat-strip reveal">
   <div class="stat-item">
-    <div class="stat-number">1</div>
-    <div class="stat-label">Scoped First Use-Case to Start</div>
+    <div class="stat-number">4,000+</div>
+    <div class="stat-label">Man Hours / Year Guaranteed to Identify</div>
   </div>
   <div class="stat-divider"></div>
   <div class="stat-item">
@@ -1709,8 +1709,8 @@ footer {
   </div>
   <div class="stat-divider"></div>
   <div class="stat-item">
-    <div class="stat-number">4,000+</div>
-    <div class="stat-label">Hours Saved Per Year (Proven Target)</div>
+    <div class="stat-number">$0</div>
+    <div class="stat-label">Due Until the Hours Are Proven</div>
   </div>
 </div>
 
@@ -2015,7 +2015,7 @@ footer {
     </div>
   </div>
 
-  <p class="offer-note reveal">Implementation-first. Recurring is opt-in. Free diagnostic before you pay a cent.</p>
+  <p class="offer-note reveal">We guarantee identifying at least 4,000 man hours per year before you pay anything. Implementation-first. Recurring is opt-in.</p>
 </section>
 
 <!-- INDUSTRIES -->
@@ -2134,7 +2134,7 @@ footer {
   <div class="cta-content reveal">
     <div class="tag" style="justify-content:center;">Free Diagnostic</div>
     <h2>Ready for a working<br><em>first agent?</em></h2>
-    <p>Start with a free 45-minute diagnostic. We'll identify your best first use-case and share a fixed-scope proposal on the call — before you pay a cent.</p>
+    <p>Start with a free 45-minute diagnostic. We guarantee identifying at least 4,000 man hours per year before you pay anything — then we share a fixed-scope proposal on the call.</p>
     <div class="cta-group" style="justify-content:center;">
       <a href="tel:2393700604" class="btn-fire">Call 239-370-0604</a>
       <a href="#offer" class="btn-outline">See the Offer</a>
