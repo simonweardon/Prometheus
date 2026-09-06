@@ -1622,7 +1622,7 @@ footer {
     <li><a href="#contact">Contact</a></li>
   </ul>
   <a href="/app/login.html" class="nav-login">Login</a>
-  <a href="#contact" class="nav-cta">Book a Diagnostic</a>
+  <a href="#contact" class="nav-cta">Book a Call</a>
   <button class="nav-hamburger" id="navToggle" aria-label="Open navigation">
     <span></span><span></span><span></span>
   </button>
@@ -1638,7 +1638,7 @@ footer {
   <a href="#custom-software" onclick="closeNav()">Custom Builds</a>
   <a href="#contact" onclick="closeNav()">Contact</a>
   <a href="/app/login.html" onclick="closeNav()">Login</a>
-  <a href="#contact" class="nav-mobile-cta-link" onclick="closeNav()">Book a Diagnostic</a>
+  <a href="#contact" class="nav-mobile-cta-link" onclick="closeNav()">Book a Call</a>
 </div>
 
 <!-- HERO -->
@@ -1661,7 +1661,7 @@ footer {
       We scope one high-impact use case, then build and wire a working AI agent into your tools — fixed price, ~30 days. Optional support after go-live. No multi-week embed required to get started.
     </p>
     <div class="cta-group">
-      <a href="#contact" class="btn-fire">Book a Free Diagnostic</a>
+      <a href="#contact" class="btn-fire">Book a Free Call</a>
       <a href="#offer" class="btn-outline">See the Offer</a>
     </div>
   </div>
@@ -1676,8 +1676,8 @@ footer {
 <!-- STAT STRIP -->
 <div class="stat-strip reveal">
   <div class="stat-item">
-    <div class="stat-number">~$5k</div>
-    <div class="stat-label">Fixed-Scope First Agent Build</div>
+    <div class="stat-number">1</div>
+    <div class="stat-label">Scoped First Use-Case to Start</div>
   </div>
   <div class="stat-divider"></div>
   <div class="stat-item">
@@ -1737,7 +1737,7 @@ footer {
         <path d="M13 13 L17 17 M31 31 L35 35 M13 35 L17 31 M31 17 L35 13" stroke="rgba(196,98,45,0.3)" stroke-width="1.5" stroke-linecap="round"/>
       </svg>
       <div class="step-title">Go Live &amp; Optional Support</div>
-      <p class="step-body">We deploy into your real workflow, train your team, and hand off documentation. When you want ongoing license &amp; service — monitoring, tweaks, and new workflows — you can add ~$1,000/mo after go-live. It is never required to start.</p>
+      <p class="step-body">We deploy into your real workflow, train your team, and hand off documentation. Ongoing license &amp; service — monitoring, tweaks, and new workflows — is available after go-live if you want it. It is never required to start.</p>
       <div class="step-watermark">III</div>
     </div>
   </div>
@@ -1935,7 +1935,7 @@ footer {
     <div class="pv-step reveal d3">
       <div class="pv-num">Week 4</div>
       <div class="pv-title">Go Live</div>
-      <p class="pv-body">Deploy, train, hand off docs. Optional ~$1k/mo license &amp; service only if you want ongoing firepower.</p>
+      <p class="pv-body">Deploy, train, hand off docs. Optional ongoing license &amp; service only if you want continued firepower — priced on the call.</p>
     </div>
   </div>
 </div>
@@ -1949,16 +1949,16 @@ footer {
       <h2 class="reveal">A fixed-price first agent.<br><em>Support only if you want it.</em></h2>
     </div>
     <p class="reveal">
-      Built for SMBs that need a working system, not an 8-week transformation retainer. Start with one scoped use-case. Expand with flat-priced add-ons when the hours prove out.
+      Built for SMBs that need a working system, not an 8-week transformation retainer. Start with one scoped use-case. Pricing is shared on the diagnostic call — tailored to the workflow, not published as a menu.
     </p>
   </div>
 
   <div class="offer-grid reveal">
     <div class="offer-card">
       <div class="offer-card-tag">First Build</div>
-      <div class="offer-card-price">$5,000 <span>starting at</span></div>
+      <div class="offer-card-price">Fixed scope <span>quoted on the call</span></div>
       <div class="offer-card-title">Fixed-Scope First AI Agent</div>
-      <p class="offer-card-body">One high-impact use-case, implemented and wired to your tools in about 30 days. Clear scope up front. Training and handoff included.</p>
+      <p class="offer-card-body">One high-impact use-case, implemented and wired to your tools in about 30 days. Clear scope up front. Training and handoff included. Exact investment shared after we see the workflow.</p>
       <ul class="offer-card-examples">
         <li>Scoped workflow + success metric</li>
         <li>~30-day build-out to go-live</li>
@@ -1968,9 +1968,9 @@ footer {
     </div>
     <div class="offer-card">
       <div class="offer-card-tag">Optional</div>
-      <div class="offer-card-price">~$1,000 <span>/ month</span></div>
+      <div class="offer-card-price">Monthly <span>if you want it</span></div>
       <div class="offer-card-title">License &amp; Service</div>
-      <p class="offer-card-body">Opt in after the build goes live. Ongoing monitoring, small improvements, and a steady partner for the agent you already run.</p>
+      <p class="offer-card-body">Opt in after the build goes live. Ongoing monitoring, small improvements, and a steady partner for the agent you already run. Terms discussed in the meeting — never required to start.</p>
       <ul class="offer-card-examples">
         <li>Recurring only after go-live</li>
         <li>Monitoring &amp; light iteration</li>
@@ -1980,9 +1980,9 @@ footer {
     </div>
     <div class="offer-card">
       <div class="offer-card-tag">Expand</div>
-      <div class="offer-card-price">~$1,000 <span>each</span></div>
+      <div class="offer-card-price">Flat quote <span>per workflow</span></div>
       <div class="offer-card-title">Add-On Workflows</div>
-      <p class="offer-card-body">New agents and workflows quoted flat when you are ready — so expansion stays predictable instead of turning into an open-ended project.</p>
+      <p class="offer-card-body">New agents and workflows quoted flat when you are ready — so expansion stays predictable instead of turning into an open-ended project. Numbers only after we scope the next use-case.</p>
       <ul class="offer-card-examples">
         <li>Flat quote per new workflow</li>
         <li>Reuse the stack you already have</li>
@@ -2111,7 +2111,7 @@ footer {
   <div class="cta-content reveal">
     <div class="tag" style="justify-content:center;">Free Diagnostic</div>
     <h2>Ready for a working<br><em>first agent?</em></h2>
-    <p>Start with a free 90-minute diagnostic. We'll identify your best first use-case and whether a fixed-scope ~$5k build fits — before you pay a cent.</p>
+    <p>Start with a free 90-minute diagnostic. We'll identify your best first use-case and share a fixed-scope proposal on the call — before you pay a cent.</p>
     <div class="cta-group" style="justify-content:center;">
       <a href="tel:2393700604" class="btn-fire">Call 239-370-0604</a>
       <a href="#offer" class="btn-outline">See the Offer</a>

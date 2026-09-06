@@ -7,9 +7,9 @@ A single-page marketing site served by nginx (`First` → `index.html`).
 The live site (`First`) uses the original **Prometheus Solutions** fire-themed
 styling, with copy aligned to the SMB commercial model:
 
-- Fixed-scope first AI agent / use-case build (starting ~$5,000, ~30-day build-out)
-- Optional monthly license & service (~$1,000/mo) after go-live
-- Flat ~$1,000 add-on workflows when quoted
+- Fixed-scope first AI agent / use-case build (~30-day build-out); dollar pricing disclosed on the diagnostic call / proposal only
+- Optional monthly license & service after go-live (terms on the call)
+- Flat-quoted add-on workflows when expanding
 - Platform-agnostic stack messaging (OpenClaw as open-source/self-hosted — not proprietary)
 - Custom software kept secondary ("when off-the-shelf won't fit")
 
