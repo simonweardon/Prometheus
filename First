@@ -1738,7 +1738,7 @@ footer {
         <circle cx="34" cy="16" r="2.5" fill="rgba(201,164,74,0.9)"/>
       </svg>
       <div class="step-title">Free Diagnostic &amp; Scope</div>
-      <p class="step-body">A focused diagnostic call maps the workflow, the tools of record, and the hours on the line. We leave with a clear first use-case, success metric, and fixed-scope build plan — before you commit to the project.</p>
+      <p class="step-body">A free 45-minute diagnostic maps the workflow, the tools of record, and the hours on the line. We leave with a clear first use-case, success metric, and fixed-scope build plan — before you commit to the project.</p>
       <div class="step-watermark">I</div>
     </div>
     <div class="step reveal d2">
@@ -2134,7 +2134,7 @@ footer {
   <div class="cta-content reveal">
     <div class="tag" style="justify-content:center;">Free Diagnostic</div>
     <h2>Ready for a working<br><em>first agent?</em></h2>
-    <p>Start with a free 90-minute diagnostic. We'll identify your best first use-case and share a fixed-scope proposal on the call — before you pay a cent.</p>
+    <p>Start with a free 45-minute diagnostic. We'll identify your best first use-case and share a fixed-scope proposal on the call — before you pay a cent.</p>
     <div class="cta-group" style="justify-content:center;">
       <a href="tel:2393700604" class="btn-fire">Call 239-370-0604</a>
       <a href="#offer" class="btn-outline">See the Offer</a>
