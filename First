@@ -988,6 +988,135 @@ h2 em {
 
 .industry-item:hover .industry-arrow { opacity: 1; transform: translateX(0); }
 
+
+/* ─── OFFER / PRICING ─── */
+.offer {
+  background: var(--ash);
+  padding: 8rem 4rem;
+  border-top: 1px solid rgba(255,255,255,0.04);
+}
+
+.offer-head {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: end;
+  margin-bottom: 5rem;
+}
+
+.offer-head p {
+  font-size: 1rem;
+  line-height: 1.9;
+  color: var(--parchment);
+  opacity: 0.8;
+}
+
+.offer-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: rgba(255,255,255,0.04);
+  margin-bottom: 3.5rem;
+}
+
+.offer-card {
+  background: var(--ash);
+  padding: 3rem;
+  position: relative;
+  transition: background 0.4s;
+  overflow: hidden;
+}
+
+.offer-card:hover { background: var(--smoke); }
+
+.offer-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 2px; height: 0;
+  background: var(--ember);
+  transition: height 0.5s ease;
+}
+
+.offer-card:hover::before { height: 100%; }
+
+.offer-card-tag {
+  font-family: var(--sans);
+  font-size: 0.6rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ember-lt);
+  margin-bottom: 1.5rem;
+}
+
+.offer-card-price {
+  font-family: var(--serif);
+  font-size: 2.4rem;
+  font-weight: 400;
+  color: var(--ivory);
+  margin-bottom: 0.4rem;
+  line-height: 1.1;
+}
+
+.offer-card-price span {
+  font-size: 1rem;
+  color: var(--warm-gray);
+  font-family: var(--sans);
+  letter-spacing: 0.02em;
+}
+
+.offer-card-title {
+  font-family: var(--serif);
+  font-size: 1.35rem;
+  font-weight: 400;
+  color: var(--gold-lt);
+  margin-bottom: 1rem;
+  line-height: 1.3;
+}
+
+.offer-card-body {
+  font-size: 0.9rem;
+  line-height: 1.85;
+  color: var(--warm-gray);
+  margin-bottom: 1.5rem;
+}
+
+.offer-card-examples {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.offer-card-examples li {
+  font-size: 0.78rem;
+  color: var(--parchment);
+  opacity: 0.65;
+  padding-left: 1rem;
+  position: relative;
+}
+
+.offer-card-examples li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: var(--ember);
+  opacity: 0.7;
+}
+
+.offer-note {
+  text-align: center;
+  font-family: var(--serif);
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--parchment);
+  opacity: 0.75;
+  max-width: 720px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
 /* ─── CUSTOM SOFTWARE ─── */
 .custom-software {
   background: var(--soot);
@@ -1324,6 +1453,7 @@ footer {
   .myth { padding: 6rem 2.5rem; }
   .industries { padding: 6rem 2.5rem; }
   .custom-software { padding: 6rem 2.5rem; }
+  .offer { padding: 6rem 2.5rem; }
   footer { padding: 4rem 2.5rem 2.5rem; }
   .process-visual { padding: 4rem 2.5rem; }
 }
@@ -1348,6 +1478,9 @@ footer {
   .myth { padding: 5rem 1.5rem; }
   .industries { padding: 5rem 1.5rem; }
   .custom-software { padding: 5rem 1.5rem; }
+  .offer { padding: 5rem 1.5rem; }
+  .offer-head { grid-template-columns: 1fr; gap: 2rem; margin-bottom: 3rem; }
+  .offer-grid { grid-template-columns: 1fr; }
   .statement { padding: 1.5rem 1.5rem; }
   .stat-strip { padding: 2rem 1.5rem; gap: 2rem; flex-wrap: wrap; }
   .stat-divider { display: none; }
@@ -1408,6 +1541,7 @@ footer {
   .myth { padding: 4rem 1.2rem; }
   .industries { padding: 4rem 1.2rem; }
   .custom-software { padding: 4rem 1.2rem; }
+  .offer { padding: 4rem 1.2rem; }
 
   /* Industries list — stack vertically */
   .industry-item {
@@ -1481,13 +1615,14 @@ footer {
   <ul class="nav-links">
     <li><a href="#how">Our Method</a></li>
     <li><a href="#agents">AI Agents</a></li>
+    <li><a href="#offer">The Offer</a></li>
     <li><a href="#tools">Tools</a></li>
     <li><a href="#industries">Industries</a></li>
-    <li><a href="#custom-software">Custom Software</a></li>
+    <li><a href="#custom-software">Custom Builds</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
   <a href="/app/login.html" class="nav-login">Login</a>
-  <a href="#contact" class="nav-cta">Ignite Your Business</a>
+  <a href="#contact" class="nav-cta">Book a Diagnostic</a>
   <button class="nav-hamburger" id="navToggle" aria-label="Open navigation">
     <span></span><span></span><span></span>
   </button>
@@ -1497,12 +1632,13 @@ footer {
 <div class="nav-mobile-overlay" id="navOverlay">
   <a href="#how" onclick="closeNav()">Our Method</a>
   <a href="#agents" onclick="closeNav()">AI Agents</a>
+  <a href="#offer" onclick="closeNav()">The Offer</a>
   <a href="#tools" onclick="closeNav()">Tools</a>
   <a href="#industries" onclick="closeNav()">Industries</a>
-  <a href="#custom-software" onclick="closeNav()">Custom Software</a>
+  <a href="#custom-software" onclick="closeNav()">Custom Builds</a>
   <a href="#contact" onclick="closeNav()">Contact</a>
   <a href="/app/login.html" onclick="closeNav()">Login</a>
-  <a href="#contact" class="nav-mobile-cta-link" onclick="closeNav()">Ignite Your Business</a>
+  <a href="#contact" class="nav-mobile-cta-link" onclick="closeNav()">Book a Diagnostic</a>
 </div>
 
 <!-- HERO -->
@@ -1515,18 +1651,18 @@ footer {
   </div>
 
   <div class="hero-content">
-    <div class="hero-guarantee"><strong>4,000+ hours</strong> saved a year — proven within 30 days, before you pay a cent.</div>
-    <div class="hero-eyebrow">AI Implementation</div>
+    <div class="hero-guarantee"><strong>Fixed-scope first agent</strong> in ~30 days — free diagnostic before you pay a cent.</div>
+    <div class="hero-eyebrow">AI Agents for SMBs</div>
     <h1>
       We bring the <em>fire</em><br>
       to your workflow.
     </h1>
     <p class="hero-sub">
-      Prometheus embeds with your team, maps every bottleneck, then builds and deploys AI agents that eliminate the friction holding your people back.
+      We scope one high-impact use case, then build and wire a working AI agent into your tools — fixed price, ~30 days. Optional support after go-live. No multi-week embed required to get started.
     </p>
     <div class="cta-group">
-      <a href="#contact" class="btn-fire">Begin the Engagement</a>
-      <a href="#how" class="btn-outline">How We Work</a>
+      <a href="#contact" class="btn-fire">Book a Free Diagnostic</a>
+      <a href="#offer" class="btn-outline">See the Offer</a>
     </div>
   </div>
   <div class="hero-scroll-cue">Scroll to explore</div>
@@ -1540,13 +1676,18 @@ footer {
 <!-- STAT STRIP -->
 <div class="stat-strip reveal">
   <div class="stat-item">
-    <div class="stat-number">4,000+</div>
-    <div class="stat-label">Man Hours Saved Per Year</div>
+    <div class="stat-number">~$5k</div>
+    <div class="stat-label">Fixed-Scope First Agent Build</div>
   </div>
   <div class="stat-divider"></div>
   <div class="stat-item">
-    <div class="stat-number">Freed</div>
-    <div class="stat-label">Employees Redirected to High-Value Work</div>
+    <div class="stat-number">~30</div>
+    <div class="stat-label">Days to a Live First System</div>
+  </div>
+  <div class="stat-divider"></div>
+  <div class="stat-item">
+    <div class="stat-number">4,000+</div>
+    <div class="stat-label">Hours Saved Per Year (Proven Target)</div>
   </div>
 </div>
 
@@ -1556,10 +1697,10 @@ footer {
   <div class="how-intro">
     <div>
       <div class="tag reveal">Our Method</div>
-      <h2 class="reveal">We embed. We diagnose.<br><em>We transform.</em></h2>
+      <h2 class="reveal">We diagnose. We build.<br><em>You go live.</em></h2>
     </div>
     <p class="reveal">
-      Most consultants hand you a slide deck and leave. Prometheus stays until the work is done. Our team of AI engineers and operational strategists becomes part of your company — learning your workflows, your people, and your pain points from the inside. Then we build and deploy the solutions ourselves.
+      Most AI pitches sell a transformation program. We sell a working first agent. Prometheus scopes one painful workflow with you, builds a fixed-price system wired to the tools you already use, and hands it off in about 30 days. Recurring support is optional after you see it run.
     </p>
   </div>
 
@@ -1573,8 +1714,8 @@ footer {
         <circle cx="24" cy="20" r="2.5" fill="rgba(196,98,45,0.7)"/>
         <circle cx="34" cy="16" r="2.5" fill="rgba(201,164,74,0.9)"/>
       </svg>
-      <div class="step-title">Deep Diagnostic</div>
-      <p class="step-body">We spend two to four weeks inside your operation — shadowing teams, mapping workflows, and conducting structured interviews to surface every hidden bottleneck, repetitive task, and process gap.</p>
+      <div class="step-title">Free Diagnostic &amp; Scope</div>
+      <p class="step-body">A focused diagnostic call maps the workflow, the tools of record, and the hours on the line. We leave with a clear first use-case, success metric, and fixed-scope build plan — before you commit to the project.</p>
       <div class="step-watermark">I</div>
     </div>
     <div class="step reveal d2">
@@ -1583,8 +1724,8 @@ footer {
         <rect x="8" y="12" width="32" height="24" rx="2" stroke="rgba(196,98,45,0.5)" stroke-width="1"/>
         <path d="M16 24 L22 30 L32 18" stroke="rgba(232,133,74,0.8)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
-      <div class="step-title">Solution Architecture</div>
-      <p class="step-body">Our engineers design a custom AI stack targeting your highest-impact problems — prioritized by hours saved, error rate reduction, and revenue impact. No generic software. Purpose-built for you.</p>
+      <div class="step-title">Fixed-Scope Build</div>
+      <p class="step-body">We design and implement the first agent against the scoped use-case — platform-agnostic, wired to your stack. Frontier models, OpenClaw, Grok Bot / desktop agents, or light custom glue: whatever gets a reliable worker live fastest.</p>
       <div class="step-watermark">II</div>
     </div>
     <div class="step reveal d3">
@@ -1595,8 +1736,8 @@ footer {
         <path d="M24 8 L24 14 M24 34 L24 40 M8 24 L14 24 M34 24 L40 24" stroke="rgba(196,98,45,0.4)" stroke-width="1.5" stroke-linecap="round"/>
         <path d="M13 13 L17 17 M31 31 L35 35 M13 35 L17 31 M31 17 L35 13" stroke="rgba(196,98,45,0.3)" stroke-width="1.5" stroke-linecap="round"/>
       </svg>
-      <div class="step-title">Build & Deploy</div>
-      <p class="step-body">We build, test, and deploy your AI agents — integrating them directly into your existing tools and systems. We train your team, hand off documentation, and stay on until adoption is complete.</p>
+      <div class="step-title">Go Live &amp; Optional Support</div>
+      <p class="step-body">We deploy into your real workflow, train your team, and hand off documentation. When you want ongoing license &amp; service — monitoring, tweaks, and new workflows — you can add ~$1,000/mo after go-live. It is never required to start.</p>
       <div class="step-watermark">III</div>
     </div>
   </div>
@@ -1619,7 +1760,7 @@ footer {
       <h2 class="reveal">Automated workers that<br><em>never clock out.</em></h2>
     </div>
     <p class="reveal">
-      We don't hand you a chatbot. We build custom AI agents — persistent, intelligent workers that integrate into your actual systems, learn your business rules, and execute complex multi-step tasks without human handholding. Your team gets their time back. Your business gets faster.
+      We don't hand you a chatbot. We build a working AI agent for a scoped use-case — wired into your actual systems, taught your business rules, and able to run multi-step work without constant handholding. Start with one. Expand when the hours come back.
     </p>
   </div>
 
@@ -1681,8 +1822,8 @@ footer {
       <div class="myth-pull reveal">
         "Prometheus didn't invent fire. He brought it to those who needed it most."
       </div>
-      <p class="reveal">AI is the most transformative force in the history of business. But for most companies, it's still locked behind a wall of complexity, cost, and confusion. We tear that wall down.</p>
-      <p class="reveal" style="transition-delay:0.1s">Our team is made up of AI engineers, operations veterans, and industry specialists who have spent careers understanding how businesses actually work — and where they break. We don't theorize. We execute.</p>
+      <p class="reveal">AI is the most transformative force in the history of business. For most SMBs, it's still locked behind complexity, enterprise pricing, and vague "transformation" pitches. We tear that wall down with a fixed-scope first build.</p>
+      <p class="reveal" style="transition-delay:0.1s">Our team is made up of AI engineers and operators who understand how small and mid-size businesses actually run — and where the hours disappear. We don't theorize. We ship a working agent.</p>
       <br>
       <a href="#contact" class="btn-fire reveal" style="transition-delay:0.2s">Work With Us</a>
     </div>
@@ -1693,7 +1834,7 @@ footer {
 <section class="tools" id="tools">
   <div class="tools-head reveal">
     <h2>The tools that<br><em>power our work.</em></h2>
-    <p class="tools-intro">We don't guess at productivity — we build our own stack deliberately, choosing tools that compound over time and keep our team operating at the frontier.</p>
+    <p class="tools-intro">The outcome is a working agent wired to your tools — not a single-vendor lock-in. We stay platform-agnostic and reach for OpenClaw, Grok Bot / desktop agents, and other frontier models as the job requires.</p>
   </div>
 
   <div class="tools-grid reveal">
@@ -1704,10 +1845,10 @@ footer {
       <div class="tool-use">Document search · Institutional knowledge · Task automation</div>
     </div>
     <div class="tool-tile">
-      <div class="tool-category">Automation Platform</div>
+      <div class="tool-category">Open-Source Agents</div>
       <div class="tool-name">OpenClaw</div>
-      <p class="tool-body">Our proprietary automation platform — built to be implanted directly into client operations. We deploy it inside your stack, wire it to your data, and leave it running. It doesn't need babysitting. Neither do you.</p>
-      <div class="tool-use">Client implantation · Workflow orchestration · Agent deployment</div>
+      <p class="tool-body">An open-source, self-hosted automation platform we use when clients need agents running in their own environment. We deploy it inside your stack, wire it to your data, and leave it running — without proprietary lock-in.</p>
+      <div class="tool-use">Self-hosted agents · Workflow orchestration · Private deployment</div>
     </div>
     <div class="tool-tile">
       <div class="tool-category">AI Engineering</div>
@@ -1734,10 +1875,10 @@ footer {
       <div class="tool-use">Long-context analysis · Video understanding · Document review</div>
     </div>
     <div class="tool-tile">
-      <div class="tool-category">Frontier LLM</div>
-      <div class="tool-name">Grok</div>
-      <p class="tool-body">xAI's model with a direct line into real-time X data and a willingness to tackle questions other models hedge on. We use it when the answer needs to reflect what's happening right now.</p>
-      <div class="tool-use">Real-time analysis · Trend tracking · Direct answers</div>
+      <div class="tool-category">Agents &amp; Frontier LLM</div>
+      <div class="tool-name">Grok / Grok Bot</div>
+      <p class="tool-body">xAI's frontier model and desktop agent workflow — useful when a client needs an always-on helper on their machine, real-time context, or a second stack beside OpenClaw. We pick it when it is the fastest path to a reliable worker.</p>
+      <div class="tool-use">Desktop agents · Real-time analysis · Client-side workflows</div>
     </div>
     <div class="tool-tile">
       <div class="tool-category">Frontier LLM</div>
@@ -1777,27 +1918,82 @@ footer {
   <div class="pv-overlay"></div>
   <div class="pv-content">
     <div class="pv-step reveal">
-      <div class="pv-num">Week 1–2</div>
-      <div class="pv-title">Embed &amp; Listen</div>
-      <p class="pv-body">We sit with your teams, attend your meetings, and map your workflows from the inside.</p>
+      <div class="pv-num">Day 1</div>
+      <div class="pv-title">Diagnose &amp; Scope</div>
+      <p class="pv-body">Free diagnostic. Pick one painful workflow, agree on the metric, and lock a fixed-scope build plan.</p>
     </div>
     <div class="pv-step reveal d1">
-      <div class="pv-num">Week 3–4</div>
-      <div class="pv-title">Diagnose &amp; Prioritize</div>
-      <p class="pv-body">We present a ranked list of every identified bottleneck, with time and revenue impact quantified.</p>
+      <div class="pv-num">Week 1–2</div>
+      <div class="pv-title">Build the Agent</div>
+      <p class="pv-body">We implement the first agent against your real tools and rules — no multi-week company embed required.</p>
     </div>
     <div class="pv-step reveal d2">
-      <div class="pv-num">Week 5–6</div>
-      <div class="pv-title">Build &amp; Test</div>
-      <p class="pv-body">Our engineers build your custom agents, testing against real workflows in a staging environment.</p>
+      <div class="pv-num">Week 3</div>
+      <div class="pv-title">Wire &amp; Test</div>
+      <p class="pv-body">Integrate, stage against live data shapes, and harden the edge cases your team actually hits.</p>
     </div>
     <div class="pv-step reveal d3">
-      <div class="pv-num">Week 7–8</div>
-      <div class="pv-title">Deploy &amp; Train</div>
-      <p class="pv-body">We go live, train your team, and monitor performance until everything is running at full fire.</p>
+      <div class="pv-num">Week 4</div>
+      <div class="pv-title">Go Live</div>
+      <p class="pv-body">Deploy, train, hand off docs. Optional ~$1k/mo license &amp; service only if you want ongoing firepower.</p>
     </div>
   </div>
 </div>
+
+
+<!-- THE OFFER -->
+<section class="offer" id="offer">
+  <div class="offer-head">
+    <div>
+      <div class="tag reveal">The Offer</div>
+      <h2 class="reveal">A fixed-price first agent.<br><em>Support only if you want it.</em></h2>
+    </div>
+    <p class="reveal">
+      Built for SMBs that need a working system, not an 8-week transformation retainer. Start with one scoped use-case. Expand with flat-priced add-ons when the hours prove out.
+    </p>
+  </div>
+
+  <div class="offer-grid reveal">
+    <div class="offer-card">
+      <div class="offer-card-tag">First Build</div>
+      <div class="offer-card-price">$5,000 <span>starting at</span></div>
+      <div class="offer-card-title">Fixed-Scope First AI Agent</div>
+      <p class="offer-card-body">One high-impact use-case, implemented and wired to your tools in about 30 days. Clear scope up front. Training and handoff included.</p>
+      <ul class="offer-card-examples">
+        <li>Scoped workflow + success metric</li>
+        <li>~30-day build-out to go-live</li>
+        <li>Agent wired to your existing stack</li>
+        <li>Team training &amp; documentation</li>
+      </ul>
+    </div>
+    <div class="offer-card">
+      <div class="offer-card-tag">Optional</div>
+      <div class="offer-card-price">~$1,000 <span>/ month</span></div>
+      <div class="offer-card-title">License &amp; Service</div>
+      <p class="offer-card-body">Opt in after the build goes live. Ongoing monitoring, small improvements, and a steady partner for the agent you already run.</p>
+      <ul class="offer-card-examples">
+        <li>Recurring only after go-live</li>
+        <li>Monitoring &amp; light iteration</li>
+        <li>Priority support for the live agent</li>
+        <li>Never required to start the first build</li>
+      </ul>
+    </div>
+    <div class="offer-card">
+      <div class="offer-card-tag">Expand</div>
+      <div class="offer-card-price">~$1,000 <span>each</span></div>
+      <div class="offer-card-title">Add-On Workflows</div>
+      <p class="offer-card-body">New agents and workflows quoted flat when you are ready — so expansion stays predictable instead of turning into an open-ended project.</p>
+      <ul class="offer-card-examples">
+        <li>Flat quote per new workflow</li>
+        <li>Reuse the stack you already have</li>
+        <li>Same implementation-first approach</li>
+        <li>Add only what the hours justify</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="offer-note reveal">Implementation-first. Recurring is opt-in. Free diagnostic before you pay a cent.</p>
+</section>
 
 <!-- INDUSTRIES -->
 <section class="industries" id="industries">
@@ -1859,11 +2055,11 @@ footer {
 <section class="custom-software" id="custom-software">
   <div class="custom-software-head">
     <div>
-      <div class="tag reveal">Custom Software</div>
-      <h2 class="reveal">Can't find software<br>that fits? <em>We'll build it.</em></h2>
+      <div class="tag reveal">When Off-the-Shelf Won't Fit</div>
+      <h2 class="reveal">Need more than an agent?<br><em>We can build that too.</em></h2>
     </div>
     <p class="reveal">
-      Off-the-shelf software is built for the average business — not yours. If you've searched and nothing quite fits the way you operate, we engineer the solution from scratch. We build fully custom software across any industry, with deep specialization in the sectors where precision matters most.
+      Most clients start with a fixed-scope agent. When a workflow truly needs custom software — not another SaaS seat — we build it. Secondary to the first-agent offer, and scoped the same way: clear outcomes, no fake platform lock-in.
     </p>
   </div>
 
@@ -1904,7 +2100,7 @@ footer {
   </div>
 
   <div class="custom-software-cta reveal">
-    <p>We build for any industry. These are just where we're sharpest.</p>
+    <p>Start with the agent. Reach for custom software only when off-the-shelf truly will not fit.</p>
     <a href="#contact" class="btn-fire">Tell Us What You Need</a>
   </div>
 </section>
@@ -1913,12 +2109,12 @@ footer {
 <div class="cta-section" id="contact">
   <div class="cta-overlay"></div>
   <div class="cta-content reveal">
-    <div class="tag" style="justify-content:center;">Begin the Engagement</div>
-    <h2>Ready to find your<br><em>hidden hours?</em></h2>
-    <p>Start with a free 90-minute diagnostic call. We'll identify your three biggest AI opportunities before we ever send a proposal.</p>
+    <div class="tag" style="justify-content:center;">Free Diagnostic</div>
+    <h2>Ready for a working<br><em>first agent?</em></h2>
+    <p>Start with a free 90-minute diagnostic. We'll identify your best first use-case and whether a fixed-scope ~$5k build fits — before you pay a cent.</p>
     <div class="cta-group" style="justify-content:center;">
       <a href="tel:2393700604" class="btn-fire">Call 239-370-0604</a>
-      <a href="#how" class="btn-outline">Learn More First</a>
+      <a href="#offer" class="btn-outline">See the Offer</a>
     </div>
     <p class="cta-email"><a href="mailto:simon@getprometheussolutions.com">simon@getprometheussolutions.com</a></p>
   </div>
@@ -1929,16 +2125,16 @@ footer {
   <div class="footer-top">
     <div class="footer-brand">
       <a href="#" class="logo"><svg class="logo-mark" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true"><use href="#prom-mark" xlink:href="#prom-mark"/></svg>Prome<span>theus</span> Solutions</a>
-      <p>AI operations consulting. We embed, we diagnose, we build, we automate. Your business, transformed.</p>
+      <p>AI agents for SMBs. Fixed-scope first builds, optional support, and add-on workflows when the hours prove out.</p>
     </div>
     <div>
       <div class="footer-col-head">Services</div>
       <ul class="footer-links">
-        <li><a href="#how">Operations Audit</a></li>
+        <li><a href="#offer">Fixed-Scope First Agent</a></li>
         <li><a href="#agents">AI Agent Deployment</a></li>
         <li><a href="#agents">Workflow Automation</a></li>
-        <li><a href="#custom-software">Custom Software</a></li>
-        <li><a href="#how">Team Training</a></li>
+        <li><a href="#offer">License &amp; Service</a></li>
+        <li><a href="#custom-software">Custom Builds</a></li>
       </ul>
     </div>
     <div>
@@ -1946,9 +2142,9 @@ footer {
       <ul class="footer-links">
         <li><a href="#how">Our Method</a></li>
         <li><a href="#agents">AI Agents</a></li>
+        <li><a href="#offer">The Offer</a></li>
         <li><a href="#tools">Tools</a></li>
-        <li><a href="#industries">Industries</a></li>
-        <li><a href="#custom-software">Custom Software</a></li>
+        <li><a href="#custom-software">Custom Builds</a></li>
       </ul>
     </div>
     <div>

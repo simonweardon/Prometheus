@@ -2,16 +2,19 @@
 
 A single-page marketing site served by nginx (`First` → `index.html`).
 
-## Current state: Prometheus Solutions (fire theme), trimmed
+## Current state: Prometheus Solutions (fire theme), SMB offer
 
 The live site (`First`) uses the original **Prometheus Solutions** fire-themed
-styling and copy, with two content sections removed:
+styling, with copy aligned to the SMB commercial model:
 
-- the large decorative illustrations, and
-- the "Companies we've transformed" client logos section.
+- Fixed-scope first AI agent / use-case build (starting ~$5,000, ~30-day build-out)
+- Optional monthly license & service (~$1,000/mo) after go-live
+- Flat ~$1,000 add-on workflows when quoted
+- Platform-agnostic stack messaging (OpenClaw as open-source/self-hosted — not proprietary)
+- Custom software kept secondary ("when off-the-shelf won't fit")
 
-The manifesto section uses a single-column layout (its portrait illustration was
-removed).
+Earlier trims still apply: large decorative illustrations and the "Companies we've
+transformed" logos section remain removed. The manifesto uses a single-column layout.
 
 ### Backups / history
 
