@@ -63,7 +63,10 @@ Or with compose (adds a persistent volume for you):
 JWT_SECRET=$(openssl rand -hex 32) docker compose up --build
 ```
 
-Default dev credentials (seeded on first run, non-production only):
+Default dev credentials (seeded on first run, non-production only). The image
+defaults to `NODE_ENV=production`, so these are never created on a real deploy;
+compose sets `NODE_ENV=development`, and with `docker run` add
+`-e NODE_ENV=development` to get them:
 
 - Admin: `admin@example.com` / `changeme`
 - Demo client: `client@example.com` / `changeme`

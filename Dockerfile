@@ -24,7 +24,8 @@ ENV PORT=8080 \
     BACKEND_PORT=3001 \
     BACKEND_ORIGIN=http://127.0.0.1:3001 \
     NGINX_RESOLVER=127.0.0.11 \
-    DB_PATH=/data/prometheus.db
+    DB_PATH=/data/prometheus.db \
+    NODE_ENV=production
 
 # Admin account created on first start (create-only; change the password in-app
 # afterwards). Override these at deploy time for better secret hygiene.
