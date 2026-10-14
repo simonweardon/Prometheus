@@ -1960,6 +1960,12 @@ footer {
   </div>
 
   <div class="tools-grid reveal">
+    <div class="tool-tile tool-tile-wide">
+      <div class="tool-category">Local AI Setup · Security First</div>
+      <div class="tool-name tool-name-featured">Locally Run Models</div>
+      <p class="tool-body">For clients who value security above everything else. We install and configure open-weight models on hardware you own — a workstation, an office server, or your private cloud — using tools like Ollama, LM Studio, and vLLM. Your documents, client records, and prompts never leave your building or touch a third-party AI provider. No per-token bills, and the agent keeps working even when the internet doesn't. We size the hardware, pick the model for the job, and wire it into your workflows.</p>
+      <div class="tool-use">Data never leaves your network · On-premise deployment · No per-token costs · Offline-capable</div>
+    </div>
     <div class="tool-tile">
       <div class="tool-category">Custom AI Systems</div>
       <div class="tool-name tool-name-featured">Custom Database LLMs</div>
@@ -2031,12 +2037,6 @@ footer {
       <div class="tool-name">Composer</div>
       <p class="tool-body">Our go-to for turning rough drafts and scattered notes into polished, publish-ready copy. It sits in the pipeline between a first pass and a final one, so nothing ships half-finished.</p>
       <div class="tool-use">Drafting · Editing · Content polish</div>
-    </div>
-    <div class="tool-tile tool-tile-wide">
-      <div class="tool-category">Local AI Setup</div>
-      <div class="tool-name tool-name-featured">Locally Run Models</div>
-      <p class="tool-body">We install and configure open-weight models on hardware you own — a workstation, an office server, or your private cloud — using tools like Ollama, LM Studio, and vLLM. Your data never leaves the building, there are no per-token bills, and the agent keeps working even when the internet doesn't. We size the hardware, pick the model for the job, and wire it into your workflows.</p>
-      <div class="tool-use">On-premise deployment · Data privacy · No per-token costs · Offline-capable</div>
     </div>
     <div class="tool-tile">
       <div class="tool-category">Knowledge Management</div>
