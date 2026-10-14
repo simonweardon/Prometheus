@@ -889,6 +889,8 @@ h2 em {
   font-weight: 700;
 }
 
+.tool-tile-wide { grid-column: span 2; }
+
 .tool-body {
   font-size: 0.85rem;
   line-height: 1.8;
@@ -914,6 +916,7 @@ h2 em {
   .tools-head { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
   .tools-grid { grid-template-columns: 1fr; }
   .tool-tile { padding: 2.2rem 1.5rem; }
+  .tool-tile-wide { grid-column: auto; }
   .agent-card, .offer-card, .software-card { padding: 2.4rem 1.5rem; }
 }
 
@@ -1382,7 +1385,7 @@ footer {
 
 .footer-top {
   display: grid;
-  grid-template-columns: 1.8fr 1fr 1fr 1fr;
+  grid-template-columns: minmax(0,1.8fr) repeat(3, minmax(0,1fr));
   gap: 4rem;
   margin-bottom: 4rem;
   padding-bottom: 4rem;
@@ -1411,6 +1414,7 @@ footer {
 .footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.8rem; }
 
 .footer-links a {
+  overflow-wrap: anywhere;
   font-size: 0.88rem;
   color: var(--warm-gray);
   text-decoration: none;
@@ -1665,7 +1669,6 @@ footer {
 @media (max-width: 480px) {
   nav { padding: 1rem 1.2rem; }
   nav .logo, .footer-brand .logo { font-size: 0.92rem; letter-spacing: 0.12em; }
-  .footer-links a { overflow-wrap: anywhere; }
   .hero-guarantee { border-radius: 14px; }
   .cta-group .btn-fire, .cta-group .btn-outline { flex: 1 1 100%; text-align: center; }
 
@@ -1953,7 +1956,7 @@ footer {
 <section class="tools" id="tools">
   <div class="tools-head reveal">
     <h2>The tools that<br><em>power our work.</em></h2>
-    <p class="tools-intro">The outcome is a working agent wired to your tools — not a single-vendor lock-in. We stay platform-agnostic and reach for OpenClaw, Grok Bot / desktop agents, and other frontier models as the job requires.</p>
+    <p class="tools-intro">The outcome is a working agent wired to your tools — not a single-vendor lock-in. We stay platform-agnostic and reach for OpenClaw, Grok Bot, locally run models, and other frontier models as the job requires.</p>
   </div>
 
   <div class="tools-grid reveal">
@@ -1994,10 +1997,16 @@ footer {
       <div class="tool-use">Long-context analysis · Video understanding · Document review</div>
     </div>
     <div class="tool-tile">
-      <div class="tool-category">Agents &amp; Frontier LLM</div>
-      <div class="tool-name">Grok / Grok Bot</div>
-      <p class="tool-body">xAI's frontier model and desktop agent workflow — useful when a client needs an always-on helper on their machine, real-time context, or a second stack beside OpenClaw. We pick it when it is the fastest path to a reliable worker.</p>
-      <div class="tool-use">Desktop agents · Real-time analysis · Client-side workflows</div>
+      <div class="tool-category">Frontier LLM</div>
+      <div class="tool-name">Grok</div>
+      <p class="tool-body">xAI's frontier model, with real-time context from the web and X. We bring it in when a workflow depends on what is happening right now — market moves, news, live sentiment — not just what was in the training data.</p>
+      <div class="tool-use">Real-time context · Reasoning · Live research</div>
+    </div>
+    <div class="tool-tile">
+      <div class="tool-category">Desktop Agents</div>
+      <div class="tool-name">Grok Bot</div>
+      <p class="tool-body">An always-on agent that runs right on a client's machine — working the apps, files, and browser tabs a person would. We pick it when the fastest path to a reliable worker is the desktop itself, or as a second stack beside OpenClaw.</p>
+      <div class="tool-use">Desktop agents · Client-side workflows · Always-on helpers</div>
     </div>
     <div class="tool-tile">
       <div class="tool-category">Frontier LLM</div>
@@ -2012,10 +2021,22 @@ footer {
       <div class="tool-use">Private deployment · Fine-tuning · Steerable reasoning</div>
     </div>
     <div class="tool-tile">
+      <div class="tool-category">Inference Platform</div>
+      <div class="tool-name">Fireworks AI</div>
+      <p class="tool-body">Fast, production-grade hosting for open-weight models. When an agent needs Llama, Qwen, DeepSeek, or a fine-tuned model to answer quickly at scale, we run it on Fireworks instead of babysitting our own GPUs.</p>
+      <div class="tool-use">Fast inference · Open-weight models · Fine-tuning</div>
+    </div>
+    <div class="tool-tile">
       <div class="tool-category">AI Writing</div>
       <div class="tool-name">Composer</div>
       <p class="tool-body">Our go-to for turning rough drafts and scattered notes into polished, publish-ready copy. It sits in the pipeline between a first pass and a final one, so nothing ships half-finished.</p>
       <div class="tool-use">Drafting · Editing · Content polish</div>
+    </div>
+    <div class="tool-tile tool-tile-wide">
+      <div class="tool-category">Local AI Setup</div>
+      <div class="tool-name tool-name-featured">Locally Run Models</div>
+      <p class="tool-body">We install and configure open-weight models on hardware you own — a workstation, an office server, or your private cloud — using tools like Ollama, LM Studio, and vLLM. Your data never leaves the building, there are no per-token bills, and the agent keeps working even when the internet doesn't. We size the hardware, pick the model for the job, and wire it into your workflows.</p>
+      <div class="tool-use">On-premise deployment · Data privacy · No per-token costs · Offline-capable</div>
     </div>
     <div class="tool-tile">
       <div class="tool-category">Knowledge Management</div>
@@ -2261,6 +2282,7 @@ footer {
         <li><a href="#agents">AI Agent Deployment</a></li>
         <li><a href="#agents">Workflow Automation</a></li>
         <li><a href="#offer">License &amp; Service</a></li>
+        <li><a href="#tools">Local Model Setup</a></li>
         <li><a href="#custom-software">Custom Builds</a></li>
       </ul>
     </div>
