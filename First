@@ -113,8 +113,8 @@ nav .logo { font-size: 1.15rem; letter-spacing: 0.18em; }
 
 .logo-mark {
   flex: none;
-  width: 1.25em;
-  height: 1.5em;
+  width: 1.23em;
+  height: 1.6em;
   color: var(--ivory);
   filter: drop-shadow(0 2px 10px rgba(196, 98, 45, 0.35));
 }
@@ -269,7 +269,7 @@ nav .logo { font-size: 1.15rem; letter-spacing: 0.18em; }
   top: 20%;
   right: 12%;
   width: min(26vw, 360px);
-  aspect-ratio: 100 / 120;
+  aspect-ratio: 450 / 585;
   z-index: 1;
   color: rgba(240,234,224,0.1);
   filter: drop-shadow(0 0 60px rgba(232,133,74,0.35));
@@ -1704,26 +1704,34 @@ footer {
 
 <!-- ─── BRAND MARK (reusable inline SVG: geometric "P" torch + flame) ─── -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
-  <symbol id="prom-mark" viewBox="0 0 100 120">
+  <symbol id="prom-mark" viewBox="255 185 450 585">
     <defs>
-      <linearGradient id="promFlame" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0" stop-color="#FFC24B"/>
-        <stop offset="0.5" stop-color="#F5852B"/>
-        <stop offset="1" stop-color="#D8431A"/>
+      <linearGradient id="promFlameL" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#F7832A"/>
+        <stop offset="1" stop-color="#E2421E"/>
+      </linearGradient>
+      <linearGradient id="promFlameR" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#FDB022"/>
+        <stop offset="1" stop-color="#F06A1E"/>
       </linearGradient>
     </defs>
     <!-- Geometric "P" / torch — inherits text colour via currentColor -->
     <g fill="currentColor">
-      <!-- bowl of the P -->
-      <path d="M66 42 C84 42 93 52 93 63 C93 74 84 84 66 84 L66 73 C78 73 82 69 82 63 C82 57 78 53 66 53 Z"/>
+      <!-- top-left wedge -->
+      <path d="M267 323 H382 L336 393 Z"/>
+      <!-- hooked bowl of the P -->
+      <path d="M597 323 H692 V455 C692 545 632 606 522 613 L548 584 C600 570 626 530 626 470 V352 Z"/>
       <!-- torch funnel + stem -->
-      <path d="M30 82 H72 L55 103 L52 118 L50 119 L48 118 L45 103 Z"/>
+      <path d="M328 540 H552 L468 612 L436 760 L418 598 Z"/>
       <!-- accent block -->
-      <rect x="25" y="95" width="15" height="15"/>
+      <rect x="327" y="617" width="67" height="91"/>
     </g>
-    <!-- flame -->
-    <path fill="url(#promFlame)" d="M50 8 C56 25 69 33 66 52 C64 67 54 74 50 80 C46 74 33 66 35 50 C36 39 45 37 47 26 C49 33 51 35 53 40 C56 32 52 19 50 8 Z"/>
-    <path fill="#FFD777" opacity="0.85" d="M50 30 C53 40 60 45 58 55 C57 63 52 68 50 72 C48 68 42 63 43 54 C44 47 48 46 49 38 C50 43 51 44 52 47 C54 41 51 35 50 30 Z"/>
+    <!-- flame: left tongue -->
+    <path fill="url(#promFlameL)" d="M410 310 C398 362 352 392 351 452 C350 496 380 520 412 527 C394 494 402 456 428 428 C444 410 442 384 426 364 C413 348 409 330 410 310 Z"/>
+    <!-- flame: right tongue -->
+    <path fill="url(#promFlameR)" d="M478 196 C440 222 430 272 456 322 C481 370 476 420 453 460 C440 485 441 510 468 527 C532 510 576 470 576 410 C576 340 522 302 496 262 C483 242 474 218 478 196 Z"/>
+    <!-- flame: highlight -->
+    <path fill="#FFC53A" opacity="0.9" d="M478 196 C472 242 500 290 526 330 C556 380 560 442 520 492 C546 440 540 390 514 350 C490 312 470 252 478 196 Z"/>
   </symbol>
 </svg>
 
@@ -1771,7 +1779,7 @@ footer {
     <div class="hero-ground"></div>
   </div>
 
-  <div class="hero-mark" aria-hidden="true"><svg viewBox="0 0 100 120" xmlns:xlink="http://www.w3.org/1999/xlink"><use href="#prom-mark" xlink:href="#prom-mark"/></svg></div>
+  <div class="hero-mark" aria-hidden="true"><svg viewBox="0 0 450 585" xmlns:xlink="http://www.w3.org/1999/xlink"><use href="#prom-mark" xlink:href="#prom-mark"/></svg></div>
 
   <div class="hero-content">
     <div class="hero-guarantee"><strong>4,000+ man hours / year</strong> identified before you pay a cent — or we don’t take the build.</div>
